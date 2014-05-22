@@ -4,7 +4,14 @@ class GamesController < ApplicationController
   # Based on the parameters received, creates a new game and redirects the user
   # to the screen that visualizes it.
   def create
-    binding.pry
+    @game = Game.new(new_game_params)
+    @game.date = Time.now
+    if @game.save
+      redirect_to game_path(@game)
+    else
+      @teams = Team.all
+      render 'games/new'
+    end
   end
 
   # GET /

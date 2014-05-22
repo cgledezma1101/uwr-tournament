@@ -3,6 +3,15 @@
     %h2 1er Invitacional Interclubes 2014
   .panel-body
     %h3 Nuevo juego
+    - if @game.errors.any?
+      .panel.panel-danger
+        .panel-heading
+          Errores
+        .panel-body
+          %ul
+            - @game.errors.messages.each do |attribute, messages|
+              - messages.uniq.each do |message|
+                %li= message
     = form_for @game do |f|
       .row
         .col-xs-6
