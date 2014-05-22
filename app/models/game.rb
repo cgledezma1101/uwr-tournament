@@ -18,6 +18,9 @@ class Game < ActiveRecord::Base
   #
   # @return [Integer] Amount of blue goals
   def blue_goals
+    self.scores.joins{ player }
+               .where{ player.team_id == my{self.blue_team_id} }
+               .count
   end
 
   # Retrieves all the players that played for the blue team on this game
@@ -25,6 +28,15 @@ class Game < ActiveRecord::Base
   # @return [Array<Player>] The blue players
   def blue_players
     self.players.where{ team_id == my{self.blue_team_id} }
+  end
+
+  # Determines the amount of goals that have been scored by the white team
+  #
+  # @return [Integer] Amount of blue goals
+  def white_goals
+    self.scores.joins{ player }
+               .where{ player.team_id == my{self.white_team_id} }
+               .count
   end
 
   # Retrieves all the players that played for the white team on this game

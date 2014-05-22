@@ -21,6 +21,17 @@ class GamesController < ApplicationController
     @game = Game.new
   end
 
+  # GET /games/:id
+  #
+  # Displays a game and allows basic mannipulation over it
+  #
+  # @param [Integer] id The identifier of the game to be displayed
+  def show
+    @game = Game.find(params[:id])
+    @blue_players = @game.blue_players
+    @white_players = @game.white_players
+  end
+
   private
     # This defines the attributes that are permitted when creating a new game
     def new_game_params

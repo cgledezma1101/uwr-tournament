@@ -1,0 +1,39 @@
+.panel.panel-success
+  .panel-heading
+    %h1 Juego en curso
+  .panel-content
+    .row
+      .col-xs-4
+        .panel.panel-primary
+          .panel-heading
+            %h2= @game.blue_team.name
+          .panel-content
+            - @blue_players.each do |player|
+              .row{ id: player.id }
+                .col-xs-2
+                  = player.number
+                .col-xs-8
+                  = player.name
+                .col-xs-2.goals
+              
+      .col-xs-2.scoreboard
+        .col-xs-4
+          %h3= @game.blue_goals
+          %a.btn.btn-primary{ href: '#' } GOL!
+        .col-xs-4
+          %h3 -
+        .col-xs-4
+          %h3= @game.white_goals
+          %a.btn.btn-default{ href: '#' } GOL!
+      .col-xs-4
+        .panel.panel-default
+          .panel-heading
+            %h2= @game.white_team.name
+          .panel-content
+            - @white_players.each do |player|
+              .row{ id: player.id }
+                .col-xs-2
+                  = player.number
+                .col-xs-8
+                  = player.name
+                .col-xs-2.goals
