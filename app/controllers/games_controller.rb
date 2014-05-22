@@ -13,4 +13,12 @@ class GamesController < ApplicationController
     @teams = Team.all
     @game = Game.new
   end
+
+  private
+    # This defines the attributes that are permitted when creating a new game
+    def new_game_params
+      params.require(:game).permit(:blue_team_id,
+                                   :white_team_id,
+                                   player_ids: [])
+    end
 end

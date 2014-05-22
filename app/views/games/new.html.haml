@@ -8,7 +8,7 @@
         .col-xs-6
           .blue-team
             %p Equipo azul
-            = f.collection_select :blue_team,
+            = f.collection_select :blue_team_id,
                                   @teams,
                                   :id,
                                   :name,
@@ -18,7 +18,7 @@
         .col-xs-6
           .white-team
             %p Equipo blanco
-            = f.collection_select :white_team,
+            = f.collection_select :white_team_id,
                                   @teams,
                                   :id,
                                   :name,

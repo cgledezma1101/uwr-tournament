@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
-  has_one :blue_team, class_name: 'Team'
-  has_one :white_team, class_name: 'Team'
+  belongs_to :blue_team, class_name: 'Team'
+  belongs_to :white_team, class_name: 'Team'
 
   has_many :scores
 
