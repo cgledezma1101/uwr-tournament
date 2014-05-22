@@ -8,13 +8,16 @@
   .panel-heading
     Jugadores que participarán
   .panel-body
-    .input-group
+    .input-group.container-fluid
       .col-xs-12
         %input.select-all{ type: 'checkbox' }
         Seleccionar todos
       - players.each_with_index do |player, i|
         - if i % 3 == 0
           .row
-        .col-xs-4
+        .col-xs-1
           = check_box_tag 'game[player_ids][]', player.id
-          = player.number.to_s + " - " + player.name
+        .col-xs-1
+          = player.number.to_s
+        .col-xs-2
+          = player.name
