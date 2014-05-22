@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'twitter-bootstrap-rails'
 gem 'haml-rails'
+gem 'squeel'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

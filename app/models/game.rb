@@ -14,6 +14,26 @@ class Game < ActiveRecord::Base
   validate :different_teams
   validate :player_validation
 
+  # Determines the amount of goals that have been scored by the blue team
+  #
+  # @return [Integer] Amount of blue goals
+  def blue_goals
+  end
+
+  # Retrieves all the players that played for the blue team on this game
+  #
+  # @return [Array<Player>] The blue players
+  def blue_players
+    self.players.where{ team_id == my{self.blue_team_id} }
+  end
+
+  # Retrieves all the players that played for the white team on this game
+  #
+  # @return [Array<Player>] The white players
+  def white_players
+    self.players.where{ team_id == my{self.white_team_id} }
+  end
+
   private
     # Validates that the blue and white teams are different
     def different_teams
@@ -24,14 +44,11 @@ class Game < ActiveRecord::Base
 
     # Validates that the players abide by the restrictions imposed by the game
     def player_validation
-      in_players = self.players
-      unless (in_players.select{ |p| p.team_id == self.blue_team_id }
-                        .count >= 6) &&
-             (in_players.select{ |p| p.team_id == self.white_team_id }
-                        .count >= 6) &&
-             (in_players.select{ |p| (p.team_id != self.white_team_id) &&
-                                  (p.team_id != self.blue_team_id) }
-                        .count == 0)
+      blues = self.blue_players.count
+      whites = self.white_players.count
+      unless (blues >= 6) &&
+             (whites >= 6) &&
+             (blues + whites == self.players.count)
         errors.add(:players, 'Cada equipo debe tener por lo menos 6 ' +
                              'jugadores y todos los jugadores deben ' +
                              'pertenecer a los equipos que se enfrentan')
