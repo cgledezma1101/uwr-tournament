@@ -11,9 +11,15 @@ class Game < ActiveRecord::Base
   validates :white_team, presence: true
   validates :date, presence: true
 
+  validate :different_teams
   validate :player_validation
 
   private
+    # Validates that the blue and white teams are different
+    def different_teams
+      self.blue_team != self.white_team
+    end
+
     # Validates that the players abide by the restrictions imposed by the game
     def player_validation
       player_amount = self.player_games
@@ -33,7 +39,7 @@ class Game < ActiveRecord::Base
                                .where{ (player_games.color ==
                                          PlayerGame::WHITE) &
                                        (player_games.player.team_id !=
-                                         my{self.white_team_id} }
+                                         my{self.white_team_id}) }
       return false unless white_team.empty?
 
       true
