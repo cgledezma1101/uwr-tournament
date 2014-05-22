@@ -1,5 +1,5 @@
-class GameController < ApplicationController
-  # /
+class GamesController < ApplicationController
+  # GET /
   # On the root of the application, allows the creation of a new game
   def new
     @teams = Team.all

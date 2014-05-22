@@ -1,0 +1,20 @@
+-#
+  This partial prints a series of checkboxes destined to be submitted with a
+  form that creates a new game.
+
+  @param [Game] game The game that the players will participate in.
+  @param [Array<Player>] players The players being added.
+.panel.panel-info
+  .panel-heading
+    Jugadores que participarán
+  .panel-body
+    .input-group
+      .col-xs-12
+        %input.select-all{ type: 'checkbox' }
+        Seleccionar todos
+      - players.each_with_index do |player, i|
+        - if i % 3 == 0
+          .row
+        .col-xs-4
+          = check_box_tag 'game[player_ids][]', player.id
+          = player.number.to_s + " - " + player.name

@@ -1,0 +1,50 @@
+.panel.panel-primary
+  .panel-heading
+    %h2 1er Invitacional Interclubes 2014
+  .panel-body
+    %h3 Nuevo juego
+    = form_for @game do |f|
+      .row
+        .col-xs-6
+          .blue-team
+            %p Equipo azul
+            = f.collection_select :blue_team,
+                                  @teams,
+                                  :id,
+                                  :name,
+                                  {},
+                                  { class: 'team-dropdown' }
+            .players
+        .col-xs-6
+          .white-team
+            %p Equipo blanco
+            = f.collection_select :white_team,
+                                  @teams,
+                                  :id,
+                                  :name,
+                                  {},
+                                  { class: 'team-dropdown' }
+            .players
+
+      = f.submit 'Empezar', class: 'btn btn-primary'
+
+= content_for(:page_javascript) do
+  :coffeescript
+    $(document).ready ->
+      # This event will be triggered every time a new team is chosen
+      $('select').on 'change', ->
+        team_selected = $(this).find(':selected').attr('value')
+
+        # Add a mark on the players div so the return will know where to look
+        $(this).siblings('.players').attr('id', team_selected)
+        $(this).siblings('.players').html('#{ j render "public/loader"}')
+
+        request_url = '/teams/' + team_selected + '/players'
+        $.getScript(request_url)
+
+      # This event is used to check all the boxes for the players
+      $('.players').on 'click', '.select-all', ->
+        is_checked = $(this).prop('checked')
+        $(this).parents('.input-group')
+               .find('input')
+               .prop('checked', is_checked)
