@@ -30,6 +30,15 @@ class Game < ActiveRecord::Base
     self.players.where{ team_id == my{self.blue_team_id} }
   end
 
+  # Determines the amount of goals this player made on the match
+  #
+  # @param [Player] The player to be queried
+  #
+  # @return [Integer] The amount of goals this player has made
+  def goals_for(player)
+    self.scores.where{ player_id == my{player.id} }.count
+  end
+
   # Determines the amount of goals that have been scored by the white team
   #
   # @return [Integer] Amount of blue goals

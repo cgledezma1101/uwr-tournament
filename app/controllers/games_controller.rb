@@ -30,6 +30,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @blue_players = @game.blue_players
     @white_players = @game.white_players
+    @score = Score.new
   end
 
   private

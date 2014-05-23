@@ -8,4 +8,11 @@ class Player < ActiveRecord::Base
 
   validates :name, presence: true
   validates :number, presence: true, uniqueness: { scope: :team }
+
+  # Returns a special string that includes the name and number of the player
+  #
+  # @return [String] A special name for the player
+  def number_name
+    "#{self.number} - #{self.name}"
+  end
 end
