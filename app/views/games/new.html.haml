@@ -1,4 +1,4 @@
-.panel.panel-primary
+.panel.panel-success
   .panel-heading
     %h2 1er Invitacional Interclubes 2014
   .panel-body
@@ -13,30 +13,31 @@
               - messages.uniq.each do |message|
                 %li= message
     = form_for @game do |f|
-      .row
-        .col-xs-6
-          .blue-team
-            %p Equipo azul
-            = f.collection_select :blue_team_id,
-                                  @teams,
-                                  :id,
-                                  :name,
-                                  {},
-                                  { class: 'team-dropdown selectpicker',
-                                    data: { style: 'btn-primary' }}
-            .players.blue-players
-        .col-xs-6
-          .white-team
-            %p Equipo blanco
-            = f.collection_select :white_team_id,
-                                  @teams,
-                                  :id,
-                                  :name,
-                                  {},
-                                  { class: 'team-dropdown' }
-            .players.white-players
+      .form-group
+        .row
+          .col-xs-6
+            .blue-team
+              %p Equipo azul
+              = f.collection_select :blue_team_id,
+                                    @teams,
+                                    :id,
+                                    :name,
+                                    {},
+                                    { class: 'team-dropdown form-control',
+                                      data: { style: 'btn-primary' }}
+              .players.blue-players
+          .col-xs-6
+            .white-team
+              %p Equipo blanco
+              = f.collection_select :white_team_id,
+                                    @teams,
+                                    :id,
+                                    :name,
+                                    {},
+                                    { class: 'team-dropdown form-control' }
+              .players.white-players
 
-      = f.submit 'Empezar', class: 'btn btn-primary'
+        = f.submit 'Empezar', class: 'btn btn-primary form-control'
 
 = content_for(:page_javascript) do
   :coffeescript

@@ -27,7 +27,7 @@ class Game < ActiveRecord::Base
   #
   # @return [Array<Player>] The blue players
   def blue_players
-    self.players.where{ team_id == my{self.blue_team_id} }
+    self.players.select{ |p| p.team_id == self.blue_team_id }
   end
 
   # Determines the amount of goals this player made on the match
@@ -52,7 +52,7 @@ class Game < ActiveRecord::Base
   #
   # @return [Array<Player>] The white players
   def white_players
-    self.players.where{ team_id == my{self.white_team_id} }
+    self.players.select{ |p| p.team_id == self.white_team_id }
   end
 
   private
@@ -69,7 +69,7 @@ class Game < ActiveRecord::Base
       whites = self.white_players.count
       unless (blues >= 6) &&
              (whites >= 6) &&
-             (blues + whites == self.players.count)
+             (blues + whites == self.players.size)
         errors.add(:players, 'Cada equipo debe tener por lo menos 6 ' +
                              'jugadores y todos los jugadores deben ' +
                              'pertenecer a los equipos que se enfrentan')
