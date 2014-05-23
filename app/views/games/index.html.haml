@@ -1,0 +1,25 @@
+.panel.panel-warning
+  .panel-heading
+    %h1.panel-title Juegos realizados
+  .panel-body
+    %center
+      .row
+        .col-xs-6
+          Equipo azul
+        .col-xs-6
+          Equipo banco
+      - @games.each do |game|
+        .row
+          = link_to game_path(game) do
+            .col-xs-5
+              = game.blue_team.name
+            .col-xs-2
+              .col-xs-4
+                %h5= game.blue_goals
+              .col-xs-4
+                %h5 -
+              .col-xs-4
+                %h5= game.white_goals
+            .col-xs-5
+              =game.white_team.name
+          

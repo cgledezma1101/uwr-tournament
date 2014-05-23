@@ -7,11 +7,11 @@
         %h2 Líder goleador
         - @top_scorers.each do |player|
           .row
-            .col-xs-4
+            .col-xs-1
               = player.number
             .col-xs-4
               = player.name
-            .col-xs-4
+            .col-xs-7
               = "Goles: #{player.scores.count}"
       .col-xs-6
         %h2 Portería menos vencida

@@ -14,6 +14,13 @@ class GamesController < ApplicationController
     end
   end
 
+  # GET /games
+  #
+  # Renders the list of games played during the tournament
+  def index
+    @games = Game.all
+  end
+
   # GET /
   # On the root of the application, allows the creation of a new game
   def new
