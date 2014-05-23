@@ -2,9 +2,9 @@ class Game < ActiveRecord::Base
   belongs_to :blue_team, class_name: 'Team'
   belongs_to :white_team, class_name: 'Team'
 
-  has_many :scores
+  has_many :scores, dependent: :destroy
 
-  has_many :player_games, inverse_of: :game
+  has_many :player_games, inverse_of: :game, dependent: :destroy
   has_many :players, through: :player_games
 
   validates :blue_team, presence: true

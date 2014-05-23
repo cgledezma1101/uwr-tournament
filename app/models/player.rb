@@ -1,9 +1,9 @@
 class Player < ActiveRecord::Base
   belongs_to :team
 
-  has_many :scores
+  has_many :scores, dependent: :destroy
 
-  has_many :player_games
+  has_many :player_games, dependent: :destroy
   has_many :games, through: :player_games
 
   validates :name, presence: true
