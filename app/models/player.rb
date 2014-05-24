@@ -7,7 +7,7 @@ class Player < ActiveRecord::Base
   has_many :games, through: :player_games
 
   validates :name, presence: true
-  validates :number, presence: true, uniqueness: { scope: :team }
+  validates :number, uniqueness: { scope: :team }, allow_blank: true
 
   # Returns a special string that includes the name and number of the player
   #

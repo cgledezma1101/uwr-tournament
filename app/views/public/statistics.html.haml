@@ -3,25 +3,6 @@
     %h1.panel-title Estadísticas
   .panel-body
     .row
-      .col-xs-6
-        %h2 Líder goleador
-        - @top_scorers.each do |player|
-          .row
-            .col-xs-1
-              = player.number
-            .col-xs-4
-              = player.name
-            .col-xs-7
-              = "Goles: #{player.scores.count}"
-      .col-xs-6
-        %h2 Portería menos vencida
-        - @least_goaled.each do |team|
-          .row
-            .col-xs-6
-              = team.name
-            .col-xs-6
-              = "Goles en contra: #{team.goals_against}"
-    .row
       .col-xs-12
         %h1 Tabla de posiciones
         %table.table.table-hover
@@ -42,3 +23,22 @@
                 = team.games.count - (team.won_games.size + team.tied_games.size)
               %td= team.goals - team.goals_against
               %td= team.points
+    .row
+      .col-xs-6
+        %h2 Líder goleador
+        - @top_scorers.each do |player|
+          .row
+            .col-xs-1
+              = player.number
+            .col-xs-4
+              = player.name
+            .col-xs-7
+              = "Goles: #{player.scores.count}"
+      .col-xs-6
+        %h2 Portería menos vencida
+        - @least_goaled.each do |team|
+          .row
+            .col-xs-6
+              = team.name
+            .col-xs-6
+              = "Goles en contra: #{team.goals_against}"
