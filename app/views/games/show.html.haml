@@ -1,6 +1,6 @@
 .panel.panel-success
   .panel-heading
-    %h1 Juego en curso
+    %h1= t('game.current_game')
   .panel-content
     .row
       .col-xs-4
@@ -16,14 +16,14 @@
                   = player.name
                 .col-xs-2.goals
                   = "G" * @game.goals_for(player)
-              
+
       .col-xs-2.scoreboard
         .col-xs-4.js-blue-goals
           %h3= @game.blue_goals
           %a.btn.btn-primary{ href: '#',
                               data: { toggle: 'modal',
                                       target: '#blueGoalModal' } }
-            GOL!
+            = t('game.goal')
         .col-xs-4
           %h3 -
         .col-xs-4.js-white-goals
@@ -31,7 +31,7 @@
           %a.btn.btn-default{ href: '#',
                               data: { toggle: 'modal',
                                       target: '#whiteGoalModal' } }
-            GOL!
+            = t('game.goal')
       .col-xs-4
         .panel.panel-default
           .panel-heading
@@ -51,34 +51,34 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %h2.modal-title= "Gol de #{@game.blue_team.name}"
+        %h2.modal-title= t('game.goal_for', team_name: "#{@game.blue_team.name}")
       .modal-body
         = form_for @score, remote: true do |f|
           .form-group
             = f.hidden_field :game_id, value: @game.id
-            %h3 Jugador anotador
+            %h3= t('game.scoring_player')
             = f.collection_select :player_id,
                                   @blue_players,
                                   :id,
                                   :number_name,
                                   {},
                                   { class: 'form-control' }
-            = f.submit 'Anotar', class: 'btn btn-primary form-control'
+            = f.submit t('general.score'), class: 'btn btn-primary form-control'
 
 .modal.fade#whiteGoalModal
   .modal-dialog
     .modal-content
       .modal-header
-        %h2.modal-title= "Gol de #{@game.white_team.name}"
+        %h2.modal-title= t('game.goal_for', team_name: "#{@game.white_team.name}")
       .modal-body
         = form_for @score, remote: true do |f|
           .form-group
             = f.hidden_field :game_id, value: @game.id
-            %h3 Jugador anotador
+            %h3= t('game.scoring_player')
             = f.collection_select :player_id,
                                   @white_players,
                                   :id,
                                   :number_name,
                                   {},
                                   { class: 'form-control' }
-            = f.submit 'Anotar', class: 'btn btn-default form-control'
+            = f.submit t('general.score'), class: 'btn btn-default form-control'

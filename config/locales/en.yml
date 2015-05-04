@@ -20,4 +20,36 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  game:
+    blue_team: "Blue team"
+    current_game: "Current game"
+    errors:
+      players: "Each team must have at least 6 players. All participating players must belong to the participating teams."
+      same_team: "Both selected teams are the same."
+    games_played: "Games played"
+    goal: "Goal!"
+    goal_for: "Goal scored by %{team_name}"
+    index: "Game index"
+    new: "New game"
+    scoring_player: "Scoring player"
+    white_team: "White team"
+  general:
+    begin: "Begin"
+    errors: "Errors"
+    score: "Score"
+    select_all: "Select all"
+  statistics:
+    games_lost_short: "L"
+    games_played_short: "P"
+    games_tied_short: "T"
+    games_won_short: "W"
+    goal_count: "Goals: %{total_goals}"
+    goal_difference_short: "GD"
+    index: "Statistics"
+    least_defeated_goal: "Least defeated goal"
+    positions_table: "Positions table"
+    team: "Team"
+    total_points: "Points"
+    scoring_champions: "Scoring champions"
+  team:
+    participating_players: "Participating players"

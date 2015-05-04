@@ -59,7 +59,7 @@ class Game < ActiveRecord::Base
     # Validates that the blue and white teams are different
     def different_teams
       unless self.blue_team != self.white_team
-        errors.add(:blue_team, 'El equipo azul es el mismo que el blanco')
+        errors.add(:blue_team, I18n.t('game.errors.same_team'))
       end
     end
 
@@ -70,9 +70,7 @@ class Game < ActiveRecord::Base
       unless (blues >= 6) &&
              (whites >= 6) &&
              (blues + whites == self.players.size)
-        errors.add(:players, 'Cada equipo debe tener por lo menos 6 ' +
-                             'jugadores y todos los jugadores deben ' +
-                             'pertenecer a los equipos que se enfrentan')
+        errors.add(:players, I18n('game.errors.players'))
       end
     end
 end

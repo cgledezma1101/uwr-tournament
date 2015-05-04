@@ -5,13 +5,12 @@
   @param [Game] game The game that the players will participate in.
   @param [Array<Player>] players The players being added.
 .panel.panel-info
-  .panel-heading
-    Jugadores que participarán
+  .panel-heading= t('team.participating_players')
   .panel-body
     .input-group.container-fluid
       .col-xs-12
         %input.select-all{ type: 'checkbox' }
-        Seleccionar todos
+        = t('general.select_all')
       - players.each_with_index do |player, i|
         - if i % 3 == 0
           .row

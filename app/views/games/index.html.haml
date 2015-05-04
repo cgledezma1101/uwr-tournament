@@ -1,13 +1,13 @@
 .panel.panel-warning
   .panel-heading
-    %h1.panel-title Juegos realizados
+    %h1.panel-title= t('games.games_played')
   .panel-body
     %center
       .row
         .col-xs-6
-          Equipo azul
+          = t('game.blue_team')
         .col-xs-6
-          Equipo banco
+          = t('game.white_team')
       - @games.each do |game|
         .row
           = link_to game_path(game) do
@@ -22,4 +22,3 @@
                 %h5= game.white_goals
             .col-xs-5
               =game.white_team.name
-          

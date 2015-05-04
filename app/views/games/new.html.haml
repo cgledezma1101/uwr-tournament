@@ -1,12 +1,12 @@
 .panel.panel-success
   .panel-heading
+    / This needs to be changed to the tournaments name
     %h2 1er Invitacional Interclubes 2014
   .panel-body
-    %h3 Nuevo juego
+    %h3= t('game.new')
     - if @game.errors.any?
       .panel.panel-danger
-        .panel-heading
-          Errores
+        .panel-heading= t('general.errors')
         .panel-body
           %ul
             - @game.errors.messages.each do |attribute, messages|
@@ -17,7 +17,7 @@
         .row
           .col-xs-6
             .blue-team
-              %p Equipo azul
+              %p= t('game.blue_team')
               = f.collection_select :blue_team_id,
                                     @teams,
                                     :id,
@@ -28,7 +28,7 @@
               .players.blue-players
           .col-xs-6
             .white-team
-              %p Equipo blanco
+              %p= t('game.white_team')
               = f.collection_select :white_team_id,
                                     @teams,
                                     :id,
@@ -37,7 +37,7 @@
                                     { class: 'team-dropdown form-control' }
               .players.white-players
 
-        = f.submit 'Empezar', class: 'btn btn-primary form-control'
+        = f.submit t('general.begin'), class: 'btn btn-primary form-control'
 
 = content_for(:page_javascript) do
   :coffeescript

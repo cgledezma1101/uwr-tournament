@@ -1,7 +1,7 @@
 .navbar-options
   %p.navbar-text
-    %a{ href: root_path } Nuevo juego
+    %a{ href: root_path }= t('game.new')
   %p.navbar-text
-    %a{ href: games_path } Listado de juegos
+    %a{ href: games_path }= t('game.index')
   %p.navbar-text
-    %a{ href: statistics_path } Estadísticas
+    %a{ href: statistics_path }= t('statistics.index')

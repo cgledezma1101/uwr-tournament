@@ -1,0 +1,55 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  game:
+    blue_team: "Equipo azul"
+    current_game: "Juego en curso"
+    errors:
+      players: "Cada jugador debe tener al menos 6 jugadores. Todos los jugadores deben pertenecer a los equipos que se enfrentarán"
+      same_team: "Se deben seleccionar equipos diferentes"
+    games_played: "Juegos jugados"
+    goal: "Gol!"
+    goal_for: "Gol anotado por %{team_name}"
+    index: "Índice de juegos"
+    new: "Nuevo juego"
+    scoring_player: "Jugador que anotó"
+    white_team: "Equipo blanco"
+  general:
+    begin: "Comenzar"
+    errors: "Errores"
+    score: "Anotar"
+    select_all: "Seleccionar todos"
+  statistics:
+    games_lost_short: "JP"
+    games_played_short: "JJ"
+    games_tied_short: "JE"
+    games_won_short: "JG"
+    goal_count: "Goles: %{total_goals}"
+    goal_difference_short: "DG"
+    index: "Estadísticas"
+    least_defeated_goal: "Portería menos vencida"
+    positions_table: "Tabla de posiciones"
+    team: "Equipo"
+    total_points: "Puntos"
+    scoring_champions: "Líderes goleadores"
+  team:
+    participating_players: "Jugadores participantes"
