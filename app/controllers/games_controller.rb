@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!
+
   # POST /games
   #
   # Based on the parameters received, creates a new game and redirects the user

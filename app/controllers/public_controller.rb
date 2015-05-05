@@ -1,4 +1,6 @@
 class PublicController < ApplicationController
+  before_action :authenticate_user!
+  
   # GET /statistics
   #
   # Shows the statistics of the tournament so far

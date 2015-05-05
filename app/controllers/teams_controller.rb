@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  before_action :authenticate_user!
+  
   # GET /teams/:id/players
   #
   # For the specified team, searches it's players and renders a form associated

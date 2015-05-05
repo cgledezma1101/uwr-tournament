@@ -1,4 +1,6 @@
 class ScoresController < ApplicationController
+  before_action :authenticate_user!
+  
   # POST /scores
   #
   # Method called when a player scores a goal on a game
