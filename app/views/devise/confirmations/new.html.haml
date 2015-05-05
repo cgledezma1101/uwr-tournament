@@ -1,0 +1,14 @@
+%h2= t('devise.confirmation.resend')
+
+= form_for(resource, as: resource_name, url: confirmation_path, html: { method: :post }) do |f|
+  = devise_error_messages!
+
+  .field
+    = f.label :email
+    %br
+    = f.email_field :email, autofocus: true
+
+  .actions
+    = f.submit t("devise.confirmation.resend")
+
+= render "devise/shared/links"

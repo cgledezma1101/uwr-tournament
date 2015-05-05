@@ -1,0 +1,40 @@
+%h2= t('devise.registration.edit', name: resource_name.to_s.humanize)
+
+= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f|
+  = devise_error_messages!
+
+  .field
+    = f.label :email
+    %br
+    = f.email_field :email, autofocus: true
+
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    %div= t('devise.registration.waiting_confirmation', email: resource.unconfirmed_email)
+
+  .field
+    = f.label :password
+    %i (leave blank if you don't want to change it)
+    %br
+    = f.password_field :password, autocomplete: "off"
+
+  .field
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation, autocomplete: "off"
+
+  .field
+    = f.label :current_password
+    %i= t('devise.registration.password_needed')
+    %br
+    = f.password_field :current_password, autocomplete: "off"
+
+  .actions
+    = f.submit t('general.update')
+
+%h3= t('devise.registration.cancel_account')
+
+%p
+  Unhappy?
+  = button_to t('devise.registration.cancel_account'), registration_path(resource_name), data: { confirm: t('devise.registration.confirm_cancel') }, method: :delete
+
+= link_to t('general.back'), :back

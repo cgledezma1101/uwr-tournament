@@ -1,0 +1,26 @@
+%h2= t('devise.registration.sign_up')
+
+= form_for(resource, as: resource_name, url: user_registration_path) do |f|
+  = devise_error_messages!
+
+  .field
+    = f.label :email
+    %br
+    = f.email_field :email, autofocus: true
+
+  .field
+    = f.label :password
+    - if @validatable
+      %em= t('devise.registration.minimum_characters', amount: @minimum_password_length)
+    %br
+    = f.password_field :password, autocomplete: "off"
+
+  .field
+    = f.label :password_confirmation
+    %br
+    = f.password_field :password_confirmation, autocomplete: "off"
+
+  .actions
+    = f.submit t('devise.registration.sign_up')
+
+= render "devise/shared/links"
