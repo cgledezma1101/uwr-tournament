@@ -20,6 +20,43 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  devise:
+    confirmation:
+      didnt_receive: "¿No recibiste el correo de confirmación?"
+      resend: "Re-enviar correo de confirmación"
+    mailer:
+      account_was_locked: "Tu cuenta ha sido bloqueada por exceso de intentos de inicio de sesión fallidos"
+      change_password: "Cambiar mi contraseña"
+      click_to_unlock: "Haz click en el siguiente enlace para desbloquear tu cuenta:"
+      confirm_account: "Confirmar mi cuenta"
+      if_not_requested: "Si no solicitaste esto, ignora este correo."
+      password_requested: "Alguien ha solicitado un enlace para cambiar tu contraseña. Lo puedes hacer siguiendo el siguiente enlace."
+      password_wont_change: "Your password won't change until you access the link above and create a new one."
+      salutation_hello: "Hola %{email}!"
+      salutation_welcome: "Bienvenido %{email}"
+      unlock_account: "Desbloquear mi cuenta"
+      you_can_confirm: "Puedes confirmar tu cuenta siguiendo el enlace a continuación:"
+    omniauth:
+      sign_in: "Iniciar sesión con %{provider}"
+    password:
+      change: "Cambiar mi contraseña"
+      confirm_new: "Confirmar la nueva contraseña"
+      forgot: "¿Olvidaste tu contraseña?"
+      new: "Nueva contraseña"
+      send_reset: "Enviar instrucciones para obtener una nueva contraseña"
+    registration:
+      cancel_account: "Cancelar mi cuenta"
+      confirm_cancel: "¿Estás seguro?"
+      edit: "Editar %{name}"
+      minimum_characters: "al menos %{amount} caracteres"
+      password_needed: "(necesitamos tu contraseña actual para confirmar tus cambios)"
+      sign_up: "Registrarse"
+      waiting_confirmation: "Esperando confirmación de: %{email}"
+    session:
+      log_in: "Iniciar sesión"
+    unlock:
+      didnt_receive: "¿No recibiste las instrucciones para desbloquear tu cuenta?"
+      resend: "Reenviar instrucciones para desbloquear tu cuenta"
   game:
     blue_team: "Equipo azul"
     current_game: "Juego en curso"
@@ -34,10 +71,12 @@ en:
     scoring_player: "Jugador que anotó"
     white_team: "Equipo blanco"
   general:
+    back: "Regresar"
     begin: "Comenzar"
     errors: "Errores"
     score: "Anotar"
     select_all: "Seleccionar todos"
+    update: "Actualizar"
   statistics:
     games_lost_short: "JP"
     games_played_short: "JJ"
