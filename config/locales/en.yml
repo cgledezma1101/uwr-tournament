@@ -37,6 +37,8 @@ en:
       unlock_account: "Unlock my account"
       you_can_confirm: "You can confirm your account email through the link below:"
     omniauth:
+      facebook: "Facebook"
+      google: "Google"
       sign_in: "Sign in with %{provider}"
     password:
       change: "Change my password"

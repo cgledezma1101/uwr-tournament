@@ -1,6 +1,6 @@
 .notifications
-  .notice= notice
-  .alert= alert
+  .notice.alert.alert-info= notice
+  .alert.alert-danger= alert
 - if user_signed_in?
   .navbar-options
     %p.navbar-text

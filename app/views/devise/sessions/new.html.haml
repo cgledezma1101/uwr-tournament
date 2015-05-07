@@ -1,22 +1,42 @@
-%h2= t('devise.session.log_in')
-
 = form_for(resource, as: resource_name, url: user_session_path) do |f|
-  .field
-    = f.label :email
-    %br
-    = f.email_field :email, autofocus: true
+  .form-horizontal
+    .form-group
+      %h2.col-sm-offset-2.col-sm-6.text-center
+        = t('devise.session.log_in')
+    .form-group
+      %a
+        %label.col-sm-offset-2.col-sm-6.btn-lg.btn-primary.text-center
+          = t('devise.omniauth.facebook')
 
-  .field
-    = f.label :password
-    %br
-    = f.password_field :password, autocomplete: "off"
+    %hr
 
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
+    .form-group
+      %a
+        %label.col-sm-offset-2.col-sm-6.btn-lg.btn-danger.text-center
+          = t('devise.omniauth.google')
 
-  .actions
-    = f.submit t('devise.session.log_in')
+    %hr
 
-= render "devise/shared/links"
+    .form-group.field
+      = f.label :email, class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.email_field :email, autofocus: true, class: 'form-control'
+
+    .form-group.field
+      = f.label :password, class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.password_field :password, autocomplete: "off", class: 'form-control'
+
+    - if devise_mapping.rememberable?
+      .form-group.field
+        .col-sm-offset-2.col-sm-10
+          = f.check_box :remember_me
+          = f.label :remember_me
+
+    .form-group.actions
+      .col-sm-offset-2.col-sm-10
+        = f.submit t('devise.session.log_in'), class:'btn btn-primary'
+
+  .form-group
+    .col-sm-offset-2
+      = render "devise/shared/links"
