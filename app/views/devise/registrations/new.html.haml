@@ -1,13 +1,13 @@
 = form_for(resource, as: resource_name, url: user_registration_path) do |f|
   .form-horizontal
     .form-group
-      %h2.col-sm-offset-2.col-sm-6.text-centered
-        = t('devise.registration.sign_up')
+      .col-sm-offset-2.col-sm-6
+        %h2.text-centered
+          = t('devise.registration.sign_up')
 
     .form-group
       .col-sm-offset-2.col-sm-6
-        .alert.alert-danger.alert-dismissable
-          = devise_error_messages!
+        = devise_error_messages!
 
     .form-group.field
       = f.label :email, class: 'col-sm-2 control-label'

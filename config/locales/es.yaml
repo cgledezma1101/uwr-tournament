@@ -54,6 +54,7 @@ en:
       waiting_confirmation: "Esperando confirmación de: %{email}"
     session:
       log_in: "Iniciar sesión"
+      log_out: "Cerrar sesión"
     unlock:
       didnt_receive: "¿No recibiste las instrucciones para desbloquear tu cuenta?"
       resend: "Reenviar instrucciones para desbloquear tu cuenta"
@@ -71,6 +72,7 @@ en:
     scoring_player: "Jugador que anotó"
     white_team: "Equipo blanco"
   general:
+    application_title: "Torneos de Rugby Subacutico"
     back: "Regresar"
     begin: "Comenzar"
     errors: "Errores"

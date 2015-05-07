@@ -1,14 +1,22 @@
-%h2= t('devise.password.forgot')
-
 = form_for(resource, as: resource_name, url: user_password_path, html: { method: :post }) do |f|
-  = devise_error_messages!
+  .form-horizontal
+    .form-group
+      .col-sm-offset-2.col-sm-6
+        %h2.text-centered= t('devise.password.forgot')
 
-  .field
-    = f.label :email
-    %br
-    = f.email_field :email, autofocus: true
+    .form-group
+      .col-sm-offset-2.col-sm-6
+        = devise_error_messages!
 
-  .actions
-    = f.submit t('devise.password.send_reset')
+    .form-group.field
+      = f.label :email, class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.email_field :email, autofocus: true, class: 'form-control'
 
-= render "devise/shared/links"
+    .form-group.actions
+      .col-sm-offset-2.col-sm-6
+        = f.submit t('devise.password.send_reset'), class: 'btn btn-primary'
+
+    .form-group
+      .col-sm-offset-2.col-sm-6
+        = render "devise/shared/links"
