@@ -4,7 +4,10 @@ class Team < ActiveRecord::Base
   has_many :blue_games, class_name: 'Game', foreign_key: :blue_team_id
   has_many :white_games, class_name: 'Game', foreign_key: :white_team_id
 
+  belongs_to :club
+
   validates :name, presence: true
+  validates :club, presence: :true
 
   # Returns all the games that this team has played
   #
