@@ -32,6 +32,7 @@ gem 'twitter-bootstrap-rails'
 gem 'haml-rails'
 gem 'squeel'
 gem 'devise'
+gem 'cancancan', '~> 1.10'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
