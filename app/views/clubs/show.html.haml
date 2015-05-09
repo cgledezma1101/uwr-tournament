@@ -6,7 +6,7 @@
   @param club Club the club for which information will be shown
 .panel.panel-primary
   .panel-heading
-    .panel-title= @club.name
+    %h1.panel-title= @club.name
   .panel-body
     .col-xs-4
       = render "clubs/user_details", users: @club.admins, panel_title: t('club.admins')

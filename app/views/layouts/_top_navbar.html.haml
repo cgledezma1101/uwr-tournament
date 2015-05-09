@@ -29,7 +29,7 @@
 
         $('#appModalContent').html("#{ j render 'public/modal_loader' }");
         $('#appModal').modal('show');
-        $.get("#{new_clubs_path}")
+        $.get("#{new_club_path}")
           .done(function(form)
           {
             // Make sure that I wasn't redirected due to authorization errors.

@@ -7,7 +7,7 @@ class Ability
     ################## CLUBS ##########################
     ###################################################
     can :show, Club do |club|
-      user.clubs.where{ club_id == my{club.id} }.any?
+      user.clubs.where{ id == my{club.id} }.any? || user.administrated_clubs.where{ id == my{club.id} }.any?
     end
 
     can :new, Club

@@ -15,13 +15,13 @@ class ClubsController < ApplicationController
 
   # POST /clubs
   def create
-    @club.admins << current_user
-
-    binding.pry
-
     if @club.valid?
       @club.save
-      redirect_to clubs_path(@club)
+      ClubAdmin.create(club: @club, user: current_user)
+
+      binding.pry
+
+      redirect_to club_path(@club)
     else
       redirect_to root_path, alert: t('club.standard_save_error')
     end

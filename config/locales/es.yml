@@ -12,6 +12,7 @@ en:
   cancan:
     unauthorized_access: "No tienes permiso de acceder a ese sitio!"
   club:
+    admins: "Administradores"
     errors:
       no_admin: "Debe haber al menos un administrador para el club"
     members: "Miembros"

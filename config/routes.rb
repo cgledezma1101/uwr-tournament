@@ -1,5 +1,4 @@
 UwrTournament::Application.routes.draw do
-  get "clubs/show"
   # You can have the root of your site routed with "root"
   root 'games#new'
 
@@ -7,7 +6,7 @@ UwrTournament::Application.routes.draw do
 
   get '/statistics', to: 'public#statistics'
 
-  resource :clubs, only: [:show, :new, :create]
+  resources :clubs, only: [:show, :new, :create]
 
   resources :games, only: [:create, :new, :show, :index]
 
