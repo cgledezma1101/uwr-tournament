@@ -1,0 +1,17 @@
+-#
+  Renders the details of a given array of users
+
+  @param users Array<User> List of users to display
+  @param panel_title String Title to display on the list
+.panel.panel-info
+  .panel-heading
+    .panel-title= panel_title
+  .panel-body
+    %table.table
+      %tr
+        %th= t('devise.user.name')
+        %th= t('devise.user.email')
+      - for user in users
+        %tr
+          %td= user.name
+          %td= user.email

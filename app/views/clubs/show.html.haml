@@ -1,2 +1,29 @@
-%h1 Clubs#show
-%p Find me in app/views/clubs/show.html.haml
+-#
+  Renders the main information regarding a club
+
+  Requires the following instance variables to be passed by the controller:
+
+  @param club_name String the name of the club
+  @param club_admins Array<User> The administrators of the club
+  @param club_teams Array<Team> The teams that belong to this club
+  @param club_members Array<User> Members of the club
+.panel.panel-primary
+  .panel-heading
+    .panel-title= @club_name
+  .panel-body
+    .col-xs-4
+      = render "clubs/user_details", users: @club_admins, panel_title: t('club.admins')
+    .col-xs-4
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('club.teams')
+        .panel-body
+          %table.table
+            %tr
+              %th= t('club.team_name')
+              %th= t('statistics.played_won_short')
+            - for team in @club_teams
+              %tr= team.name
+              %tr= "#{team.games.length}(#{team.games_won.length})"
+    .col-xs-4
+      = render "clubs/user_details", users: @club_members, panel_title: t('club.members')

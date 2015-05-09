@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
 
    has_many :club_admins
    has_many :administrated_clubs, through: :club_admins
+
+   validates :name, presence: true
+   validates :email, presence: true
 end

@@ -1,6 +1,10 @@
 en:
   cancan:
     unauthorized_access: "No tienes permiso de acceder a ese sitio!"
+  club:
+    members: "Miembros"
+    team_name: "Nombre"
+    teams: "Equipos"
   devise:
     confirmation:
       didnt_receive: "¿No recibiste el correo de confirmación?"
@@ -41,6 +45,9 @@ en:
     unlock:
       didnt_receive: "¿No recibiste las instrucciones para desbloquear tu cuenta?"
       resend: "Reenviar instrucciones para desbloquear tu cuenta"
+    user:
+      name: 'Nombre'
+      email: 'Correo de contacto'
   game:
     blue_team: "Equipo azul"
     current_game: "Juego en curso"
@@ -75,5 +82,6 @@ en:
     team: "Equipo"
     total_points: "Puntos"
     scoring_champions: "Líderes goleadores"
+    played_won_short: "JJ(JG)"
   team:
     participating_players: "Jugadores participantes"
