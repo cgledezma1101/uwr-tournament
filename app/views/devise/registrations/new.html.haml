@@ -10,9 +10,14 @@
         = devise_error_messages!
 
     .form-group.field
+      = f.label :name, class: 'col-sm-2 control-label'
+      .col-sm-6
+        =f.text_field :name, autofocus: true, class: 'form-control'
+
+    .form-group.field
       = f.label :email, class: 'col-sm-2 control-label'
       .col-sm-6
-        = f.email_field :email, autofocus: true, class: 'form-control'
+        = f.email_field :email, class: 'form-control'
 
     .form-group.field
       = f.label :password, class: 'col-sm-2 control-label'

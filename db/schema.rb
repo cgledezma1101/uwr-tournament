@@ -11,15 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509102626) do
+ActiveRecord::Schema.define(version: 20150509113704) do
 
   create_table "club_admins", force: true do |t|
-    t.integer "user_id", null: false
-    t.integer "club_id", null: false
+    t.integer  "user_id"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  add_index "club_admins", ["club_id"], name: "index_club_admins_on_club_id"
-  add_index "club_admins", ["user_id"], name: "index_club_admins_on_user_id"
 
   create_table "clubs", force: true do |t|
     t.string   "name"
@@ -63,12 +62,11 @@ ActiveRecord::Schema.define(version: 20150509102626) do
   add_index "teams", ["club_id"], name: "index_teams_on_club_id"
 
   create_table "user_clubs", force: true do |t|
-    t.integer "user_id", null: false
-    t.integer "club_id", null: false
+    t.integer  "user_id"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  add_index "user_clubs", ["club_id"], name: "index_user_clubs_on_club_id"
-  add_index "user_clubs", ["user_id"], name: "index_user_clubs_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

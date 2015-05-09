@@ -17,6 +17,8 @@ class ClubsController < ApplicationController
   def create
     @club.admins << current_user
 
+    binding.pry
+
     if @club.valid?
       @club.save
       redirect_to clubs_path(@club)

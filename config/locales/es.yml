@@ -5,6 +5,7 @@ en:
         name: "Nombre del club"
       user:
         email: "Correo electrónico"
+        name: "Nombre"
         password: "Contraseña"
         password_confirmation: "Confirmar contraseña"
         remember_me: "Recordarme"

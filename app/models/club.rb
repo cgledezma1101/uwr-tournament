@@ -2,7 +2,7 @@ class Club < ActiveRecord::Base
   has_many :user_clubs, dependent: :destroy
   has_many :users, through: :user_clubs
 
-  has_many :club_admins, dependent: :destroy
+  has_many :club_admins, inverse_of: :club, dependent: :destroy
   has_many :admins, through: :club_admins, source: :user
 
   has_many :teams, dependent: :destroy
