@@ -1,8 +1,18 @@
 en:
+  activerecord:
+    attributes:
+      club:
+        name: "Club name"
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        remember_me: "Remember me"
   cancan:
     unauthorized_access: "You are not authorized to access that site!"
   club:
     members: "Members"
+    new: "New club"
     team_name: "Team name"
     teams: "Teams"
   devise:
@@ -65,7 +75,12 @@ en:
     application_title: "UWR Tournaments"
     back: "Back"
     begin: "Begin"
+    cancel: "Cancel"
+    create: "Create"
+    error: "Error"
     errors: "Errors"
+    modal_load_error: "There was an error processing your request. Please try again"
+    processing_request: "Processing request..."
     score: "Score"
     select_all: "Select all"
     update: "Update"

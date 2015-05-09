@@ -1,8 +1,18 @@
 en:
+  activerecord:
+    attributes:
+      club:
+        name: "Nombre del club"
+      user:
+        email: "Correo electrónico"
+        password: "Contraseña"
+        password_confirmation: "Confirmar contraseña"
+        remember_me: "Recordarme"
   cancan:
     unauthorized_access: "No tienes permiso de acceder a ese sitio!"
   club:
     members: "Miembros"
+    new: "Nuevo club"
     team_name: "Nombre"
     teams: "Equipos"
   devise:
@@ -65,7 +75,12 @@ en:
     application_title: "Torneos de Rugby Subacutico"
     back: "Regresar"
     begin: "Comenzar"
+    cancel: "Cancelar"
+    create: "Crear"
+    error: "Error"
     errors: "Errores"
+    modal_load_error: "Hubo un error procesando tu petición. Por favor inténtalo de nuevo"
+    processing_request: "Precesando solicitud..."
     score: "Anotar"
     select_all: "Seleccionar todos"
     update: "Actualizar"

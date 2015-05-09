@@ -9,5 +9,41 @@
           %li= link_to t('game.new'), root_path
           %li= link_to t('game.index'), games_path
           %li= link_to t('statistics.index'), statistics_path
+          %li
+            = link_to t('club.new'), '#', class: 'js-new-club-link'
         %ul.nav.navbar-nav.navbar-right
           %li= link_to t('devise.session.log_out'), destroy_user_session_path
+
+= content_for :page_javascript do
+  :javascript
+    var renderModalError = function()
+    {
+      $("#appModalContent").html("#{ j render 'public/modal_load_error' }");
+    };
+
+    $(document).ready(function()
+    {
+      $('.js-new-club-link').on('click', function(event)
+      {
+        event.stopPropagation();
+
+        $('#appModalContent').html("#{ j render 'public/modal_loader' }");
+        $('#appModal').modal('show');
+        $.get("#{new_clubs_path}")
+          .done(function(form)
+          {
+            // Make sure that I wasn't redirected due to authorization errors.
+            if($(form).attr('id') === 'newClub')
+            {
+              $('#appModalContent').html(form);
+            } else
+            {
+              renderModalError();
+            }
+          })
+          .error(function()
+          {
+            renderModalError();
+          });
+      });
+    });

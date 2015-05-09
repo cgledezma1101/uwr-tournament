@@ -3,16 +3,13 @@
 
   Requires the following instance variables to be passed by the controller:
 
-  @param club_name String the name of the club
-  @param club_admins Array<User> The administrators of the club
-  @param club_teams Array<Team> The teams that belong to this club
-  @param club_members Array<User> Members of the club
+  @param club Club the club for which information will be shown
 .panel.panel-primary
   .panel-heading
-    .panel-title= @club_name
+    .panel-title= @club.name
   .panel-body
     .col-xs-4
-      = render "clubs/user_details", users: @club_admins, panel_title: t('club.admins')
+      = render "clubs/user_details", users: @club.admins, panel_title: t('club.admins')
     .col-xs-4
       .panel.panel-info
         .panel-heading
@@ -22,8 +19,8 @@
             %tr
               %th= t('club.team_name')
               %th= t('statistics.played_won_short')
-            - for team in @club_teams
+            - for team in @club.teams
               %tr= team.name
               %tr= "#{team.games.length}(#{team.games_won.length})"
     .col-xs-4
-      = render "clubs/user_details", users: @club_members, panel_title: t('club.members')
+      = render "clubs/user_details", users: @club.members, panel_title: t('club.members')

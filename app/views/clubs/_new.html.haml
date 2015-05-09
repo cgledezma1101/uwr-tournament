@@ -1,0 +1,22 @@
+-#
+  Renders the form needed to create a new club. This is meant to be rendered inside a div with the modal-dialog class applied to it
+
+  Requires the following instance variables to be initialized:
+
+  @param club Club an instance of a club, which will be used to produce the form
+#newClub
+  .modal-header
+    %h2.modal-title= t('club.new')
+  .modal-body
+    = form_for @club do |f|
+      .form-horizontal
+        .form-group
+          = f.label :name, class: 'col-sm-2 control-label'
+          .col-sm-6
+            = f.text_field :name, class: 'form-control'
+
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            = f.submit t('general.create'), class: 'btn btn-success'
+            %a.btn.btn-danger{ data: { toggle: 'modal', target: '#appModal' } }
+              = t('general.cancel')
