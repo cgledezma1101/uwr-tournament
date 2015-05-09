@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
    has_many :players
+
    has_many :user_clubs, dependent: :destroy
    has_many :clubs, through: :user_clubs
+
+   has_many :club_admins
+   has_many :administrated_clubs, through: :club_admins
 end
