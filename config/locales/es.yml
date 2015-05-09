@@ -18,6 +18,8 @@ en:
       unlock_account: "Desbloquear mi cuenta"
       you_can_confirm: "Puedes confirmar tu cuenta siguiendo el enlace a continuación:"
     omniauth:
+      facebook: "Facebook"
+      google: "Google"
       sign_in: "Iniciar sesión con %{provider}"
     password:
       change: "Cambiar mi contraseña"
