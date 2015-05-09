@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
    has_many :clubs, through: :user_clubs
 
    has_many :club_admins
-   has_many :administrated_clubs, through: :club_admins
+   has_many :administrated_clubs, through: :club_admins, source: :club
 
    validates :name, presence: true
    validates :email, presence: true

@@ -7,7 +7,7 @@ UwrTournament::Application.routes.draw do
 
   get '/statistics', to: 'public#statistics'
 
-  resource :clubs, only: [:show, :new]
+  resource :clubs, only: [:show, :new, :create]
 
   resources :games, only: [:create, :new, :show, :index]
 

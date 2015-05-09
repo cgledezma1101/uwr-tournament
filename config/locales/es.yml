@@ -11,8 +11,11 @@ en:
   cancan:
     unauthorized_access: "No tienes permiso de acceder a ese sitio!"
   club:
+    errors:
+      no_admin: "Debe haber al menos un administrador para el club"
     members: "Miembros"
     new: "Nuevo club"
+    standard_save_error: "No se pudo guardar el club. Asegúrate que no exista otro con el mismo nombre"
     team_name: "Nombre"
     teams: "Equipos"
   devise:

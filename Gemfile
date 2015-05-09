@@ -40,6 +40,11 @@ group :doc do
 end
 
 group :development do
+  # Quick server resets
   gem 'zeus'
+
+  # Enjoyable debugging
   gem 'pry'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end

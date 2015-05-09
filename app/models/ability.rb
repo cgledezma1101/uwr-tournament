@@ -11,5 +11,6 @@ class Ability
     end
 
     can :new, Club
+    can :create, Club
   end
 end

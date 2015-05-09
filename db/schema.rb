@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509050658) do
+ActiveRecord::Schema.define(version: 20150509102626) do
 
-  create_table "club_admins", id: false, force: true do |t|
+  create_table "club_admins", force: true do |t|
     t.integer "user_id", null: false
     t.integer "club_id", null: false
   end
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20150509050658) do
 
   add_index "teams", ["club_id"], name: "index_teams_on_club_id"
 
-  create_table "user_clubs", id: false, force: true do |t|
+  create_table "user_clubs", force: true do |t|
     t.integer "user_id", null: false
     t.integer "club_id", null: false
   end
