@@ -7,7 +7,7 @@ class Team < ActiveRecord::Base
   belongs_to :club
 
   validates :name, presence: true
-  validates :club, presence: :true
+  validates :club, presence: true
 
   # Returns all the games that this team has played
   #

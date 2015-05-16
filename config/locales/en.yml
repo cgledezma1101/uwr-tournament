@@ -9,6 +9,8 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         remember_me: "Remember me"
+      team:
+        name: "Team name"
   cancan:
     unauthorized_access: "You are not authorized to access that site!"
   club:
@@ -108,4 +110,5 @@ en:
     scoring_champions: "Scoring champions"
     played_won_short: "P(W)"
   team:
+    new: "New team"
     participating_players: "Participating players"

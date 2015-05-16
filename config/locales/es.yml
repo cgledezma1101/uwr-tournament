@@ -9,6 +9,8 @@
         password: "Contraseña"
         password_confirmation: "Confirmar contraseña"
         remember_me: "Recordarme"
+      team:
+        name: "Nombre del equipo"
   cancan:
     unauthorized_access: "No tienes permiso de acceder a ese sitio!"
   club:
@@ -108,4 +110,5 @@
     scoring_champions: "Líderes goleadores"
     played_won_short: "JJ(JG)"
   team:
+    new: "Nuevo equipo"
     participating_players: "Jugadores participantes"

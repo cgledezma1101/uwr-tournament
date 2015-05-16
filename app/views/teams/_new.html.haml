@@ -1,20 +1,21 @@
 -#
-  Renders the form needed to create a new club. This is meant to be rendered inside a div with the modal-dialog class applied to it
+  Renders the form required to create a new team for a particular club
 
-  Requires the following instance variables to be initialized:
+  Requires the following instance variables to be initialized
 
-  @param [Club] club an instance of a club, which will be used to produce the form
-#newClub
+  @param [Team] team The variable for which the form will be built
+  @param [Club] club The club to which the team will be added to
+#newTeam
   .modal-header
-    %h2.modal-title= t('club.new')
+    %h2.modal-title= t('team.new')
   .modal-body
-    = form_for @club do |f|
+    = form_for @team do |f|
       .form-horizontal
+        = f.hidden_field :club_id, value: @club.id
         .form-group
           = f.label :name, class: 'col-sm-4 control-label'
           .col-sm-6
             = f.text_field :name, class: 'form-control'
-
         .form-group
           .col-sm-offset-4.col-sm-8
             = f.submit t('general.create'), class: 'btn btn-success'
