@@ -11,6 +11,7 @@
           %li= link_to t('statistics.index'), statistics_path
           %li
             = link_to t('club.new'), '#', class: 'js-new-club-link'
+          = yield :module_navbar
         %ul.nav.navbar-nav.navbar-right
           %li= link_to t('devise.session.log_out'), destroy_user_session_path
 
@@ -23,6 +24,24 @@
 
     $(document).ready(function()
     {
+      // Deal with navbar dropdowns not expanding
+      $('li.dropdown').on('click', function(event)
+      {
+        event.stopPropagation();
+
+        var clickedElement = $(this);
+
+        if(clickedElement.hasClass('open'))
+        {
+          clickedElement.removeClass('open');
+        }
+        else
+        {
+          clickedElement.addClass('open');
+        }
+      })
+
+      // Render the proper modal when creating a new club
       $('.js-new-club-link').on('click', function(event)
       {
         event.stopPropagation();

@@ -12,9 +12,13 @@ en:
   cancan:
     unauthorized_access: "You are not authorized to access that site!"
   club:
+    add_admin: "Add administrator"
+    administrate: "Club admin"
     admins: "Administrators"
+    create_team: "Create team"
     errors:
       no_admin: "There has to be at least one club administrator"
+    invite: "Invite player"
     members: "Members"
     new: "New club"
     standard_save_error: "Could not save the club. Make sure there isn't another one with the same name."
