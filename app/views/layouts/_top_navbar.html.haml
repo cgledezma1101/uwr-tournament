@@ -10,7 +10,7 @@
           %li= link_to t('game.index'), games_path
           %li= link_to t('statistics.index'), statistics_path
           %li
-            = link_to t('club.new'), '#', class: 'js-new-club-link'
+            = link_to t('club.new'), '#', class: 'js-show-app-modal', data: { formlink: new_club_path, formid: "newClub" }
           = yield :module_navbar
         %ul.nav.navbar-nav.navbar-right
           %li= link_to t('devise.session.log_out'), destroy_user_session_path
@@ -41,18 +41,22 @@
         }
       })
 
-      // Render the proper modal when creating a new club
-      $('.js-new-club-link').on('click', function(event)
+      // This function allows to show the application modal with the data returned from a URL specified by the clicked nav element
+      // This element should have a data-formlink attribute specifying the URL from which the form should be retrieved and
+      // a data-formid specifying the identifier the returned form should have, for validation purposes.
+      $('.js-show-app-modal').on('click', function(event)
       {
         event.stopPropagation();
 
         $('#appModalContent').html("#{ j render 'public/modal_loader' }");
         $('#appModal').modal('show');
-        $.get("#{new_club_path}")
+
+        var clickedNav = $(this);
+        $.get(clickedNav.data('formlink'))
           .done(function(form)
           {
             // Make sure that I wasn't redirected due to authorization errors.
-            if($(form).attr('id') === 'newClub')
+            if($(form).attr('id') === clickedNav.data('formid'))
             {
               $('#appModalContent').html(form);
             } else

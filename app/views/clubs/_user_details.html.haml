@@ -3,6 +3,7 @@
 
   @param users Array<User> List of users to display
   @param panel_title String Title to display on the list
+  @param club Club The club for which the users are being displayed
 .panel.panel-info
   .panel-heading
     .panel-title= panel_title
@@ -11,7 +12,12 @@
       %tr
         %th= t('devise.user.name')
         %th= t('devise.user.email')
+        - if can? :edit, club
+          %th= t('club.actions')
       - for user in users
         %tr
           %td= user.name
           %td= user.email
+          - if can? :edit, club
+            %td.text-center
+              = link_to 'D', '#'

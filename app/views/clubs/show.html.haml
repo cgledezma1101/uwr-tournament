@@ -9,7 +9,7 @@
     %h1.panel-title= @club.name
   .panel-body
     .col-xs-4
-      = render "clubs/user_details", users: @club.admins, panel_title: t('club.admins')
+      = render "clubs/user_details", users: @club.admins, panel_title: t('club.admins'), club: @club
     .col-xs-4
       .panel.panel-info
         .panel-heading
@@ -23,7 +23,7 @@
               %tr= team.name
               %tr= "#{team.games.length}(#{team.games_won.length})"
     .col-xs-4
-      = render "clubs/user_details", users: @club.members, panel_title: t('club.members')
+      = render "clubs/user_details", users: @club.members, panel_title: t('club.members'), club: @club
 
 = content_for :module_navbar do
   - if can? :edit, @club
