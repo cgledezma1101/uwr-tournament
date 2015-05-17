@@ -9,7 +9,7 @@
     %h1.panel-title= t('club.long_name', name: @club.name)
   .panel-body
     .col-xs-4
-      = render "general/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club
+      = render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club
     .col-xs-4
       .panel.panel-info
         .panel-heading
@@ -19,11 +19,16 @@
             %tr
               %th= t('club.team_name')
               %th= t('statistics.played_won_short')
+              - if can? :edit, @club
+                %th= t('general.actions')
             - for team in @club.teams
-              %tr= team.name
-              %tr= "#{team.games.length}(#{team.games_won.length})"
+              %tr
+                %td= link_to team.name, team_path(team)
+                %td= "#{team.games.count}(#{team.won_games.count})"
+                - if can? :edit, @club
+                  %td= link_to 'PH', '#'
     .col-xs-4
-      = render "general/user_details_panel", users: @club.members, panel_title: t('club.members'), entity: @club
+      = render "public/user_details_panel", users: @club.members, panel_title: t('club.members'), entity: @club
 
 = content_for :module_navbar do
   - if can? :edit, @club
