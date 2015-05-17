@@ -16,4 +16,16 @@ class Player < ActiveRecord::Base
   def number_name
     "#{self.number} - #{self.name}"
   end
+
+  # Name of the user associated with this player
+  #
+  # @return [String] The name of the player
+  def name
+    self.user.name
+  end
+
+  # Email of the user associated with this player
+  def email
+    self.user.email
+  end
 end

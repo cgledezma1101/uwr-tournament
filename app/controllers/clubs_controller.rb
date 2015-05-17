@@ -19,8 +19,6 @@ class ClubsController < ApplicationController
       @club.save
       ClubAdmin.create(club: @club, user: current_user)
 
-      binding.pry
-
       redirect_to club_path(@club)
     else
       redirect_to root_path, alert: t('club.standard_save_error')

@@ -3,13 +3,13 @@
 
   Requires the following instance variables to be passed by the controller:
 
-  @param club Club the club for which information will be shown
+  @param [Club] club the club for which information will be shown
 .panel.panel-primary
   .panel-heading
-    %h1.panel-title= @club.name
+    %h1.panel-title= t('club.long_name', name: @club.name)
   .panel-body
     .col-xs-4
-      = render "clubs/user_details", users: @club.admins, panel_title: t('club.admins'), club: @club
+      = render "general/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club
     .col-xs-4
       .panel.panel-info
         .panel-heading
@@ -23,7 +23,7 @@
               %tr= team.name
               %tr= "#{team.games.length}(#{team.games_won.length})"
     .col-xs-4
-      = render "clubs/user_details", users: @club.members, panel_title: t('club.members'), club: @club
+      = render "general/user_details_panel", users: @club.members, panel_title: t('club.members'), entity: @club
 
 = content_for :module_navbar do
   - if can? :edit, @club

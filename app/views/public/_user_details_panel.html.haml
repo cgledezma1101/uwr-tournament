@@ -1,9 +1,9 @@
 -#
   Renders the details of a given array of users
 
-  @param users Array<User> List of users to display
-  @param panel_title String Title to display on the list
-  @param club Club The club for which the users are being displayed
+  @param [Array<User>] users List of users to display
+  @param [String] panel_title Title to display on the list
+  @param [ActiveRecord::Base] entity Entity to which the players belong to. This will be used to validate the editability of the panel
 .panel.panel-info
   .panel-heading
     .panel-title= panel_title
@@ -12,12 +12,12 @@
       %tr
         %th= t('devise.user.name')
         %th= t('devise.user.email')
-        - if can? :edit, club
-          %th= t('club.actions')
+        - if can? :edit, entity
+          %th= t('general.actions')
       - for user in users
         %tr
           %td= user.name
           %td= user.email
-          - if can? :edit, club
+          - if can? :edit, entity
             %td.text-center
               = link_to 'D', '#'

@@ -27,4 +27,36 @@ class TeamsController < ApplicationController
       format.html{ render 'teams/_new', layout: false }
     end
   end
+
+  # POST /teams
+  #
+  # Allows for the creation of a new team, associating it to a club
+  def create
+    club = Club.find(params[:team][:club_id])
+    authorize! :edit, club
+
+    team = Team.create(create_params)
+
+    if(team.valid?)
+      redirect_to team_path(team)
+    else
+      redirect_to root_path, alert: t('team.standard_save_error')
+    end
+  end
+
+  # GET /teams/:id
+  #
+  # Displays the general information of a particular team
+  def show
+    @team = Team.find(params[:id])
+    authorize! :show, @team
+    @club = @team.club
+  end
+
+  private
+
+  # Parameter sanitazer for the create method
+  def create_params
+    params.require(:team).permit(:name, :club_id)
+  end
 end

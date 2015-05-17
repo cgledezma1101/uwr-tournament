@@ -12,7 +12,7 @@ UwrTournament::Application.routes.draw do
 
   resources :scores, only: [:create]
 
-  resources :teams, only: [:new, :create] do
+  resources :teams, only: [:new, :create, :show] do
     get 'players', on: :member
   end
 end
