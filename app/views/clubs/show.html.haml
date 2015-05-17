@@ -44,3 +44,5 @@
         %li.divider
         %li
           = link_to t('club.create_team'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_team_path}?club_id=#{@club.id}", formid: "newTeam" }
+        %li
+          =link_to t('club.edit'), '#'

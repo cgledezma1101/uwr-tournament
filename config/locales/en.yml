@@ -18,6 +18,7 @@ en:
     administrate: "Club admin"
     admins: "Administrators"
     create_team: "Create team"
+    edit: "Edit details"
     errors:
       no_admin: "There has to be at least one club administrator"
     invite: "Invite player"
