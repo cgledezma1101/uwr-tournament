@@ -3,14 +3,16 @@ en:
     attributes:
       club:
         name: "Club name"
+      invitation:
+        user: "Invitee's email"
+      team:
+        name: "Team name"
       user:
         email: "Email"
         name: "Name"
         password: "Password"
         password_confirmation: "Password confirmation"
         remember_me: "Remember me"
-      team:
-        name: "Team name"
   cancan:
     unauthorized_access: "You are not authorized to access that site!"
   club:
@@ -98,6 +100,11 @@ en:
     score: "Score"
     select_all: "Select all"
     update: "Update"
+  invitations:
+    create_failure: "There has been an error sending the invitation. Please try again."
+    create_success: "The invitation has been sent successfully"
+    new: "New invitation"
+    only_one_per_club: "You can only send one invitation to a user"
   statistics:
     games_lost_short: "L"
     games_lost_long: "Games lost"

@@ -14,9 +14,5 @@
           = f.label :name, class: 'col-sm-4 control-label'
           .col-sm-6
             = f.text_field :name, class: 'form-control'
-
         .form-group
-          .col-sm-offset-4.col-sm-8
-            = f.submit t('general.create'), class: 'btn btn-success'
-            %a.btn.btn-danger{ data: { dismiss: 'modal' } }
-              = t('general.cancel')
+          = render 'public/modal_form_buttons', form: f

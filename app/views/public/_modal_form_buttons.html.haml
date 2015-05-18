@@ -1,0 +1,8 @@
+-#
+  Renders a submit and cancel button that work for forms that are rendered inside modals
+
+  @param [Form] form The form helper over which the form is being built
+.col-sm-offset-4.col-sm-8
+  = form.submit t('general.create'), class: 'btn btn-success'
+  %a.btn.btn-danger{ data: { dismiss: 'modal' } }
+    = t('general.cancel')

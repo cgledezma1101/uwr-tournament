@@ -3,14 +3,16 @@
     attributes:
       club:
         name: "Nombre del club"
+      invitation:
+        user: "Correo electrónico del invitado"
+      team:
+        name: "Nombre del equipo"
       user:
         email: "Correo electrónico"
         name: "Nombre"
         password: "Contraseña"
         password_confirmation: "Confirmar contraseña"
         remember_me: "Recordarme"
-      team:
-        name: "Nombre del equipo"
   cancan:
     unauthorized_access: "No tienes permiso de acceder a ese sitio!"
   club:
@@ -98,6 +100,11 @@
     score: "Anotar"
     select_all: "Seleccionar todos"
     update: "Actualizar"
+  invitations:
+    create_failure: "Ha ocurrido un error al enviar la invitación. Por favor inténtalo de nuevo."
+    create_success: "La invitación se ha creado correctamente"
+    new: "Nueva invitación"
+    only_one_per_club: "Sólo puedes enviarle una invitación a cada usuario."
   statistics:
     games_lost_short: "JP"
     games_lost_long: "Juegos perdidos"
