@@ -101,6 +101,7 @@ en:
     select_all: "Select all"
     update: "Update"
   invitations:
+    cant_invite_members: "Can't send an invitation to a user that's already a member."
     create_failure: "There has been an error sending the invitation. Please try again."
     create_success: "The invitation has been sent successfully"
     new: "New invitation"

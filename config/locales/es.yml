@@ -101,6 +101,7 @@
     select_all: "Seleccionar todos"
     update: "Actualizar"
   invitations:
+    cant_invite_members: "No puedes enviar invitaciones a usuarios que ya son miembros del club"
     create_failure: "Ha ocurrido un error al enviar la invitación. Por favor inténtalo de nuevo."
     create_success: "La invitación se ha creado correctamente"
     new: "Nueva invitación"
