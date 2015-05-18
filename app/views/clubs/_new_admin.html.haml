@@ -13,6 +13,6 @@
         .form-group
           = label_tag :member, t('club.members'), class: 'col-sm-4 control-label'
           .col-sm-6
-            = collection_select :user, :id, @club.users, :id, :name
+            = collection_select :user, :id, @club.users, :id, :name, {}, { class: 'form-control' }
         .form-group
           = render 'public/modal_form_buttons'
