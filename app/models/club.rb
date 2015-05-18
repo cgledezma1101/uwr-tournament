@@ -7,6 +7,9 @@ class Club < ActiveRecord::Base
 
   has_many :teams, dependent: :destroy
 
+  has_many :invitations, dependent: :destroy
+  has_many :invited_users, through: :invitations, source: :user
+
   # This validation needs to be suppressed until the bug with creating associations using '<<' is fixed
   # validate :has_one_admin
   validates :name, presence: true, uniqueness: true
