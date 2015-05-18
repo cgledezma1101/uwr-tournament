@@ -6,11 +6,13 @@ class Ability
     ###################################################
     ################## CLUBS ##########################
     ###################################################
+    alias_action :new_admin, :create_admin, to: :update
+
     can :show, Club do |club|
       user.clubs.where{ id == my{club.id} }.any? || user.administrated_clubs.where{ id == my{club.id} }.any?
     end
 
-    can :edit, Club do |club|
+    can :update, Club do |club|
       user.administrated_clubs.where{ id == my{club.id} }.any?
     end
 

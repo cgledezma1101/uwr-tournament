@@ -1,8 +1,9 @@
 class InvitationsController < ApplicationController
+  before_action :authenticate_user!
+  
   # GET /invitations/new?club_id=:club_id&is_admin=:is_admin
   #
   # @param [Integer] club_id Identifier of the club the invitation is being created for
-  # @param [Boolean] is_admin Boolean indicating whether this is an invitation to be administrator
   def new
     club = Club.find(params[:club_id])
     authorize! :edit, club
@@ -22,9 +23,9 @@ class InvitationsController < ApplicationController
     user = User.find_by(email: params[:user][:email])
 
     if(user.nil?)
-      invitation = Invitation.create(club: club, is_admin: params[:invitation][:is_admin])
+      invitation = Invitation.create(club: club)
     else
-      invitation = Invitation.create(club: club, user: user, is_admin: params[:invitation][:is_admin])
+      invitation = Invitation.create(club: club, user: user)
     end
 
     if(invitation.valid?)

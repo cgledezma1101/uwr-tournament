@@ -97,6 +97,7 @@ en:
     errors: "Errors"
     modal_load_error: "There was an error processing your request. Please try again"
     processing_request: "Processing request..."
+    save: "Save"
     score: "Score"
     select_all: "Select all"
     update: "Update"

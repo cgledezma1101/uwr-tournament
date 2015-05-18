@@ -1,0 +1,18 @@
+-#
+  Renders a form, meant to be embedded in a modal, which allows the addition of a new administrator to a particular club
+
+  Expects the following instance variables to be defined
+
+  @param [Club] club The club to which the admin will be added
+#newAdmin
+  .modal-header
+    %h1.modal-title= t('club.add_admin')
+  .modal-body
+    = form_tag create_admin_club_path(@club), method: 'post' do |f|
+      .form-horizontal
+        .form-group
+          = label_tag :member, t('club.members'), class: 'col-sm-4 control-label'
+          .col-sm-6
+            = collection_select :user, :id, @club.users, :id, :name
+        .form-group
+          = render 'public/modal_form_buttons'

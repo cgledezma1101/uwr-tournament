@@ -25,6 +25,15 @@ class ClubsController < ApplicationController
     end
   end
 
+  # GET clubs/:id/new_admin
+  #
+  # Presents an interface to add a new administrator to the club
+  def new_admin
+    respond_to do |format|
+      format.html{ render 'clubs/_new_admin', layout: false }
+    end
+  end
+
   private
 
   def create_params
