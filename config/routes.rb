@@ -1,5 +1,4 @@
 UwrTournament::Application.routes.draw do
-  # You can have the root of your site routed with "root"
   root 'games#new'
 
   devise_for :users
@@ -14,5 +13,10 @@ UwrTournament::Application.routes.draw do
 
   resources :teams, only: [:new, :create, :show] do
     get 'players', on: :member
+  end
+
+  resource :invitations, only: [:new, :create] do
+    get 'accept', on: :member
+    get 'decline', on: :member
   end
 end
