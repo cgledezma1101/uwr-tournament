@@ -145,6 +145,7 @@
   team:
     confirm_destroy: "Estas seguro que deseas eliminar el equipo '%{team_name}'?. Esta operación no afectará las estadísticas que los jugadores han acumulado."
     destroy: "Eliminar equipo"
+    destroy_successful: "Se ha eliminado el equipo exitosamente"
     long_name: "Equipo: %{name} - Club: %{club_name}"
     new: "Nuevo equipo"
     participating_players: "Jugadores participantes"

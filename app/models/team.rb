@@ -81,6 +81,6 @@ class Team < ActiveRecord::Base
 
   # Sets all of the player's associations to reference a 'nil' team, so they won't reference a dead record
   def dependent_players_set_nil
-    self.players.update_all(team: nil)
+    self.players.update_all(team_id: nil)
   end
 end

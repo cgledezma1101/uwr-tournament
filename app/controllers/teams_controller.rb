@@ -55,6 +55,14 @@ class TeamsController < ApplicationController
     render 'teams/_confirm_destroy', layout: false
   end
 
+  # DELETE /teams/:id
+  #
+  # Removes the specified team from the database
+  def destroy
+    @team.destroy
+    redirect_to club_path(@team.club), notice: t('team.destroy_successful')
+  end
+
   private
 
   # Parameter sanitazer for the create method
