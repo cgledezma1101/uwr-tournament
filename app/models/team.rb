@@ -9,6 +9,8 @@ class Team < ActiveRecord::Base
   validates :name, presence: true
   validates :club, presence: true
 
+  before_destroy :dependent_players_set_nil
+  
   # Returns all the games that this team has played
   #
   # @return [Array<Game>] The games played by this team
@@ -73,5 +75,12 @@ class Team < ActiveRecord::Base
           (game.white_team_id == self.id &&
            game.white_goals > game.blue_goals)
         end
+  end
+
+  private
+
+  # Sets all of the player's associations to reference a 'nil' team, so they won't reference a dead record
+  def dependent_players_set_nil
+    self.players.update_all(team: nil)
   end
 end
