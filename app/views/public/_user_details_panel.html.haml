@@ -4,6 +4,7 @@
   @param [Array<User>] users List of users to display
   @param [String] panel_title Title to display on the list
   @param [ActiveRecord::Base] entity Entity to which the players belong to. This will be used to validate the editability of the panel
+  @param [Proc] actions_renderer A method that will receive a User and will return HTML associated with the actions that can be performed on the user
 .panel.panel-default
   .panel-heading
     .panel-title= panel_title
@@ -12,12 +13,12 @@
       %tr
         %th.text-center= t('devise.user.name')
         %th.text-center= t('devise.user.email')
-        - if can? :edit, entity
+        - if defined?(actions_renderer) && can?(:edit, entity)
           %th.text-center= t('general.actions')
       - for user in users
         %tr
           %td.text-center= user.name
           %td.text-center= user.email
-          - if can? :edit, entity
+          - if defined?(actions_renderer) && can?(:edit, entity)
             %td.text-center
-              = link_to 'PH', '#'
+              = actions_renderer.call(user)

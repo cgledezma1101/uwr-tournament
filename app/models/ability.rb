@@ -21,10 +21,15 @@ class Ability
     ###################################################
     ################## CLUB ADMINS ####################
     ###################################################
+    alias_action :confirm_destroy, to: :destroy
 
     can :new, ClubAdmin
-    
+
     can :create, ClubAdmin do |club_admin|
+      can? :update, club_admin.club
+    end
+
+    can :destroy, ClubAdmin do |club_admin|
       can? :update, club_admin.club
     end
 

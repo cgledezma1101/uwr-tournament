@@ -38,6 +38,9 @@ en:
     teams: "Teams"
     update_failure: "There was an error updating the clubs information"
     update_successful: "Club was updated successfully"
+  club_admin:
+    confirm_remove: "Are you sure you want to remove '%{admin_name}' from the administrators of this club? (The user will still be a member)"
+    destroy: "Remove administrator from club"
   devise:
     confirmation:
       didnt_receive: "Didn't receive confirmation instructions?"
@@ -105,6 +108,7 @@ en:
     errors: "Errors"
     modal_load_error: "There was an error processing your request. Please try again"
     processing_request: "Processing request..."
+    remove: "Remove"
     save: "Save"
     score: "Score"
     select_all: "Select all"

@@ -13,7 +13,7 @@
         .panel-heading
           .panel-title= t('team.players')
         .panel-body
-          = render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club
+          = render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club, actions_renderer: create_admin_actions_proc(@club)
           = render "public/user_details_panel", users: @club.users, panel_title: t('club.members'), entity: @club
     .col-xs-6
       .panel.panel-info

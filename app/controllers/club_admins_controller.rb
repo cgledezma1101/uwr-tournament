@@ -39,6 +39,17 @@ class ClubAdminsController < ApplicationController
     redirect_to club_path(@club_admin.club), redirect_params
   end
 
+  # GET /club_admins/:id/confirm_destroy
+  #
+  # Shows a confirmation dialog that allows the removal of an administrator from a club
+  #
+  # @param [Integer] id Identifier of the relationship to destroy
+  def confirm_destroy
+    respond_to do |format|
+      format.html{ render 'club_admins/_confirm_destroy', layout: false }
+    end
+  end
+
   private
 
   # Returns sanitized parameters for the create action

@@ -1,0 +1,15 @@
+-#
+  Presents a confirmation message before attempting to remove an administrator from a club
+
+  Expects the following instance variavles to be defined
+
+  @param [ClubAdmin] club_admin The relationship that will be destroyed
+#removeAdmin
+  .modal-header
+    %h2.modal-title= t('club_admin.destroy')
+  .modal-body
+    = form_tag club_admin_path(@club_admin), method: :delete do
+      .form-horizontal
+        .form-group
+          %label.col-sm-12= t('club_admin.confirm_remove', admin_name: @club_admin.admin_name)
+          = render 'public/modal_form_buttons'

@@ -38,6 +38,9 @@
     teams: "Equipos"
     update_failure: "Ocurrió un error actualizando la información dle club"
     update_successful: "La información del club se ha actualizado con éxito"
+  club_admin:
+    confirm_remove: "Estas seguro que deseas eliminar a '%{admin_name}' de la lista de administradores del club? (El usuario seguirá siendo miembro del club)"
+    destroy: "Eliminar administrador del club"
   devise:
     confirmation:
       didnt_receive: "¿No recibiste el correo de confirmación?"
@@ -105,6 +108,7 @@
     errors: "Errores"
     modal_load_error: "Hubo un error procesando tu petición. Por favor inténtalo de nuevo"
     processing_request: "Precesando solicitud..."
+    remove: "Eliminar"
     save: "Guardar"
     score: "Anotar"
     select_all: "Seleccionar todos"
