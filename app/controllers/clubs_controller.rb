@@ -8,9 +8,7 @@ class ClubsController < ApplicationController
 
   # GET /clubs/new
   def new
-    respond_to do |format|
-      format.html{ render 'clubs/_new', layout: false }
-    end
+    render 'clubs/_new', layout: false
   end
 
   # POST /clubs
@@ -31,9 +29,7 @@ class ClubsController < ApplicationController
   #
   # @param [Integer] id Identifier of the club that will be updated
   def edit
-    respond_to do |format|
-      format.html{ render 'clubs/_new', layout: false }
-    end
+    render 'clubs/_new', layout: false
   end
 
   # POST/PUT /clubs/:id

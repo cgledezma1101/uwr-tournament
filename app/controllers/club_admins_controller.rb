@@ -9,12 +9,9 @@ class ClubAdminsController < ApplicationController
   # @param [Integer] club_id Identifier of the club for which the administrator will be created
   def new
     @club = Club.find params[:club_id]
-
     authorize! :update, @club
 
-    respond_to do |format|
-      format.html{ render 'club_admins/_new', layout: false }
-    end
+    render 'club_admins/_new', layout: false
   end
 
   # POST /club_admins
@@ -45,9 +42,7 @@ class ClubAdminsController < ApplicationController
   #
   # @param [Integer] id Identifier of the relationship to destroy
   def confirm_destroy
-    respond_to do |format|
-      format.html{ render 'club_admins/_confirm_destroy', layout: false }
-    end
+    render 'club_admins/_confirm_destroy', layout: false
   end
 
   # DELETE /club_admins/:id

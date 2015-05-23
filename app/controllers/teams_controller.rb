@@ -23,9 +23,7 @@ class TeamsController < ApplicationController
     authorize! :edit, @club
 
     @team = Team.new
-    respond_to do |format|
-      format.html{ render 'teams/_new', layout: false }
-    end
+    render 'teams/_new', layout: false
   end
 
   # POST /teams
@@ -51,6 +49,15 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     authorize! :show, @team
     @club = @team.club
+  end
+
+  # GET /teams/:id/confirm_destroy
+  #
+  # Presents a dialog that allows the deletion of a team
+  #
+  # @param [Integer] id Identifier of the team to be destroyed
+  def confirm_destroy
+
   end
 
   private

@@ -39,6 +39,10 @@ class Ability
       user.administrated_clubs.joins{ teams }.where{ teams.id == my{team.id} }.any?
     end
 
+    can :destroy, Team do |team|
+      can? :update, team.club
+    end
+
     ###################################################
     ################## UER CLUBS ######################
     ###################################################

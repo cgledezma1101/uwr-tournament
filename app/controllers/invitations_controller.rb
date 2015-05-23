@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :authenticate_user!
-  
+
   # GET /invitations/new?club_id=:club_id&is_admin=:is_admin
   #
   # @param [Integer] club_id Identifier of the club the invitation is being created for
@@ -9,10 +9,7 @@ class InvitationsController < ApplicationController
     authorize! :edit, club
 
     @invitation = Invitation.new(club: club, is_admin: params[:is_admin])
-
-    respond_to do |format|
-      format.html{ render 'invitations/_new', layout: false }
-    end
+    render 'invitations/_new', layout: false
   end
 
   # POST /invitations
