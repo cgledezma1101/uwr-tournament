@@ -17,5 +17,7 @@ class UserClubsController < ApplicationController
   #
   # @param [Integer] id Identifier of the existing relationship
   def destroy
+    @user_club.destroy
+    redirect_to club_path(@user_club.club), notice: t('user_club.destroy_successful')
   end
 end

@@ -152,3 +152,4 @@ en:
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"
     destroy: "Remove member from club"
+    destroy_successful: "The user has been removed from your club"

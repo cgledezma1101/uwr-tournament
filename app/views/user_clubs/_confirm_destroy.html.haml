@@ -8,7 +8,7 @@
   .modal-header
     %h2.modal-title= t('user_club.destroy')
   .modal-body
-    = form_tag club_admin_path(@user_club), method: :delete do
+    = form_tag user_club_path(@user_club), method: :delete do
       .form-horizontal
         .form-group
           %label.col-sm-12= t('user_club.confirm_remove', user_name: @user_club.user_name)
