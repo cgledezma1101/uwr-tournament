@@ -4,20 +4,20 @@
   @param [Array<User>] users List of users to display
   @param [String] panel_title Title to display on the list
   @param [ActiveRecord::Base] entity Entity to which the players belong to. This will be used to validate the editability of the panel
-.panel.panel-info
+.panel.panel-default
   .panel-heading
     .panel-title= panel_title
   .panel-body
     %table.table
       %tr
-        %th= t('devise.user.name')
-        %th= t('devise.user.email')
+        %th.text-center= t('devise.user.name')
+        %th.text-center= t('devise.user.email')
         - if can? :edit, entity
-          %th= t('general.actions')
+          %th.text-center= t('general.actions')
       - for user in users
         %tr
-          %td= user.name
-          %td= user.email
+          %td.text-center= user.name
+          %td.text-center= user.email
           - if can? :edit, entity
             %td.text-center
               = link_to 'PH', '#'

@@ -8,27 +8,30 @@
   .panel-heading
     %h1.panel-title= t('club.long_name', name: @club.name)
   .panel-body
-    .col-xs-4
-      = render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club
-    .col-xs-4
+    .col-xs-6
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('team.players')
+        .panel-body
+          = render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club
+          = render "public/user_details_panel", users: @club.users, panel_title: t('club.members'), entity: @club
+    .col-xs-6
       .panel.panel-info
         .panel-heading
           .panel-title= t('club.teams')
         .panel-body
           %table.table
             %tr
-              %th= t('club.team_name')
-              %th= t('statistics.played_won_short')
+              %th.text-center= t('club.team_name')
+              %th.text-center= t('statistics.played_won_short')
               - if can? :edit, @club
-                %th= t('general.actions')
+                %th.text-center= t('general.actions')
             - for team in @club.teams
               %tr
-                %td= link_to team.name, team_path(team)
-                %td= "#{team.games.count}(#{team.won_games.count})"
+                %td.text-center= link_to team.name, team_path(team)
+                %td.text-center= "#{team.games.count}(#{team.won_games.count})"
                 - if can? :edit, @club
-                  %td= link_to 'PH', '#'
-    .col-xs-4
-      = render "public/user_details_panel", users: @club.members, panel_title: t('club.members'), entity: @club
+                  %td.text-center= link_to 'PH', '#'
 
 = content_for :module_navbar do
   - if can? :edit, @club
@@ -45,4 +48,4 @@
         %li
           = link_to t('club.create_team'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_team_path}?club_id=#{@club.id}", formid: "newTeam" }
         %li
-          =link_to t('club.edit'), '#'
+          =link_to t('club.edit_name'), '#'
