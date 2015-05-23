@@ -5,7 +5,7 @@ UwrTournament::Application.routes.draw do
 
   get '/statistics', to: 'public#statistics'
 
-  resources :clubs, only: [:show, :new, :create] do
+  resources :clubs, only: [:show, :new, :create, :edit, :update] do
     get 'new_admin', on: :member
     post 'create_admin', on: :member
   end

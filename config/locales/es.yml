@@ -34,6 +34,8 @@
     standard_save_error: "No se pudo guardar el club. Asegúrate que no exista otro con el mismo nombre"
     team_name: "Nombre"
     teams: "Equipos"
+    update_failure: "Ocurrió un error actualizando la información dle club"
+    update_successful: "La información del club se ha actualizado con éxito"
   devise:
     confirmation:
       didnt_receive: "¿No recibiste el correo de confirmación?"

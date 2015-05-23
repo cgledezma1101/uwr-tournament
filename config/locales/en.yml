@@ -34,6 +34,8 @@ en:
     standard_save_error: "Could not save the club. Make sure there isn't another one with the same name."
     team_name: "Team name"
     teams: "Teams"
+    update_failure: "There was an error updating the clubs information"
+    update_successful: "Club was updated successfully"
   devise:
     confirmation:
       didnt_receive: "Didn't receive confirmation instructions?"

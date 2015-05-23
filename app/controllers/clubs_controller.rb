@@ -45,7 +45,7 @@ class ClubsController < ApplicationController
     membership = UserClub.find_by(user: user, club: @club)
 
     if membership.nil?
-      redirect_params = { error: t('club.errors.admin_must_be_member') }
+      redirect_params = { alert: t('club.errors.admin_must_be_member') }
     else
       admin = ClubAdmin.new(club: @club, user: user)
 
@@ -55,8 +55,33 @@ class ClubsController < ApplicationController
 
         redirect_params = { notice: t('club.admin_create_success') }
       else
-        redirect_params = { error: t('club.errors.admin_not_added') }
+        redirect_params = { alert: t('club.errors.admin_not_added') }
       end
+    end
+
+    redirect_to club_path(@club), redirect_params
+  end
+
+  # GET /clubs/:id/edit
+  #
+  # Returns the form required to update the details of the club
+  #
+  # @param [Integer] id Identifier of the club that will be updated
+  def edit
+    respond_to do |format|
+      format.html{ render 'clubs/_new', layout: false }
+    end
+  end
+
+  # POST/PUT /clubs/:id
+  #
+  # @param [Integer] id Identifier of the club to be edited
+  # @param [String] club[name] New name for the club
+  def update
+    if @club.update_attributes(update_params)
+      redirect_params = { notice: t('club.update_successful') }
+    else
+      redirect_params = { alert: t('club.update_failure') }
     end
 
     redirect_to club_path(@club), redirect_params
@@ -65,6 +90,10 @@ class ClubsController < ApplicationController
   private
 
   def create_params
+    params.require(:club).permit(:name)
+  end
+
+  def update_params
     params.require(:club).permit(:name)
   end
 end

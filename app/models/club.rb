@@ -12,7 +12,7 @@ class Club < ActiveRecord::Base
 
   # This validation needs to be suppressed until the bug with creating associations using '<<' is fixed
   # validate :has_one_admin
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, allow_blank: false
 
   # Retrieves all of the members of the club
   def members
