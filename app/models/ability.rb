@@ -2,11 +2,11 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :confirm_destroy, to: :destroy
 
     ###################################################
     ################## CLUBS ##########################
     ###################################################
-
     can :show, Club do |club|
       user.clubs.where{ id == my{club.id} }.any? || user.administrated_clubs.where{ id == my{club.id} }.any?
     end
@@ -21,8 +21,6 @@ class Ability
     ###################################################
     ################## CLUB ADMINS ####################
     ###################################################
-    alias_action :confirm_destroy, to: :destroy
-
     can :new, ClubAdmin
 
     can :create, ClubAdmin do |club_admin|
@@ -39,6 +37,13 @@ class Ability
     can :show, Team do |team|
       user.players.where{ team_id == my{team.id} }.any? ||
       user.administrated_clubs.joins{ teams }.where{ teams.id == my{team.id} }.any?
+    end
+
+    ###################################################
+    ################## UER CLUBS ######################
+    ###################################################
+    can :destroy, UserClub do |user_club|
+      can? :update, user_club.club
     end
   end
 end

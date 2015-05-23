@@ -1,0 +1,5 @@
+-#
+  Renders a series of actions that can be performed on a member of a club
+
+  @param [UserClub] user_club The association that represents the membership to the club
+= link_to t('general.remove'), '#', class: 'js-show-app-modal', data: { formlink: confirm_destroy_user_club_path(user_club), formid: 'removeUser' }

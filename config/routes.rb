@@ -23,4 +23,8 @@ UwrTournament::Application.routes.draw do
   resources :club_admins, only: [:new, :create, :destroy] do
     get 'confirm_destroy', on: :member
   end
+
+  resources :user_clubs, only: [:destroy] do
+    get 'confirm_destroy', on: :member
+  end
 end

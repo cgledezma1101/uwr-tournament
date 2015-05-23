@@ -4,4 +4,11 @@ class UserClub < ActiveRecord::Base
 
   validates :user, presence: true, uniqueness: { scope: :club }
   validates :club, presence: true
+
+  # The full name of the user included in this relationship
+  #
+  # @return [String] Full name of the user associated
+  def user_name
+    self.user.name
+  end
 end
