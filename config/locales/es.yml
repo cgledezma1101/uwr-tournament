@@ -3,6 +3,8 @@
     attributes:
       club:
         name: "Nombre del club"
+      club_admin:
+        user: "Miembros regulares"
       invitation:
         user: "Correo electrónico del invitado"
       team:
