@@ -34,7 +34,9 @@ class Ability
     ###################################################
     ################## TEAMS ##########################
     ###################################################
-    can :show, Team do |team|
+    can :create, Team
+
+    can :read, Team do |team|
       user.players.where{ team_id == my{team.id} }.any? ||
       user.administrated_clubs.joins{ teams }.where{ teams.id == my{team.id} }.any?
     end

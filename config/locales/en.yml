@@ -143,6 +143,8 @@ en:
     scoring_champions: "Scoring champions"
     played_won_short: "P(W)"
   team:
+    confirm_destroy: "Are you sure you want to delete the team '%{team_name}'?. This opperation wont affect the statistics that players have accumulated."
+    destroy: "Remove team"
     long_name: "Team: %{name} - Club: %{club_name}"
     new: "New team"
     participating_players: "Participating players"

@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # GET /teams/:id/players
   #
@@ -8,7 +9,6 @@ class TeamsController < ApplicationController
   #
   # @param [Integer] id Identifier of the team whos players are desired
   def players
-    @team = Team.find(params[:id])
     @players = @team.players
     @game = Game.new
   end
@@ -22,7 +22,6 @@ class TeamsController < ApplicationController
     @club = Club.find(params[:club_id])
     authorize! :edit, @club
 
-    @team = Team.new
     render 'teams/_new', layout: false
   end
 
@@ -33,12 +32,10 @@ class TeamsController < ApplicationController
     club = Club.find(params[:team][:club_id])
     authorize! :edit, club
 
-    team = Team.create(create_params)
-
-    if(team.valid?)
-      redirect_to team_path(team)
+    if(@team.save)
+      redirect_to team_path(@team)
     else
-      redirect_to root_path, alert: t('team.standard_save_error')
+      redirect_to club_path(club), alert: t('team.standard_save_error')
     end
   end
 
@@ -46,8 +43,6 @@ class TeamsController < ApplicationController
   #
   # Displays the general information of a particular team
   def show
-    @team = Team.find(params[:id])
-    authorize! :show, @team
     @club = @team.club
   end
 
@@ -57,7 +52,7 @@ class TeamsController < ApplicationController
   #
   # @param [Integer] id Identifier of the team to be destroyed
   def confirm_destroy
-
+    render 'teams/_confirm_destroy', layout: false
   end
 
   private

@@ -1,0 +1,18 @@
+-#
+  Renders a table containing the teams that have been created for a particular club
+
+  @param [Club] club The club whose teams are to be rendered
+
+%table.table
+  %tr
+    %th.text-center= t('club.team_name')
+    %th.text-center= t('statistics.played_won_short')
+    - if can? :edit, club
+      %th.text-center= t('general.actions')
+  - for team in club.teams
+    %tr
+      %td.text-center= link_to team.name, team_path(team)
+      %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+      - if can? :edit, club
+        %td.text-center
+          = link_to t('general.remove'), '#', class: 'js-show-app-modal', data: { formlink: confirm_destroy_team_path(team), formid: 'removeTeam' }

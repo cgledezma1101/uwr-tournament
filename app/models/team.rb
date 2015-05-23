@@ -6,11 +6,11 @@ class Team < ActiveRecord::Base
 
   belongs_to :club
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :club }
   validates :club, presence: true
 
   before_destroy :dependent_players_set_nil
-  
+
   # Returns all the games that this team has played
   #
   # @return [Array<Game>] The games played by this team
