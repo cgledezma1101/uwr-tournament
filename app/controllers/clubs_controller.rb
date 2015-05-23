@@ -25,13 +25,41 @@ class ClubsController < ApplicationController
     end
   end
 
-  # GET clubs/:id/new_admin
+  # GET /clubs/:id/new_admin
   #
   # Presents an interface to add a new administrator to the club
   def new_admin
     respond_to do |format|
       format.html{ render 'clubs/_new_admin', layout: false }
     end
+  end
+
+  # POST /clubs/:id/create_admin
+  #
+  # Adds a new administrator to the club
+  #
+  # @param [Integer] id Identifier of the club to be updated
+  # @param [Integer] user[id] Identifier of the user that's going to be added as administrator
+  def create_admin
+    user = User.find(params[:user][:id])
+    membership = UserClub.find_by(user: user, club: @club)
+
+    if membership.nil?
+      redirect_params = { error: t('club.errors.admin_must_be_member') }
+    else
+      admin = ClubAdmin.new(club: @club, user: user)
+
+      if admin.valid?
+        membership.destroy
+        admin.save
+
+        redirect_params = { notice: t('club.admin_create_success') }
+      else
+        redirect_params = { error: t('club.errors.admin_not_added') }
+      end
+    end
+
+    redirect_to club_path(@club), redirect_params
   end
 
   private

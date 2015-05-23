@@ -17,11 +17,14 @@ en:
     unauthorized_access: "You are not authorized to access that site!"
   club:
     add_admin: "Add administrator"
+    admin_create_success: "The administrator has been successfully added"
     administrate: "Club admin"
     admins: "Administrators"
     create_team: "Create team"
     edit: "Edit details"
     errors:
+      admin_must_be_member: "In order to add an administrator to a club, the user must be a member first"
+      admin_not_added: "Administrator could not be added"
       no_admin: "There has to be at least one club administrator"
     invite: "Invite player"
     long_name: "Club: %{name}"
