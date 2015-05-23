@@ -41,6 +41,8 @@
   club_admin:
     confirm_remove: "Estas seguro que deseas eliminar a '%{admin_name}' de la lista de administradores del club? (El usuario seguirá siendo miembro del club)"
     destroy: "Eliminar administrador del club"
+    destroy_successful: "El administrador ha sido eliminado con éxito"
+    destroy_error: "Ocurrió un error tratando de eliminar al administrador"
   devise:
     confirmation:
       didnt_receive: "¿No recibiste el correo de confirmación?"

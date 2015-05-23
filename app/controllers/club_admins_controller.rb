@@ -50,6 +50,26 @@ class ClubAdminsController < ApplicationController
     end
   end
 
+  # DELETE /club_admins/:id
+  #
+  # Destroys the specified administrator relationship
+  def destroy
+    if @club_admin.club.admins.count == 1
+      redirect_params = { alert: t('club.errors.no_admin') }
+    else
+      membership = UserClub.new(club: @club_admin.club, user: @club_admin.user)
+
+      if membership.save
+        @club_admin.destroy
+        redirect_params = { notice: t('club_admin.destroy_successful') }
+      else
+        redirect_params = { alert: t('club_admin.destroy_error') }
+      end
+    end
+
+    redirect_to club_path(@club_admin.club), redirect_params
+  end
+
   private
 
   # Returns sanitized parameters for the create action

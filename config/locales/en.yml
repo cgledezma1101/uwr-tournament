@@ -41,6 +41,8 @@ en:
   club_admin:
     confirm_remove: "Are you sure you want to remove '%{admin_name}' from the administrators of this club? (The user will still be a member)"
     destroy: "Remove administrator from club"
+    destroy_successful: "The administrator has been successfully removed"
+    destroy_error: "There was an error trying to remove the administrator"
   devise:
     confirmation:
       didnt_receive: "Didn't receive confirmation instructions?"
