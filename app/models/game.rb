@@ -4,8 +4,11 @@ class Game < ActiveRecord::Base
 
   has_many :scores, dependent: :destroy
 
-  has_many :player_games, inverse_of: :game, dependent: :destroy
-  has_many :players, through: :player_games
+  has_many :blue_player_games, class_name: 'PlayerGame', inverse_of: :game, dependent: :destroy
+  has_many :blue_players, through: :blue_player_games, source: :player
+
+  has_many :white_player_games, class_name: 'PlayerGame', inverse_of: :game, dependent: :destroy
+  has_many :white_players, through: :white_player_games, source: :player
 
   validates :blue_team, presence: true
   validates :white_team, presence: true
@@ -21,13 +24,6 @@ class Game < ActiveRecord::Base
     self.scores.joins{ player }
                .where{ player.team_id == my{self.blue_team_id} }
                .count
-  end
-
-  # Retrieves all the players that played for the blue team on this game
-  #
-  # @return [Array<Player>] The blue players
-  def blue_players
-    self.players.select{ |p| p.team_id == self.blue_team_id }
   end
 
   # Determines the amount of goals this player made on the match
@@ -48,13 +44,6 @@ class Game < ActiveRecord::Base
                .count
   end
 
-  # Retrieves all the players that played for the white team on this game
-  #
-  # @return [Array<Player>] The white players
-  def white_players
-    self.players.select{ |p| p.team_id == self.white_team_id }
-  end
-
   private
     # Validates that the blue and white teams are different
     def different_teams
@@ -67,10 +56,23 @@ class Game < ActiveRecord::Base
     def player_validation
       blues = self.blue_players.count
       whites = self.white_players.count
+
+      validate_players_in_team(self.blue_players, self.blue_team)
+      validate_players_in_team(self.white_players, self.white_team)
+
       unless (blues >= 6) &&
              (whites >= 6) &&
-             (blues + whites == self.players.size)
-        errors.add(:players, I18n('game.errors.players'))
+             (blues + whites == self.players.size) &&
+        errors.add(:players, I18n.t('game.errors.players'))
+      end
+    end
+
+    # Validates whether the players in the given list belong to the specified team. Adds an error for every instance that fails
+    def validate_players_in_team(players, team)
+      for player in players
+        if team.players.find_by(id: blue.id).nil?
+          errors.add(:players, I18n.t('game.errors.player_not_in_team', player_name: blue.name, team_name: team.name))
+        end
       end
     end
 end
