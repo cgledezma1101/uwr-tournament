@@ -161,6 +161,7 @@
     destroy: "Eliminar a un miembro del club"
     destroy_successful: "El usuario ha side eliminado del club"
   user:
+    edit: "Cambiar perfil"
     your_clubs: "Tus clubes"
     your_profile: "Tu perfil"
     your_stats: "Tus estadísticas"

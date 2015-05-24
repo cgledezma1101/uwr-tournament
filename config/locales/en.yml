@@ -161,6 +161,7 @@ en:
     destroy: "Remove member from club"
     destroy_successful: "The user has been removed from your club"
   user:
+    edit: "Edit profile"
     your_clubs: "Your clubs"
     your_profile: "Your profile"
     your_stats: "Your statistics"
