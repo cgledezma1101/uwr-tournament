@@ -1,0 +1,58 @@
+-#
+  Renders the main information regarding a user
+
+  Requires the following instance variables to be passed by the controller:
+
+  @param [User] user The user for which information will be shown
+.panel.panel-primary
+  .panel-heading
+    %h1.panel-title= @user.name
+  .panel-body
+    .membership-info.col-xs-12
+      .col-xs-6
+        .panel.panel-info
+          .panel-heading
+            .panel-title= t('user.your_clubs')
+          .panel-body
+            %table.table
+              %tr
+                %th.text-center= t('activerecord.attributes.club.name')
+                %th.text-center= t('club.team_count')
+              - for club in @user.all_clubs
+                %tr
+                  %td.text-center= link_to club.name, club_path(club)
+                  %td.text-center= club.teams.count
+      .col-xs-6
+        .panel.panel-info
+          .panel-heading
+            .panel-title= t('user.your_teams')
+          .panel-body
+            %table.table
+              %tr
+                %th.text-center= t('activerecord.attributes.team.name')
+                %th.text-center= t('statistics.played_won_short')
+              - for team in @user.all_teams
+                %tr
+                  %td.text-center= link_to team.name, team_path(team)
+                  %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+    .statistics.col-xs-12
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('user.your_stats')
+        .panel-body
+          %table.table
+            %tr
+              %td= t('statistics.games_played_long')
+              %td PH
+            %tr
+              %td= t('statistics.games_won_long')
+              %td PH
+            %tr
+              %td= t('statistics.games_tied_long')
+              %td PH
+            %tr
+              %td= t('statistics.games_lost_long')
+              %td PH
+            %tr
+              %td= t('statistics.goals_scored')
+              %td PH

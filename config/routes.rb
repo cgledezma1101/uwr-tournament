@@ -1,5 +1,5 @@
 UwrTournament::Application.routes.draw do
-  root 'games#new'
+  root 'public#home'
 
   devise_for :users
 
@@ -28,4 +28,6 @@ UwrTournament::Application.routes.draw do
   resources :user_clubs, only: [:destroy] do
     get 'confirm_destroy', on: :member
   end
+
+  resources :users, only: [:show]
 end

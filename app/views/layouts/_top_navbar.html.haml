@@ -6,11 +6,8 @@
     .container-fluid
       .collapse.navbar-collapse
         %ul.nav.navbar-nav
-          %li= link_to t('game.new'), root_path
-          %li= link_to t('game.index'), games_path
-          %li= link_to t('statistics.index'), statistics_path
-          %li
-            = link_to t('club.new'), '#', class: 'js-show-app-modal', data: { formlink: new_club_path, formid: "newClub" }
+          %li= link_to t('user.your_profile'), user_path(current_user)
+          %li= link_to t('club.create'), '#', class: 'js-show-app-modal', data: { formlink: new_club_path, formid: "newClub" }
           = yield :module_navbar
         %ul.nav.navbar-nav.navbar-right
           %li= link_to t('devise.session.log_out'), destroy_user_session_path

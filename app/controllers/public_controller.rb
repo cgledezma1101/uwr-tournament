@@ -1,6 +1,13 @@
 class PublicController < ApplicationController
   before_action :authenticate_user!
-  
+
+  # GET /home
+  #
+  # Redirects to the configured homw page
+  def home
+    redirect_to user_path(current_user)
+  end
+
   # GET /statistics
   #
   # Shows the statistics of the tournament so far
