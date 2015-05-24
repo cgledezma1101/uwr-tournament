@@ -10,8 +10,8 @@ class Game < ActiveRecord::Base
   has_many :white_player_games, class_name: 'PlayerGame', inverse_of: :game, dependent: :destroy
   has_many :white_players, through: :white_player_games, source: :player
 
-  validates :blue_team, presence: true
-  validates :white_team, presence: true
+  validates :blue_team, presence: true unless self.has_ended?
+  validates :white_team, presence: true unless self.has_ended?
   validates :date, presence: true
 
   validate :different_teams
@@ -74,5 +74,12 @@ class Game < ActiveRecord::Base
           errors.add(:players, I18n.t('game.errors.player_not_in_team', player_name: blue.name, team_name: team.name))
         end
       end
+    end
+
+    # Determines whether the game represented has already finished
+    #
+    # @return [Boolean] Whether the game is over
+    def has_ended?
+      self.winning_color != nil
     end
 end

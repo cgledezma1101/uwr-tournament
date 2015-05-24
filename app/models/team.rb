@@ -9,7 +9,7 @@ class Team < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { scope: :club }
   validates :club, presence: true
 
-  before_destroy :dependent_players_set_nil
+  before_destroy :dependents_set_nil
 
   # Returns all the games that this team has played
   #
@@ -80,7 +80,9 @@ class Team < ActiveRecord::Base
   private
 
   # Sets all of the player's associations to reference a 'nil' team, so they won't reference a dead record
-  def dependent_players_set_nil
+  def dependents_set_nil
     self.players.update_all(team_id: nil)
+    self.blue_games.update_all(blue_team_id: nil)
+    self.white_games.update_all(white_team_id: nil)
   end
 end
