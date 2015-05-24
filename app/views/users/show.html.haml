@@ -43,16 +43,16 @@
           %table.table
             %tr
               %td= t('statistics.games_played_long')
-              %td PH
+              %td= @user.played_games
             %tr
               %td= t('statistics.games_won_long')
-              %td PH
+              %td= @user.won_games
             %tr
               %td= t('statistics.games_tied_long')
-              %td PH
+              %td= @user.tied_games
             %tr
               %td= t('statistics.games_lost_long')
-              %td PH
+              %td= @user.lost_games
             %tr
               %td= t('statistics.goals_scored')
-              %td PH
+              %td= @user.total_goals

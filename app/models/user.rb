@@ -33,4 +33,43 @@ class User < ActiveRecord::Base
    def all_teams
      Team.joins{ players }.where{ players.user_id == my{self.id} }.order(:name)
    end
+
+   # Determines the amount of games this user has been involved in
+   #
+   # @return [Integer] Games the user has played
+   def played_games
+     Game.joins{ blue_players }.where{ blue_players.user_id == my{self.id} }.count +
+     Game.joins{ white_players }.where{ white_players.user_id == my{self.id} }.count
+   end
+
+   # The amount of games where the team the user was playing in won
+   #
+   # @return [Integer] Amount of games the user has won
+   def won_games
+     Game.joins{ blue_players }.where{ (blue_players.user_id == my{self.id}) & (winning_color == 'blue') }.count +
+     Game.joins{ white_players }.where{ (white_players.user_id == my{self.id}) & (winning_color == 'white') }.count
+   end
+
+   # The amount of games where the user participated and there was no victor
+   #
+   # @return [Integer] Amount of tied games where the user played
+   def tied_games
+     Game.joins{ blue_players }.where{ (blue_players.user_id == my{self.id}) & (winning_color == 'none') }.count +
+     Game.joins{ white_players }.where{ (white_players.user_id == my{self.id}) & (winning_color == 'none') }.count
+   end
+
+   # The amount of games where the team the user was playing on lost
+   #
+   # @return [Integer] Amount of games the user has lost
+   def lost_games
+     Game.joins{ blue_players }.where{ (blue_players.user_id == my{self.id}) & (winning_color == 'white') }.count +
+     Game.joins{ white_players }.where{ (white_players.user_id == my{self.id}) & (winning_color == 'blue') }.count
+   end
+
+   # Total goals scored by the user.
+   #
+   # @return [Integer] Amount of goals the user has scored
+   def total_goals
+     Score.joins{ player }.where{ player.user_id == my{self.id} }.count
+   end
 end
