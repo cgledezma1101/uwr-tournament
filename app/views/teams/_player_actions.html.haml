@@ -1,0 +1,5 @@
+-#
+  Renders a series of actions that can be performed a player of a particular team
+
+  @param [Player] player The association between the player and the team
+= link_to t('general.remove'), '#', class: 'js-show-app-modal', data: { formlink: confirm_destroy_player_path(player), formid: 'removePlayer' }
