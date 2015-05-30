@@ -3,7 +3,6 @@ User profile:
 
 Teams:
   - Show
-  - Remove players
   - Edit details
 
 - Tournaments:
