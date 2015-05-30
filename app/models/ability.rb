@@ -7,7 +7,9 @@ class Ability
     ###################################################
     ################## CLUBS ##########################
     ###################################################
-    can :show, Club do |club|
+    can :create, Club
+
+    can :read, Club do |club|
       user.clubs.where{ id == my{club.id} }.any? || user.administrated_clubs.where{ id == my{club.id} }.any?
     end
 
@@ -15,14 +17,9 @@ class Ability
       user.administrated_clubs.where{ id == my{club.id} }.any?
     end
 
-    can :new, Club
-    can :create, Club
-
     ###################################################
     ################## CLUB ADMINS ####################
     ###################################################
-    can :new, ClubAdmin
-
     can :create, ClubAdmin do |club_admin|
       can? :update, club_admin.club
     end
@@ -32,13 +29,32 @@ class Ability
     end
 
     ###################################################
+    ################## PLAYERS ########################
+    ###################################################
+    can :new, Player
+
+    can :create, Player do |player|
+      can? :update, player.team
+    end
+
+    ###################################################
     ################## TEAMS ##########################
     ###################################################
-    can :create, Team
+    alias_action :add_player, to: :update
+
+    can :new, Team
+
+    can :create, Team do |team|
+      can? :update, team.club
+    end
 
     can :read, Team do |team|
       user.players.where{ team_id == my{team.id} }.any? ||
       user.administrated_clubs.joins{ teams }.where{ teams.id == my{team.id} }.any?
+    end
+
+    can :update, Team do |team|
+      can? :update, team.club
     end
 
     can :destroy, Team do |team|
@@ -55,7 +71,7 @@ class Ability
     ###################################################
     ####################### USERS #####################
     ###################################################
-    can :show, User do |authorized_user|
+    can :read, User do |authorized_user|
       user == authorized_user
     end
   end

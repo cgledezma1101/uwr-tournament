@@ -10,8 +10,8 @@ class Game < ActiveRecord::Base
   has_many :white_player_games, class_name: 'PlayerGame', inverse_of: :game, dependent: :destroy
   has_many :white_players, through: :white_player_games, source: :player
 
-  validates :blue_team, presence: true unless self.has_ended?
-  validates :white_team, presence: true unless self.has_ended?
+  validates :blue_team, presence: true, unless: :has_ended?
+  validates :white_team, presence: true, unless: :has_ended?
   validates :date, presence: true
 
   validate :different_teams

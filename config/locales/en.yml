@@ -7,6 +7,8 @@ en:
         user: "Regular members"
       invitation:
         user: "Invitee's email"
+      player:
+        user: "Player"
       team:
         name: "Team name"
       user:
@@ -20,7 +22,7 @@ en:
   club:
     add_admin: "Add administrator"
     admin_create_success: "The administrator has been successfully added"
-    administrate: "Club management"
+    administrate: "Manage club"
     admins: "Administrators"
     create: "Create club"
     create_team: "Create team"
@@ -125,6 +127,10 @@ en:
     create_success: "The invitation has been sent successfully"
     new: "Invite player"
     only_one_per_club: "You can only send one invitation to a user"
+  player:
+    create_failure: "The player could not be added to the team"
+    create_success: "Player has been successfully added to the team"
+    new: "Add player"
   statistics:
     games_lost_short: "L"
     games_lost_long: "Games lost"
@@ -147,9 +153,13 @@ en:
     scoring_champions: "Scoring champions"
     played_won_short: "P(W)"
   team:
+    add_player: "Add player"
+    administrate: "Manage team"
     confirm_destroy: "Are you sure you want to delete the team '%{team_name}'?. This opperation won't affect the statistics that players have accumulated."
     destroy: "Remove team"
     destroy_successful: "The team has been successfully removed"
+    errors:
+      too_many_players: "A team can have up to 15 players"
     long_name: "Team: %{name} - Club: %{club_name}"
     new: "New team"
     participating_players: "Participating players"

@@ -7,6 +7,8 @@
         user: "Miembros regulares"
       invitation:
         user: "Correo electrónico del invitado"
+      player:
+        user: "Jugador"
       team:
         name: "Nombre del equipo"
       user:
@@ -125,6 +127,10 @@
     create_success: "La invitación se ha creado correctamente"
     new: "Invitar a un jugador"
     only_one_per_club: "Sólo puedes enviarle una invitación a cada usuario."
+  player:
+    create_failure: "No se pudo agregar el jugador al equipo"
+    create_success: "Se ha agregado al jugador al equipo"
+    new: "Agregar player"
   statistics:
     games_lost_short: "JP"
     games_lost_long: "Juegos perdidos"
@@ -147,9 +153,13 @@
     scoring_champions: "Líderes goleadores"
     played_won_short: "JJ(JG)"
   team:
+    add_player: "Agregar jugador"
+    administrate: "Administrar equipo"
     confirm_destroy: "Estas seguro que deseas eliminar el equipo '%{team_name}'?. Esta operación no afectará las estadísticas que los jugadores han acumulado."
     destroy: "Eliminar equipo"
     destroy_successful: "Se ha eliminado el equipo exitosamente"
+    errors:
+      too_many_players: "Un equipo puede tener hasta 15 jugadores"
     long_name: "Equipo: %{name} - Club: %{club_name}"
     new: "Nuevo equipo"
     participating_players: "Jugadores participantes"

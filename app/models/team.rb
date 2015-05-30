@@ -9,6 +9,8 @@ class Team < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { scope: :club }
   validates :club, presence: true
 
+  validate :player_count
+
   before_destroy :dependents_set_nil
 
   # Returns all the games that this team has played
@@ -77,6 +79,20 @@ class Team < ActiveRecord::Base
         end
   end
 
+  # Retrieves the User objects corresponding to the players of this team
+  #
+  # @return [Array<User>] User information of the team's players
+  def users
+    User.joins{ players }.where{ players.team_id == my{self.id} }.uniq.to_a
+  end
+
+  # Retrieves the user information of all the members of the club this team belongs to
+  #
+  # @return [Array<User>] User information of the members of this team's club
+  def club_members
+    self.club.members
+  end
+
   private
 
   # Sets all of the player's associations to reference a 'nil' team, so they won't reference a dead record
@@ -84,5 +100,12 @@ class Team < ActiveRecord::Base
     self.players.update_all(team_id: nil)
     self.blue_games.update_all(blue_team_id: nil)
     self.white_games.update_all(white_team_id: nil)
+  end
+
+  # Validates that the team has less than 15 players
+  def player_count
+    if self.players.count > 15
+      self.errors.add(:players, I18n.t('team.errors.too_many_players'))
+    end
   end
 end

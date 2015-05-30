@@ -13,14 +13,14 @@ class TeamsController < ApplicationController
     @game = Game.new
   end
 
-  # GET /teams/new
+  # GET /teams/new?club_id=:club_id
   #
   # Renders the form that will allow the creation of a new team for a club
   #
   # @param [Integer] club_id Identifier of the club to which the team will be added
   def new
     @club = Club.find(params[:club_id])
-    authorize! :edit, @club
+    authorize! :update, @club
 
     render 'teams/_new', layout: false
   end
@@ -29,13 +29,10 @@ class TeamsController < ApplicationController
   #
   # Allows for the creation of a new team, associating it to a club
   def create
-    club = Club.find(params[:team][:club_id])
-    authorize! :edit, club
-
     if(@team.save)
       redirect_to team_path(@team)
     else
-      redirect_to club_path(club), alert: t('team.standard_save_error')
+      redirect_to club_path(@team.club), alert: t('team.standard_save_error')
     end
   end
 
