@@ -8,7 +8,9 @@ class Player < ActiveRecord::Base
   has_many :games, through: :player_games
 
   validates :user, presence: true, uniqueness: { scope: :team }
-  validates :number, uniqueness: { scope: :team }, allow_blank: true
+  validates :number, presence: true
+
+  validate :number_amongst_active
 
   # Returns a special string that includes the name and number of the player
   #
@@ -34,5 +36,15 @@ class Player < ActiveRecord::Base
   # Email of the user associated with this player
   def email
     self.user.email
+  end
+
+  private
+
+  # Validates that the number of the player is unique amongst active players
+  def number_amongst_active
+    if(self.is_active &&
+      Player.where{ (team_id == my{self.team_id}) & (is_active == true) & (id != my{self.id}) & (number == my{self.number}) }.any?)
+      self.errors.add(:number, I18n.t('player.errors.number_uniqueness'))
+    end
   end
 end

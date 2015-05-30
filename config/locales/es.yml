@@ -135,6 +135,8 @@
     destroy: "Retirar jugador del equipo"
     destroy_failure: "Ha ocurrido un error al intentar retirar al jugador"
     destroy_success: "El jugador ha sido retirado del equipo"
+    errors:
+      number_uniqueness: "El número del jugador no debe ser único en el equipo"
     new: "Agregar player"
   statistics:
     games_lost_short: "JP"

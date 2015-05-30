@@ -135,6 +135,8 @@ en:
     destroy: "Remove player from team"
     destroy_failure: "There has been an error when trying to remove the player"
     destroy_success: "Player has been successfully removed from the team"
+    errors:
+      number_uniqueness: "The player's number must be unique within the team"
     new: "Add player"
   statistics:
     games_lost_short: "L"

@@ -82,8 +82,8 @@ class Team < ActiveRecord::Base
   # Retrieves the User objects corresponding to the players of this team
   #
   # @return [Array<User>] User information of the team's players
-  def users
-    User.joins{ players }.where{ players.team_id == my{self.id} }.uniq.to_a
+  def active_users
+    User.joins{ players }.where{ (players.team_id == my{self.id}) & (players.is_active == true) }.uniq.to_a
   end
 
   # Retrieves the user information of all the members of the club this team belongs to

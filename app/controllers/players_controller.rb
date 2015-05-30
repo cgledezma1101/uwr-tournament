@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
     @team = Team.find(params[:team_id])
     authorize! :update, @team
 
-    current_players = @team.users
+    current_players = @team.active_users
     clubs_members = @team.club_members
     @available_players = (clubs_members - current_players).sort{ |user0, user1| user0.name <=> user1.name }
 
@@ -22,6 +22,15 @@ class PlayersController < ApplicationController
   #
   # Adds a player to a team
   def create
+    existing_player = Player.find_by(user: @player.user, team: @player.team)
+
+    # Special case where a player is re-joining a team
+    if(!existing_player.nil?)
+      new_number = @player.number
+      @player = existing_player
+      @player.number = new_number
+    end
+
     @player.is_active = true
 
     if(@player.save)
