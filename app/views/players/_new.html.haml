@@ -18,4 +18,8 @@
           .col-sm-6
             = f.collection_select :user_id, @available_players, :id, :name, {}, { class: 'form-control' }
         .form-group
+          = f.label :number, class: 'col-sm-4 control-label'
+          .col-sm-6
+            = f.number_field :number, in: 1..99, step: 1, class: 'form-control'
+        .form-group
           = render 'public/modal_form_buttons', form: f

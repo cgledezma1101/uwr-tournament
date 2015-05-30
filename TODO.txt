@@ -3,7 +3,6 @@ User profile:
 
 Teams:
   - Show
-  - Add players
   - Remove players
   - Edit details
 

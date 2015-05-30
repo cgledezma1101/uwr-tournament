@@ -37,6 +37,10 @@ class Ability
       can? :update, player.team
     end
 
+    can :destroy, Player do |player|
+      can? :update, player.team
+    end
+
     ###################################################
     ################## TEAMS ##########################
     ###################################################

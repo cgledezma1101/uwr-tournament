@@ -93,6 +93,13 @@ class Team < ActiveRecord::Base
     self.club.members
   end
 
+  # Retrieves the players that are currently participating in the team
+  #
+  # @return [Array<Player>] Currently active players
+  def active_players
+    self.players.where{ is_active == true }.order(:number)
+  end
+
   private
 
   # Sets all of the player's associations to reference a 'nil' team, so they won't reference a dead record

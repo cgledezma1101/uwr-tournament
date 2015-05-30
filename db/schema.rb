@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524092604) do
+ActiveRecord::Schema.define(version: 20150530072635) do
 
   create_table "club_admins", force: true do |t|
     t.integer  "user_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150524092604) do
     t.integer "number"
     t.integer "team_id"
     t.integer "user_id"
+    t.boolean "is_active"
   end
 
   add_index "players", ["user_id"], name: "index_players_on_user_id"

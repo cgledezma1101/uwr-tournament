@@ -8,6 +8,7 @@
       invitation:
         user: "Correo electrónico del invitado"
       player:
+        number: "Número"
         user: "Jugador"
       team:
         name: "Nombre del equipo"
@@ -128,8 +129,12 @@
     new: "Invitar a un jugador"
     only_one_per_club: "Sólo puedes enviarle una invitación a cada usuario."
   player:
+    confirm_destroy: "Seguro que deseas retirar a '%{player_name}' del equipo %{team_name}"
     create_failure: "No se pudo agregar el jugador al equipo"
     create_success: "Se ha agregado al jugador al equipo"
+    destroy: "Retirar jugador del equipo"
+    destroy_failure: "Ha ocurrido un error al intentar retirar al jugador"
+    destroy_success: "El jugador ha sido retirado del equipo"
     new: "Agregar player"
   statistics:
     games_lost_short: "JP"

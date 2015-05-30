@@ -22,6 +22,8 @@ class PlayersController < ApplicationController
   #
   # Adds a player to a team
   def create
+    @player.is_active = true
+
     if(@player.save)
       redirect_params = { notice: t('player.create_success') }
     else
@@ -31,10 +33,31 @@ class PlayersController < ApplicationController
     redirect_to team_path(@player.team), redirect_params
   end
 
+  # GET /players/:id/confirm_destroy
+  #
+  # Shows a confirmation form that allows the removal of a player from a team
+  def confirm_destroy
+    render 'players/_confirm_destroy', layout: false
+  end
+
+  # DELETE /players/:id
+  #
+  # Allows the deletion of a player relationship
+  def destroy
+    @player.is_active = false
+    if(@player.save)
+      redirect_params = { notice: t('player.destroy_success') }
+    else
+      redirect_params = { alert: t('player.destroy_failure') }
+    end
+
+    redirect_to team_path(@player.team), redirect_params
+  end
+
   private
 
   # Sanitazes arguments for the creation of  aplayer
   def create_params
-    params.require(:player).permit(:team_id, :user_id)
+    params.require(:player).permit(:team_id, :user_id, :number)
   end
 end

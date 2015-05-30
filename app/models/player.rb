@@ -14,14 +14,21 @@ class Player < ActiveRecord::Base
   #
   # @return [String] A special name for the player
   def number_name
-    "#{self.number} - #{self.name}"
+    "#{self.number} - #{self.user.name}"
   end
 
   # Name of the user associated with this player
   #
   # @return [String] The name of the player
   def name
-    self.user.name
+    self.number_name
+  end
+
+  # Name of the team the player belongs to
+  #
+  # @return [String] The name of the associated team
+  def team_name
+    self.team.name
   end
 
   # Email of the user associated with this player

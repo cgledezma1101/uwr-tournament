@@ -1,5 +1,5 @@
 -#
   Renders a series of actions that can be performed on an administrator of a club
 
-  @param [ClubAdmin] club_admin The association that represents the administrator and the club
+  @param [ClubAdmin] club_admin The association between the administrator and the club
 = link_to t('general.remove'), '#', class: 'js-show-app-modal', data: { formlink: confirm_destroy_club_admin_path(club_admin), formid: 'removeAdmin' }

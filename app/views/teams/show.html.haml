@@ -10,7 +10,7 @@
     %h1.panel-title= t('team.long_name', name: @team.name, club_name: @club.name)
   .panel-body
     .col-xs-6
-      = render 'public/user_details_panel', users: @team.players, panel_title: t('team.players'), entity: @club
+      = render 'public/user_details_panel', users: @team.active_players, panel_title: t('team.players'), entity: @club, actions_renderer: create_player_actions_proc(@team)
     .col-xs-6
       .panel.panel-info
         .panel-heading

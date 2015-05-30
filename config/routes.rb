@@ -18,7 +18,9 @@ UwrTournament::Application.routes.draw do
     get 'decline', on: :member
   end
 
-  resources :players, only: [:new, :create]
+  resources :players, only: [:new, :create, :destroy] do
+    get 'confirm_destroy', on: :member
+  end
 
   resources :scores, only: [:create]
 

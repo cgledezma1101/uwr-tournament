@@ -8,6 +8,7 @@ en:
       invitation:
         user: "Invitee's email"
       player:
+        number: "Number"
         user: "Player"
       team:
         name: "Team name"
@@ -128,8 +129,12 @@ en:
     new: "Invite player"
     only_one_per_club: "You can only send one invitation to a user"
   player:
+    confirm_destroy: "Are you sure you want to remove '%{player_name}' from %{team_name}"
     create_failure: "The player could not be added to the team"
     create_success: "Player has been successfully added to the team"
+    destroy: "Remove player from team"
+    destroy_failure: "There has been an error when trying to remove the player"
+    destroy_success: "Player has been successfully removed from the team"
     new: "Add player"
   statistics:
     games_lost_short: "L"
