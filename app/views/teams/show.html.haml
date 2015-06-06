@@ -19,23 +19,20 @@
           %table.table
             %tr
               %td= t('statistics.games_played_long')
-              %td PH
+              %td= @team.games.count
             %tr
               %td= t('statistics.games_won_long')
-              %td PH
+              %td= @team.won_games.count
             %tr
               %td= t('statistics.games_lost_long')
-              %td PH
+              %td= @team.games.count - (@team.won_games.count + @team.tied_games.count)
             %tr
               %td= t('statistics.games_tied_long')
-              %td PH
+              %td= @team.tied_games.count
             %tr
               %td= t('statistics.goals_scored')
-              %td PH
+              %td= @team.goals
             %tr
               %td= t('statistics.goals_received')
-              %td PH
-            %tr
-              %td= t('statistics.top_scorer')
-              %td PH
+              %td= @team.goals_against
 = render 'teams/navbar', team: @team

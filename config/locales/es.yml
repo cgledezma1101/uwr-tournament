@@ -172,6 +172,7 @@
     confirm_destroy: "¿Estas seguro que deseas eliminar el equipo '%{team_name}'?. Esta operación no afectará las estadísticas que los jugadores han acumulado."
     destroy: "Eliminar equipo"
     destroy_successful: "Se ha eliminado el equipo exitosamente"
+    edit: "Editar información"
     errors:
       too_many_players: "Un equipo puede tener hasta 15 jugadores"
     long_name: "Equipo: %{name} - Club: %{club_name}"

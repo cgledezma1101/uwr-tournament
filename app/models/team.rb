@@ -22,7 +22,7 @@ class Team < ActiveRecord::Base
 
   # Determines how many goals the team has made
   #
-  # @return [Integer] The amount of goals th team has made
+  # @return [Integer] The amount of goals the team has made
   def goals
     Score.joins{ game }
          .joins{ player }
