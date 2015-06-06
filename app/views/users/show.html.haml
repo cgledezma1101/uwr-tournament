@@ -6,7 +6,7 @@
   @param [User] user The user for which information will be shown
 .panel.panel-primary
   .panel-heading
-    %h1.panel-title= @user.name
+    %h1.panel-title= "#{@user.name} (#{@user.email})"
   .panel-body
     .membership-info.col-xs-12
       .col-xs-6

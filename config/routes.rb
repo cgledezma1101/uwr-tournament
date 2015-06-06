@@ -1,7 +1,7 @@
 UwrTournament::Application.routes.draw do
   root 'public#home'
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   get '/statistics', to: 'public#statistics'
 

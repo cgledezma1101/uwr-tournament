@@ -1,8 +1,13 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable
+   devise :omniauthable, omniauth_providers: [:facebook]
 
    has_many :players
 
@@ -16,7 +21,7 @@ class User < ActiveRecord::Base
    has_many :pending_clubs, through: :invitations, source: :club
 
    validates :name, presence: true
-   validates :email, presence: true
+   validates :email, presence: true, uniqueness: true
 
    # An ordered collection of the teams this user belongs to, which includes administrated and membership clubs
    #
@@ -71,5 +76,16 @@ class User < ActiveRecord::Base
    # @return [Integer] Amount of goals the user has scored
    def total_goals
      Score.joins{ player }.where{ player.user_id == my{self.id} }.count
+   end
+
+   # Allows a user to be logged in using an OmniAuth provider
+   #
+   # @param [Hash] auth Authentication information returned by the provider. This must contain the following keys: :name, :email, :uid, :provider
+   def self.from_omniauth(auth)
+     where(provider: auth[:provider], uid: auth[:uid]).first_or_create do |user|
+       user.email = auth[:email]
+       user.name = auth[:name]
+       user.password = Devise.friendly_token[0,20]
+     end
    end
 end

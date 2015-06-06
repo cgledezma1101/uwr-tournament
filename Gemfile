@@ -33,6 +33,7 @@ gem 'haml-rails'
 gem 'squeel'
 gem 'devise'
 gem 'cancancan', '~> 1.10'
+gem 'omniauth-facebook'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

@@ -68,6 +68,7 @@ en:
       facebook: "Facebook"
       google: "Google"
       sign_in: "Sign in with %{provider}"
+      sign_in_error: "Sign in error"
     password:
       change: "Change my password"
       confirm_new: "Confirm new password"
