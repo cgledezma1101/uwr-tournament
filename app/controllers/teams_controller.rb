@@ -60,10 +60,41 @@ class TeamsController < ApplicationController
     redirect_to club_path(@team.club), notice: t('team.destroy_successful')
   end
 
+  # GET /teams/:id/edit
+  #
+  # Presents a form that allows the modification of the teams information
+  #
+  # @param [Integer] id Identifier of the team to be edited
+  def edit
+    @club = @team.club
+    render 'teams/_new', layout: false
+  end
+
+  # POST /teams/:id
+  #
+  # Allows the update of the teams information
+  #
+  # @param [Integer] id Identifier of the team to be updated
+  # @param [String] team[name] New name to give to the team
+  def update
+    if(@team.update_attributes(update_params))
+      redirect_params = { notice: t('team.update_success') }
+    else
+      redirect_params = { alert: t('team.update_failure') }
+    end
+
+    redirect_to team_path(@team), redirect_params
+  end
+
   private
 
-  # Parameter sanitazer for the create method
+  # Parameter sanitizer for the create method
   def create_params
     params.require(:team).permit(:name, :club_id)
+  end
+
+  # Parameter sanitizer for the update method
+  def update_params
+    params.require(:team).permit(:name)
   end
 end

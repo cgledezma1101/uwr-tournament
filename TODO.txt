@@ -1,7 +1,3 @@
-Teams:
-  - Show
-  - Edit details
-
 - Tournaments:
   - Create
   - Invite

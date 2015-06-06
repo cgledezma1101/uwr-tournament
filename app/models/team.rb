@@ -6,7 +6,7 @@ class Team < ActiveRecord::Base
 
   belongs_to :club
 
-  validates :name, presence: true, uniqueness: { scope: :club }
+  validates :name, presence: true, uniqueness: { scope: :club }, allow_blank: false
   validates :club, presence: true
 
   validate :player_count
