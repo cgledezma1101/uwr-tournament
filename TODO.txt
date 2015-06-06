@@ -1,7 +1,3 @@
-User profile:
-  - OmniAuth
-  - Edit
-
 Teams:
   - Show
   - Edit details
