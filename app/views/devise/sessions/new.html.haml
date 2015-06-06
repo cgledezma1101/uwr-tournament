@@ -9,8 +9,9 @@
           = t('devise.omniauth.facebook')
     %hr
     .form-group
-      %button.col-sm-offset-2.col-sm-6.btn-lg.btn-danger.text-center
-        = t('devise.omniauth.google')
+      = link_to user_omniauth_authorize_path(:google_oauth2) do
+        %button.col-sm-offset-2.col-sm-6.btn-lg.btn-danger.text-center
+          = t('devise.omniauth.google')
     %hr
     .form-group.field
       = f.label :email, class: 'col-sm-2 control-label'

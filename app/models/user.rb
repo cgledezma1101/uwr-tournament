@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
          :rememberable,
          :trackable,
          :validatable
-   devise :omniauthable, omniauth_providers: [:facebook]
+   devise :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
 
    has_many :players
 
@@ -80,11 +80,11 @@ class User < ActiveRecord::Base
 
    # Allows a user to be logged in using an OmniAuth provider
    #
-   # @param [Hash] auth Authentication information returned by the provider. This must contain the following keys: :name, :email, :uid, :provider
+   # @param [Hash] auth Authentication information returned by the OmniAuth provider
    def self.from_omniauth(auth)
-     where(provider: auth[:provider], uid: auth[:uid]).first_or_create do |user|
-       user.email = auth[:email]
-       user.name = auth[:name]
+     where(email: auth.info.email).first_or_create do |user|
+       user.email = auth.info.email
+       user.name = auth.info.name
        user.password = Devise.friendly_token[0,20]
      end
    end

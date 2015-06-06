@@ -1,13 +1,18 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    auth =
-    {
-      name: request.env['omniauth.auth'].info.name,
-      email: request.env['omniauth.auth'].info.email,
-      uid: request.env['omniauth.auth'].uid,
-      provider: request.env['omniauth.auth'].provider
-    }
+    sign_in_user(request.env['omniauth.auth'])
+  end
 
+  def google_oauth2
+    sign_in_user(request.env['omniauth.auth'])
+  end
+
+  private
+
+  # Standard way of signing in from an OmniAuth response
+  #
+  # @param Hash auth Hash returned by OmniAuth when the provider responded successfully
+  def sign_in_user(auth)
     user = User.from_omniauth(auth)
     if(user.persisted?)
       sign_in_and_redirect user

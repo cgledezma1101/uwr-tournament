@@ -68,6 +68,7 @@
       facebook: "Facebook"
       google: "Google"
       sign_in: "Iniciar sesión con %{provider}"
+      sign_in_error: "Error al iniciar sesión"
     password:
       change: "Cambiar mi contraseña"
       confirm_new: "Confirmar la nueva contraseña"
