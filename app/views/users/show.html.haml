@@ -22,6 +22,22 @@
                 %tr
                   %td.text-center= link_to club.name, club_path(club)
                   %td.text-center= club.teams.count
+            - if @user.invitations.any?
+              .panel.panel-warning
+                .panel-heading
+                  .panel-title= t('invitation.pending')
+                .panel-body
+                  %table.table
+                    %tr
+                      %th.text-center= t('activerecord.attributes.club.name')
+                      %th.text-center= t('general.actions')
+                    - for invitation in @user.invitations
+                      %tr
+                        %td.text-center= invitation.club_name
+                        %td.text-center
+                          = link_to t('invitation.accept'), accept_invitation_path(invitation), method: :post
+                          |
+                          = link_to t('invitation.decline'), decline_invitation_path(invitation), method: :post
       .col-xs-6
         .panel.panel-info
           .panel-heading

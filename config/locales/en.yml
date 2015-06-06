@@ -122,12 +122,18 @@ en:
     score: "Score"
     select_all: "Select all"
     update: "Update"
-  invitations:
+  invitation:
+    accept: "Join"
+    accept_error: "There has been an error, we couldn't join you to the club"
+    accepted: "You are now a member of %{club_name}!"
+    decline: "Decline"
+    declined: "You have declined the invitation to join %{club_name}"
     cant_invite_members: "Can't send an invitation to a user that's already a member."
     create_failure: "There has been an error sending the invitation. Please try again."
     create_success: "The invitation has been sent successfully"
     new: "Invite player"
     only_one_per_club: "You can only send one invitation to a user"
+    pending: "Pending invitations"
   player:
     confirm_destroy: "Are you sure you want to remove '%{player_name}' from %{team_name}"
     create_failure: "The player could not be added to the team"

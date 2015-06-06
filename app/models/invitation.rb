@@ -8,6 +8,13 @@ class Invitation < ActiveRecord::Base
   validate :one_invitation_per_club
   validate :cant_invite_members
 
+  # Determines the name of the club that generated the invitation
+  #
+  # @return [String] Name of the associated club
+  def club_name
+    self.club.name
+  end
+
   private
 
   # Validates the uniqueness of the user in the scope of the club
@@ -16,7 +23,7 @@ class Invitation < ActiveRecord::Base
       duplicate = Invitation.find_by(club: self.club, user: self.user)
 
       if !duplicate.nil? && duplicate.id != self.id
-        self.errors.add(:user, I18n.t('invitations.only_one_per_club'))
+        self.errors.add(:user, I18n.t('invitation.only_one_per_club'))
       end
     end
   end
@@ -27,7 +34,7 @@ class Invitation < ActiveRecord::Base
       is_member = self.club.members.any?{ |member| member.id == self.user.id }
 
       if is_member
-        self.errors.add(:user, I18n.t('invitations.cant_invite_members'))
+        self.errors.add(:user, I18n.t('invitation.cant_invite_members'))
       end
     end
   end

@@ -11,4 +11,11 @@ class UserClub < ActiveRecord::Base
   def user_name
     self.user.name
   end
+
+  # The name of the club associated
+  #
+  # @return [String] Name of the associated club
+  def club_name
+    self.club.name
+  end
 end

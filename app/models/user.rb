@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
    has_many :user_clubs, dependent: :destroy
    has_many :clubs, through: :user_clubs
 
-   has_many :club_admins
+   has_many :club_admins, dependent: :destroy
    has_many :administrated_clubs, through: :club_admins, source: :club
 
-   has_many :invitations
+   has_many :invitations, dependent: :destroy
    has_many :pending_clubs, through: :invitations, source: :club
 
    validates :name, presence: true

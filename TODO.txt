@@ -1,4 +1,5 @@
 User profile:
+  - OmniAuth
   - Edit
 
 Teams:

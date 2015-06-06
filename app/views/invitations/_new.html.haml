@@ -6,7 +6,7 @@
   @param [Invitation] invitation Object containing any information that should be rendered on the form
 #newInvitation
   .modal-header
-    %h1.modal-title= t('invitations.new')
+    %h1.modal-title= t('invitation.new')
   .modal-body
     = form_for @invitation do |f|
       = f.hidden_field :club_id, value: @invitation.club_id

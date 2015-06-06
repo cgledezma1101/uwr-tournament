@@ -26,17 +26,40 @@ class InvitationsController < ApplicationController
     end
 
     if(invitation.valid?)
-      redirect_to club_path(club), notice: t('invitations.create_success')
+      redirect_to club_path(club), notice: t('invitation.create_success')
     else
-      redirect_to club_path(club), alert: t('invitations.create_failure')
+      redirect_to club_path(club), alert: t('invitation.create_failure')
     end
   end
 
-  # GET /invitations/:id/accept
+  # POST /invitations/:id/accept
+  #
+  # Allows a user, who has been previously invited, to join a club
+  #
+  # @param [Integer] id Identifier of the invitation that's being accepted
   def accept
+    invitation = Invitation.find(params[:id])
+    authorize! :accept, invitation
+
+    membership = UserClub.new(club: invitation.club, user: invitation.user)
+    if(membership.save)
+      invitation.destroy
+      redirect_to club_path(membership.club), notice: I18n.t('invitation.accepted', club_name: membership.club_name)
+    else
+      redirect_to user_path(invitation.user), alert: I18n.t('invitation.accept_error')
+    end
   end
 
-  # GET /invitations/:id/decline
+  # POST /invitations/:id/decline
+  #
+  # Allows a user to reject an invitation that has been produced for her, by a particular club
+  #
+  # @param [Integer] id Identifier of the invitation being rejected
   def decline
+    invitation = Invitation.find(params[:id])
+    authorize! :decline, invitation
+
+    invitation.destroy
+    redirect_to user_path(invitation.user), notice: t('invitation.declined', club_name: invitation.club_name)
   end
 end

@@ -14,8 +14,8 @@ UwrTournament::Application.routes.draw do
   resources :games, only: [:create, :new, :show, :index]
 
   resources :invitations, only: [:new, :create] do
-    get 'accept', on: :member
-    get 'decline', on: :member
+    post 'accept', on: :member
+    post 'decline', on: :member
   end
 
   resources :players, only: [:new, :create, :destroy] do

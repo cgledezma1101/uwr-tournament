@@ -10,7 +10,9 @@ class Ability
     can :create, Club
 
     can :read, Club do |club|
-      user.clubs.where{ id == my{club.id} }.any? || user.administrated_clubs.where{ id == my{club.id} }.any?
+      user.clubs.where{ id == my{club.id} }.any? ||
+      user.administrated_clubs.where{ id == my{club.id} }.any? ||
+      user.pending_clubs.where{ id == my{club.id} }.any?
     end
 
     can :update, Club do |club|
@@ -26,6 +28,17 @@ class Ability
 
     can :destroy, ClubAdmin do |club_admin|
       can? :update, club_admin.club
+    end
+
+    ###################################################
+    ################## INVITATIONS ####################
+    ###################################################
+    can :accept, Invitation do |invitation|
+      user == invitation.user
+    end
+
+    can :decline, Invitation do |invitation|
+      user == invitation.user
     end
 
     ###################################################
