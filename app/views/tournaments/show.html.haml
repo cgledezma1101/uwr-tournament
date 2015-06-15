@@ -27,8 +27,8 @@
           %table.table
             %tr
               %th.text-center= t('activerecord.attributes.team.name')
-              %th.text-center= t('team.player_count')
+              %th.text-center= t('statistics.played_won_short')
             - for team in @tournament.teams
               %tr
                 %td.text-center= team.name
-                %td.text-center= team.players.count
+                %td.text-center= "#{team.games.count}(#{team.won_games.count})"
