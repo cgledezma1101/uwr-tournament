@@ -4,6 +4,9 @@ class Team < ActiveRecord::Base
   has_many :blue_games, class_name: 'Game', foreign_key: :blue_team_id, dependent: :destroy
   has_many :white_games, class_name: 'Game', foreign_key: :white_team_id, dependent: :destroy
 
+  has_many :tournament_teams, dependent: :destroy
+  has_many :tournaments, through: :tournament_teams
+
   belongs_to :club
 
   validates :name, presence: true, uniqueness: { scope: :club }, allow_blank: false

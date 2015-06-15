@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
    has_many :invitations, dependent: :destroy
    has_many :pending_clubs, through: :invitations, source: :club
 
+   has_many :tournament_admins, dependent: :destroy
+   has_many :administrated_tournaments, through: :tournament_admins, source: :tournament
+
    validates :name, presence: true
    validates :email, presence: true, uniqueness: true
 

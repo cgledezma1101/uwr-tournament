@@ -183,6 +183,8 @@
     statistics: "Estadísticas del equipo"
     update_failure: "Ha ocurrido un error al actualizar los datos del equipo"
     update_success: "Se han actualizado los datos del equipo"
+  tournament:
+    team_uninvited: "El club al que este equipo pertence no ha sido invitado al torneo"
   user_club:
     confirm_remove: "¿Estas seguro que deseas eliminar a '%{user_name}' del club?"
     destroy: "Eliminar a un miembro del club"
