@@ -2,7 +2,7 @@ en:
   activerecord:
     attributes:
       club:
-        name: "Club name"
+        name: "Club's name"
       club_admin:
         user: "Regular members"
       invitation:
@@ -11,7 +11,11 @@ en:
         number: "Number"
         user: "Player"
       team:
-        name: "Team name"
+        name: "Team's name"
+      tournament:
+        end_date: "End date"
+        name: "Tournament's name"
+        start_date: "Start date"
       user:
         email: "Email"
         name: "Name"
@@ -178,13 +182,20 @@ en:
     long_name: "Team: %{name} - Club: %{club_name}"
     new: "New team"
     participating_players: "Participating players"
+    player_count: "# of players"
     players: "Players"
     standard_save_error: "There was a problem saving the team, please try again"
     statistics: "Team statistics"
     update_failure: "There was an error when trying to update the team's details"
     update_success: "Team details updated successfully"
   tournament:
+    clubs: "Invited clubs"
+    create: "Start tournament"
+    create_error: "There was an error creating the tournament. Please verify all the details and try again"
+    date_mismatch: "The start date must come before the end date"
+    details: "Tournament details"
     team_uninvited: "The club this team belongs to hasn't been invited to the tournament"
+    teams: "Participating teams"
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"
     destroy: "Remove member from club"

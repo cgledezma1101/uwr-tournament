@@ -8,6 +8,7 @@
         %ul.nav.navbar-nav
           %li= link_to t('user.your_profile'), user_path(current_user)
           %li= link_to t('club.create'), '#', class: 'js-show-app-modal', data: { formlink: new_club_path, formid: "newClub" }
+          %li= link_to t('tournament.create'), '#', class: 'js-show-app-modal', data: { formlink: new_tournament_path, formid: "tournamentDetails" }
           = yield :module_navbar
         %ul.nav.navbar-nav.navbar-right
           %li= link_to t('devise.session.log_out'), destroy_user_session_path

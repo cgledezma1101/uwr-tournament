@@ -11,4 +11,12 @@ class Tournament < ActiveRecord::Base
   validates :name, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validate :date_range
+
+  private
+
+  # Validates that the start date of the tournament is before the end date
+  def date_range
+    self.errors.add(:start_date, I18n.t('tournament.date_mismatch')) if start_date > end_date
+  end
 end

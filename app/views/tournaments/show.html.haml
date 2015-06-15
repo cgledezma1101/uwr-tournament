@@ -1,0 +1,34 @@
+-#
+  Renders the main information regarding a tournament
+
+  Requires the following instance variables to be passed by the controller:
+
+  @param [Tournament] tournament The tournament for which information will be shown
+.panel.panel-primary
+  .panel-heading
+    %h1.panel-title= "#{@tournament.name} (#{@tournament.start_date}" + (@tournament.start_date == @tournament.end_date ? "" : " - #{@tournament.end_date}") + ")"
+  .panel-body
+    .col-xs-6
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('tournament.clubs')
+        .panel-body
+          %table.table
+            %tr
+              %th.text-center= t('activerecord.attributes.club.name')
+            - for club in @tournament.clubs
+              %tr
+                %td.text-center= club.name
+    .col-xs-6
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('tournament.teams')
+        .panel-body
+          %table.table
+            %tr
+              %th.text-center= t('activerecord.attributes.team.name')
+              %th.text-center= t('team.player_count')
+            - for team in @tournament.teams
+              %tr
+                %td.text-center= team.name
+                %td.text-center= team.players.count
