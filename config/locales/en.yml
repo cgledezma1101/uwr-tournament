@@ -2,16 +2,22 @@ en:
   activerecord:
     attributes:
       club:
-        name: "Club name"
+        name: "Club's name"
       club_admin:
         user: "Regular members"
+      club_join_request:
+        club: "Club"
       invitation:
         user: "Invitee's email"
       player:
         number: "Number"
         user: "Player"
       team:
-        name: "Team name"
+        name: "Team's name"
+      tournament:
+        end_date: "End date"
+        name: "Tournament's name"
+        start_date: "Start date"
       user:
         email: "Email"
         name: "Name"
@@ -48,6 +54,14 @@ en:
     destroy: "Remove administrator from club"
     destroy_successful: "The administrator has been successfully removed"
     destroy_error: "There was an error trying to remove the administrator"
+  club_join_request:
+    accept_failure: "There was an error accepting the membership. Please try again."
+    accept_success: "%{name} is now a member of the club"
+    create_fail: "There was an error sending the membership request. Please try again"
+    create_success: "A membership request has been sent to the club"
+    declined: "%{user_name}'s membership request has been declined"
+    new: "Join a club"
+    pending: "Pending membership requests"
   devise:
     confirmation:
       didnt_receive: "Didn't receive confirmation instructions?"
@@ -107,6 +121,7 @@ en:
     scoring_player: "Scoring player"
     white_team: "White team"
   general:
+    accept: "Accept"
     actions: "Actions"
     application_title: "UWR Tournaments"
     back: "Back"
@@ -114,6 +129,7 @@ en:
     cancel: "Cancel"
     close: "Close"
     create: "Create"
+    decline: "Decline"
     error: "Error"
     errors: "Errors"
     modal_load_error: "There was an error processing your request. Please try again"
@@ -127,9 +143,9 @@ en:
     accept: "Join"
     accept_error: "There has been an error, we couldn't join you to the club"
     accepted: "You are now a member of %{club_name}!"
-    decline: "Decline"
     declined: "You have declined the invitation to join %{club_name}"
     cant_invite_members: "Can't send an invitation to a user that's already a member."
+    cant_invite_requested: "This user already has a pending membership request"
     create_failure: "There has been an error sending the invitation. Please try again."
     create_success: "The invitation has been sent successfully"
     new: "Invite player"
@@ -178,11 +194,20 @@ en:
     long_name: "Team: %{name} - Club: %{club_name}"
     new: "New team"
     participating_players: "Participating players"
+    player_count: "# of players"
     players: "Players"
     standard_save_error: "There was a problem saving the team, please try again"
     statistics: "Team statistics"
     update_failure: "There was an error when trying to update the team's details"
     update_success: "Team details updated successfully"
+  tournament:
+    clubs: "Invited clubs"
+    create: "Start tournament"
+    create_error: "There was an error creating the tournament. Please verify all the details and try again"
+    date_mismatch: "The start date must come before the end date"
+    details: "Tournament details"
+    team_uninvited: "The club this team belongs to hasn't been invited to the tournament"
+    teams: "Participating teams"
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"
     destroy: "Remove member from club"

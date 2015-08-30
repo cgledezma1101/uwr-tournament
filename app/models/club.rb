@@ -10,6 +10,12 @@ class Club < ActiveRecord::Base
   has_many :invitations, dependent: :destroy
   has_many :invited_users, through: :invitations, source: :user
 
+  has_many :club_join_requests, dependent: :destroy
+  has_many :user_join_requests, through: :club_join_requests, source: :user
+
+  has_many :tournament_invitations, dependent: :destroy
+  has_many :tournaments, through: :tournament_invitations
+
   # This validation needs to be suppressed until the bug with creating associations using '<<' is fixed
   # validate :has_one_admin
   validates :name, presence: true, uniqueness: true, allow_blank: false

@@ -9,6 +9,11 @@ UwrTournament::Application.routes.draw do
     get 'confirm_destroy', on: :member
   end
 
+  resources :club_join_requests, only: [:new, :create] do
+    get 'accept', on: :member
+    get 'decline', on: :member
+  end
+
   resources :clubs, only: [:show, :new, :create, :edit, :update]
 
   resources :games, only: [:create, :new, :show, :index]
@@ -28,6 +33,8 @@ UwrTournament::Application.routes.draw do
     get 'confirm_destroy', on: :member
     get 'players', on: :member
   end
+
+  resources :tournaments, only: [:new, :create, :show]
 
   resources :user_clubs, only: [:destroy] do
     get 'confirm_destroy', on: :member

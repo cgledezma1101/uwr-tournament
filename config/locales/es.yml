@@ -5,6 +5,8 @@
         name: "Nombre del club"
       club_admin:
         user: "Miembros regulares"
+      club_join_request:
+        club: "Club"
       invitation:
         user: "Correo electrónico del invitado"
       player:
@@ -12,6 +14,10 @@
         user: "Jugador"
       team:
         name: "Nombre del equipo"
+      tournament:
+        end_date: "Fecha de fin"
+        name: "Nombre del torneo"
+        start_date: "Fecha de inicio"
       user:
         email: "Correo electrónico"
         name: "Nombre"
@@ -48,6 +54,14 @@
     destroy: "Eliminar administrador del club"
     destroy_successful: "El administrador ha sido eliminado con éxito"
     destroy_error: "Ocurrió un error tratando de eliminar al administrador"
+  club_join_request:
+    accept_failure: "Ocurrió un error aceptando la membresía. Por favor intenta ede nuevo."
+    accept_success: "%{name} es ahora miembro del club"
+    create_fail: "Ha ocurrido un error al enviar la solicitud de membresía. Intenta de nuevo"
+    create_success: "Se ha enviado una solicitud de membresía al grupo"
+    declined: "Se ha rechazado la solicitud de membresía de %{user_name}"
+    new: "Unirse a un club"
+    pending: "Solicitudes de membresía"
   devise:
     confirmation:
       didnt_receive: "¿No recibiste el correo de confirmación?"
@@ -107,6 +121,7 @@
     scoring_player: "Jugador que anotó"
     white_team: "Equipo blanco"
   general:
+    accept: "Aceptar"
     actions: "Acciones"
     application_title: "Torneos de Rugby Subacutico"
     back: "Regresar"
@@ -114,6 +129,7 @@
     cancel: "Cancelar"
     close: "Cerrar"
     create: "Crear"
+    decline: "Rechazar"
     error: "Error"
     errors: "Errores"
     modal_load_error: "Hubo un error procesando tu petición. Por favor inténtalo de nuevo"
@@ -127,9 +143,9 @@
     accept: "Aceptar"
     accept_error: "Ocurrió un error, y no pudimos unirte al club"
     accepted: "¡Ahora eres miembro del club %{club_name}!"
-    decline: "Rechazar"
     declined: "Rechazaste la invitación para unirte a %{club_name}"
     cant_invite_members: "No puedes enviar invitaciones a usuarios que ya son miembros del club"
+    cant_invite_requested: "Este usuario tiene una solicitud de membresia pendiente"
     create_failure: "Ha ocurrido un error al enviar la invitación. Por favor inténtalo de nuevo."
     create_success: "La invitación se ha creado correctamente"
     new: "Invitar a un jugador"
@@ -178,11 +194,20 @@
     long_name: "Equipo: %{name} - Club: %{club_name}"
     new: "Nuevo equipo"
     participating_players: "Jugadores participantes"
+    player_count: "# de jugadores"
     players: "Jugadores"
     standard_save_error: "Hubo un error guardando el equipo. Por favor inténtalo de nuevo."
     statistics: "Estadísticas del equipo"
     update_failure: "Ha ocurrido un error al actualizar los datos del equipo"
     update_success: "Se han actualizado los datos del equipo"
+  tournament:
+    clubs: "Clubes invitados"
+    create: "Iniciar torneo"
+    create_error: "Hubo un error al crear el torneo. Por favor verifica todos los detalles e intenta de nuevo"
+    date_mismatch: "La fecha de inicio debe ser antes de la fecha de fin"
+    details: "Detalles del torneo"
+    team_uninvited: "El club al que este equipo pertence no ha sido invitado al torneo"
+    teams: "Equipos participantes"
   user_club:
     confirm_remove: "¿Estas seguro que deseas eliminar a '%{user_name}' del club?"
     destroy: "Eliminar a un miembro del club"

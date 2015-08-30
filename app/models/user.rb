@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
    has_many :invitations, dependent: :destroy
    has_many :pending_clubs, through: :invitations, source: :club
 
+   has_many :club_join_requests, dependent: :destroy
+   has_many :pending_join_requests, through: :club_join_requests, source: :club
+
+   has_many :tournament_admins, dependent: :destroy
+   has_many :administrated_tournaments, through: :tournament_admins, source: :tournament
+
    validates :name, presence: true
    validates :email, presence: true, uniqueness: true
 
@@ -27,7 +33,7 @@ class User < ActiveRecord::Base
    #
    # @return [Array<Club>] All the clubs this user belongs to
    def all_clubs
-     (self.clubs.includes(:teams).to_a + self.administrated_clubs.includes(:teams).to_a).uniq.sort do |club0, club|
+     (self.clubs.includes(:teams).to_a + self.administrated_clubs.includes(:teams).to_a).uniq.sort do |club0, club1|
        club0.name <=> club1.name
      end
    end

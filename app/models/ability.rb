@@ -31,6 +31,19 @@ class Ability
     end
 
     ###################################################
+    ################## CLUB JOIN REQUESTS #############
+    ###################################################
+    can :new, ClubJoinRequest
+    can :create, ClubJoinRequest
+
+    can :accept, ClubJoinRequest do |club_join_request|
+      user.administrated_clubs.where{ id == my{club_join_request.club_id} }.any?
+    end
+
+    can :decline, ClubJoinRequest do |club_join_request|
+      user.administrated_clubs.where{ id == my{club_join_request.club_id} }.any?
+    end
+    ###################################################
     ################## INVITATIONS ####################
     ###################################################
     can :accept, Invitation do |invitation|
@@ -76,6 +89,17 @@ class Ability
 
     can :destroy, Team do |team|
       can? :update, team.club
+    end
+
+    ###################################################
+    ################## TOURNAMENTS ####################
+    ###################################################
+    can :create, Tournament
+
+    can :read, Tournament do |tournament|
+      user.administrated_tournaments.where{ id == my{tournament.id} }.any? ||
+      user.joins{ clubs.tournaments }.where{ clubs.tournaments.id == my{tournament.id} }.any? ||
+      user.joins{ administrated_clubs.tournaments }.where{ administrated_clubs.tournaments.id == my{tournament.id} }.any?
     end
 
     ###################################################

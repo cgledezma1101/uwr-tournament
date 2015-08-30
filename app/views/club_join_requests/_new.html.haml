@@ -1,0 +1,19 @@
+-#
+  Renders the form needed to request to join a club. This is meant to be rendered inside a div with the modal-dialog class applied to it
+
+  Requires the following instance variables to be initialized:
+
+  @param [Array<Club>] available_clubs An array containing the list of clubs the user can join to
+  @param [ClubJoinRequest] club_join_request An instance of a club join request, which will be used to produce the form
+#newClubJoinRequest
+  .modal-header
+    %h2.modal-title= t('club_join_request.new')
+  .modal-body
+    = form_for @club_join_request do |f|
+      .form-horizontal
+        .form-group
+          = f.label :club, class: 'col-sm-4 control-label'
+          .col-sm-6
+            = f.collection_select :club_id, @available_clubs, :id, :name, {}, { class: 'form-control' }
+        .form-group
+          = render 'public/modal_form_buttons', form: f
