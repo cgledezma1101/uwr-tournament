@@ -11,9 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615093038) do
+ActiveRecord::Schema.define(version: 20150830035504) do
 
   create_table "club_admins", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "club_join_requests", force: true do |t|
     t.integer  "user_id"
     t.integer  "club_id"
     t.datetime "created_at"

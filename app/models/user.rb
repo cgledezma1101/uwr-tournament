@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
    #
    # @return [Array<Club>] All the clubs this user belongs to
    def all_clubs
-     (self.clubs.includes(:teams).to_a + self.administrated_clubs.includes(:teams).to_a).uniq.sort do |club0, club|
+     (self.clubs.includes(:teams).to_a + self.administrated_clubs.includes(:teams).to_a).uniq.sort do |club0, club1|
        club0.name <=> club1.name
      end
    end

@@ -5,6 +5,8 @@ en:
         name: "Club's name"
       club_admin:
         user: "Regular members"
+      club_join_request:
+        club: "Club"
       invitation:
         user: "Invitee's email"
       player:
@@ -52,6 +54,13 @@ en:
     destroy: "Remove administrator from club"
     destroy_successful: "The administrator has been successfully removed"
     destroy_error: "There was an error trying to remove the administrator"
+  club_join_request:
+    accept_failure: "There was an error accepting the membership. Please try again."
+    accept_success: "%{name} is now a member of the club"
+    create_fail: "There was an error sending the membership request. Please try again"
+    create_success: "A membership request has been sent to the club"
+    new: "Join a club"
+    pending: "Pending membership requests"
   devise:
     confirmation:
       didnt_receive: "Didn't receive confirmation instructions?"
@@ -111,6 +120,7 @@ en:
     scoring_player: "Scoring player"
     white_team: "White team"
   general:
+    accept: "Accept"
     actions: "Actions"
     application_title: "UWR Tournaments"
     back: "Back"
@@ -118,6 +128,7 @@ en:
     cancel: "Cancel"
     close: "Close"
     create: "Create"
+    decline: "Decline"
     error: "Error"
     errors: "Errors"
     modal_load_error: "There was an error processing your request. Please try again"
@@ -131,7 +142,6 @@ en:
     accept: "Join"
     accept_error: "There has been an error, we couldn't join you to the club"
     accepted: "You are now a member of %{club_name}!"
-    decline: "Decline"
     declined: "You have declined the invitation to join %{club_name}"
     cant_invite_members: "Can't send an invitation to a user that's already a member."
     create_failure: "There has been an error sending the invitation. Please try again."

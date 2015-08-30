@@ -31,6 +31,15 @@ class Ability
     end
 
     ###################################################
+    ################## CLUB JOIN REQUESTS #############
+    ###################################################
+    can :new, ClubJoinRequest
+    can :create, ClubJoinRequest
+
+    can :accept, ClubJoinRequest do |club_join_request|
+      user.administrated_clubs.where{ id == my{club_join_request.club_id} }.any?
+    end
+    ###################################################
     ################## INVITATIONS ####################
     ###################################################
     can :accept, Invitation do |invitation|

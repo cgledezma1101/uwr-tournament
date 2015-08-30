@@ -7,6 +7,7 @@ class Invitation < ActiveRecord::Base
 
   validate :one_invitation_per_club
   validate :cant_invite_members
+  validate :cant_invite_requested
 
   # Determines the name of the club that generated the invitation
   #
@@ -36,6 +37,13 @@ class Invitation < ActiveRecord::Base
       if is_member
         self.errors.add(:user, I18n.t('invitation.cant_invite_members'))
       end
+    end
+  end
+
+  # Validates that an invitation is not sent to someone who has a pending membership request
+  def cant_invite_requested
+    if ClubJoinRequest.where{ club_id == my{self.club_id} & user_id == my{self.user_id} }.any?
+      self.errors.add(:user, I18n.t('invitation.cant_invite_requested'))
     end
   end
 end
