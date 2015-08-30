@@ -2,14 +2,15 @@ class ClubJoinRequestsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
-  # POST /club_join_requests/:id/accept
+  # GET /club_join_requests/:id/accept
   #
-  # @param [Integer] id Identifier of the membership request
+  # @param [Integer] id Identifier of the membership request to accept
   def accept
     join_request = ClubJoinRequest.find(params[:id])
     membership = UserClub.new(club: join_request.club, user: join_request.user)
 
     if(membership.save)
+      join_request.destroy
       redirect_params = { notice: t('club_join_request.accept_success', name: membership.user.name) }
     else
       redirect_params = { alert: t('club_join_request.accept_failure') }
@@ -29,7 +30,13 @@ class ClubJoinRequestsController < ApplicationController
     redirect_to user_path(current_user), redirect_params
   end
 
-  def destroy
+  # GET /club_join_requests/:id/decline
+  #
+  #@param [Integer] id Identifier of the membership request to decline
+  def decline
+    join_request = ClubJoinRequest.find(params[:id])
+    join_request.destroy
+    redirect_to club_path(join_request.club), notice: t('club_join_request.declined', user_name: join_request.user.name)
   end
 
   # GET /club_join_requests/new

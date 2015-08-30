@@ -39,6 +39,10 @@ class Ability
     can :accept, ClubJoinRequest do |club_join_request|
       user.administrated_clubs.where{ id == my{club_join_request.club_id} }.any?
     end
+
+    can :decline, ClubJoinRequest do |club_join_request|
+      user.administrated_clubs.where{ id == my{club_join_request.club_id} }.any?
+    end
     ###################################################
     ################## INVITATIONS ####################
     ###################################################

@@ -9,9 +9,9 @@ UwrTournament::Application.routes.draw do
     get 'confirm_destroy', on: :member
   end
 
-  resources :club_join_requests, only: [:new, :create, :destroy] do
-    post 'accept', on: :member
-    post 'decline', on: :member
+  resources :club_join_requests, only: [:new, :create] do
+    get 'accept', on: :member
+    get 'decline', on: :member
   end
 
   resources :clubs, only: [:show, :new, :create, :edit, :update]

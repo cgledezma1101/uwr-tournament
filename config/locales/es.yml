@@ -59,6 +59,7 @@
     accept_success: "%{name} es ahora miembro del club"
     create_fail: "Ha ocurrido un error al enviar la solicitud de membresía. Intenta de nuevo"
     create_success: "Se ha enviado una solicitud de membresía al grupo"
+    declined: "Se ha rechazado la solicitud de membresía de %{user_name}"
     new: "Unirse a un club"
     pending: "Solicitudes de membresía"
   devise:

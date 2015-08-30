@@ -59,6 +59,7 @@ en:
     accept_success: "%{name} is now a member of the club"
     create_fail: "There was an error sending the membership request. Please try again"
     create_success: "A membership request has been sent to the club"
+    declined: "%{user_name}'s membership request has been declined"
     new: "Join a club"
     pending: "Pending membership requests"
   devise:
@@ -144,6 +145,7 @@ en:
     accepted: "You are now a member of %{club_name}!"
     declined: "You have declined the invitation to join %{club_name}"
     cant_invite_members: "Can't send an invitation to a user that's already a member."
+    cant_invite_requested: "This user already has a pending membership request"
     create_failure: "There has been an error sending the invitation. Please try again."
     create_success: "The invitation has been sent successfully"
     new: "Invite player"
