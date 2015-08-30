@@ -30,6 +30,8 @@ class Ability
       can? :update, club_admin.club
     end
 
+    can :new, ClubAdmin
+
     ###################################################
     ################## CLUB JOIN REQUESTS #############
     ###################################################
