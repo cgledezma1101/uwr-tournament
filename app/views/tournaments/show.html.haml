@@ -32,3 +32,4 @@
               %tr
                 %td.text-center= team.name
                 %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+= render 'tournaments/navbar', tournament: @tournament

@@ -98,6 +98,10 @@ class Ability
     ###################################################
     can :create, Tournament
 
+    can :edit, Tournament do |tournament|
+      tournament.admins.where{ id == my{user.id} }.any?
+    end
+
     can :read, Tournament do |tournament|
       user.administrated_tournaments.where{ id == my{tournament.id} }.any? ||
       user.joins{ clubs.tournaments }.where{ clubs.tournaments.id == my{tournament.id} }.any? ||
