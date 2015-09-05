@@ -31,6 +31,7 @@ en:
     admin_create_success: "The administrator has been successfully added"
     administrate: "Manage club"
     admins: "Administrators"
+    clubs: 'Clubs'
     create: "Create club"
     create_team: "Create team"
     edit: "Edit details"
