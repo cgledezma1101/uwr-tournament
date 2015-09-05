@@ -228,6 +228,8 @@ en:
     destroy: "Remove administrator from tournament"
     destroy_successful: "%{admin_name} is no longer a tournament's administrator."
   tournament_invitation:
+    create_failure: "An error has occurred while sending the invitation. Please try again later."
+    create_success: "Club %{club_name} has been invited to %{tournament_name}"
     new: "Invite a club to %{tournament_name}"
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"
