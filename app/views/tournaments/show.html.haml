@@ -34,5 +34,5 @@
                   %td.text-center= team.name
                   %td.text-center= "#{team.games.count}(#{team.won_games.count})"
     .col-xs-12
-      = render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament
+      = render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament, actions_renderer: create_admin_actions_proc(@tournament)
 = render 'tournaments/navbar', tournament: @tournament

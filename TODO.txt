@@ -1,5 +1,4 @@
 - Tournaments:
-  - Add/Remove admin
   - Invite
   - Request invite
   - Delete

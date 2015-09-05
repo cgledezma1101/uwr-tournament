@@ -219,8 +219,12 @@ en:
     teams: "Participating teams"
     user_tournaments: "Your tournaments"
   tournament_admin:
+    at_least_one: "There has to be at least one administrator for the tournament."
+    confirm_remove: "Are you sure you want to remove %{admin_name} from the tournament's administrators?"
     create_fail: "There was an error when adding the administrator. Please try again."
     create_success: "%{user_name} is now a %{tournament_name} administrator"
+    destroy: "Remove administrator from tournament"
+    destroy_successful: "%{admin_name} is no longer a tournament's administrator."
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"
     destroy: "Remove member from club"

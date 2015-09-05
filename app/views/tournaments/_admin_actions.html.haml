@@ -1,0 +1,5 @@
+-#
+  Renders a series of actions that can be performed on an administrator of a tournament
+
+  @param [TournamentAdmin] tournament_admin The association between the administrator and the tournament
+= link_to t('general.remove'), '#', class: 'js-show-app-modal', data: { formlink: confirm_destroy_tournament_admin_path(tournament_admin), formid: 'removeAdmin' }
