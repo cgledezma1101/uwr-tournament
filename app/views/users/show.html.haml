@@ -8,6 +8,27 @@
   .panel-heading
     %h1.panel-title= "#{@user.name} (#{@user.email})"
   .panel-body
+    .statistics.col-xs-12
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('user.your_stats')
+        .panel-body
+          %table.table
+            %tr
+              %td= t('statistics.games_played_long')
+              %td= @user.played_games
+            %tr
+              %td= t('statistics.games_won_long')
+              %td= @user.won_games
+            %tr
+              %td= t('statistics.games_tied_long')
+              %td= @user.tied_games
+            %tr
+              %td= t('statistics.games_lost_long')
+              %td= @user.lost_games
+            %tr
+              %td= t('statistics.goals_scored')
+              %td= @user.total_goals
     .membership-info.col-xs-12
       .col-xs-6
         .panel.panel-info
@@ -51,24 +72,20 @@
                 %tr
                   %td.text-center= link_to team.name, team_path(team)
                   %td.text-center= "#{team.games.count}(#{team.won_games.count})"
-    .statistics.col-xs-12
+    .col-xs-12
       .panel.panel-info
         .panel-heading
-          .panel-title= t('user.your_stats')
+          .panel-title= t('tournament.user_tournaments')
         .panel-body
           %table.table
             %tr
-              %td= t('statistics.games_played_long')
-              %td= @user.played_games
-            %tr
-              %td= t('statistics.games_won_long')
-              %td= @user.won_games
-            %tr
-              %td= t('statistics.games_tied_long')
-              %td= @user.tied_games
-            %tr
-              %td= t('statistics.games_lost_long')
-              %td= @user.lost_games
-            %tr
-              %td= t('statistics.goals_scored')
-              %td= @user.total_goals
+              %th.text-center= t('activerecord.attributes.tournament.name')
+              %th.text-center= t('tournament.amount_teams')
+              %th.text-center= t('activerecord.attributes.tournament.start_date')
+              %th.text-center= t('activerecord.attributes.tournament.end_date')
+            - for tournament in @user.active_tournaments
+              %tr
+                %td.text-center= link_to tournament.name, tournament_path(tournament)
+                %td.text-center= tournament.teams.count
+                %td.text-center= tournament.start_date
+                %td.text-center= tournament.end_date
