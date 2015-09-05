@@ -1,0 +1,20 @@
+-#
+  Renders a form, meant to be embedded in a modal, which allows the creation of an invitation of a club to a tournament
+
+  Expects the following instance variables to be defined
+
+  @param [TournamentInvitation] tournament_invitation A tournament invitation instance to be used for creating the association
+  @param [Array<Club>] eligible_clubs A list of clubs that can be invited to the tournament
+#newTournamentInvitation
+  .modal-header
+    %h1.modal-title= t('tournament_invitation.new', tournament_name: @tournament_invitation.tournament.name)
+  .modal-body
+    = form_for @tournament_invitation, method: 'post' do |f|
+      = f.hidden_field :tournament_id, value: @tournament_invitation.tournament_id
+      .form-horizontal
+        .form-group
+          = f.label :club, class: 'col-sm-4 control-label'
+          .col-sm-6
+            = f.collection_select :club_id, @eligible_clubs, :id, :name, {}, { class: 'form-control' }
+        .form-group
+          = render 'public/modal_form_buttons'

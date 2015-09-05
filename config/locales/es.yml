@@ -20,6 +20,8 @@
         start_date: "Fecha de inicio"
       tournament_admin:
         user: "Administrador"
+      tournament_invitation:
+        club: "Club invitado"
       user:
         email: "Correo electrónico"
         name: "Nombre"
@@ -225,6 +227,8 @@
     create_success: "%{user_name} es ahora un administrador de %{tournament_name}"
     destroy: "Eliminar administrador del torneo"
     destroy_successful: "%{admin_name} ya no es un administrador del torneo."
+  tournament_invitation:
+    new: "Invitar a un club a %{tournament_name}"
   user_club:
     confirm_remove: "¿Estas seguro que deseas eliminar a '%{user_name}' del club?"
     destroy: "Eliminar a un miembro del club"

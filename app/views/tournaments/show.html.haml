@@ -17,7 +17,7 @@
             %table.table
               %tr
                 %th.text-center= t('activerecord.attributes.club.name')
-              - for club in @tournament.clubs
+              - for club in @tournament.clubs.order(:name)
                 %tr
                   %td.text-center= club.name
       .col-xs-6
