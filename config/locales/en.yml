@@ -218,6 +218,9 @@ en:
     team_uninvited: "The club this team belongs to hasn't been invited to the tournament"
     teams: "Participating teams"
     user_tournaments: "Your tournaments"
+  tournament_admin:
+    create_fail: "There was an error when adding the administrator. Please try again."
+    create_success: "%{user_name} is now a %{tournament_name} administrator"
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"
     destroy: "Remove member from club"
