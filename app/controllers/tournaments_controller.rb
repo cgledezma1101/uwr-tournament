@@ -2,13 +2,6 @@ class TournamentsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
-  # GET /tournaments/new
-  #
-  # Provides a form that contains the details to create a new tournament
-  def new
-    render 'tournaments/_new', layout: false
-  end
-
   # POST /tournaments
   #
   # Allows the creatpion of a new tournament
@@ -20,6 +13,22 @@ class TournamentsController < ApplicationController
     else
       redirect_to root_path, alert: t('tournament.create_error')
     end
+  end
+
+  # GET /tournaments/new
+  #
+  # Provides a form that contains the details to create a new tournament
+  def new
+    render 'tournaments/_new', layout: false
+  end
+
+  def show
+    @invitations = @tournament
+                    .tournament_invitations
+                    .includes(:club)
+                    .sort do |invitation0, invitation1|
+                      invitation0.club.name <=> invitation1.club.name
+                    end
   end
 
   private

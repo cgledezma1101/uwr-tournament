@@ -217,6 +217,7 @@
     delete: "Cancelar torneo"
     details: "Detalles del torneo"
     invite_club: "Invitar a un club"
+    remove_club: "Eliminar"
     team_uninvited: "El club al que este equipo pertence no ha sido invitado al torneo"
     teams: "Equipos participantes"
     user_tournaments: "Tus torneos"

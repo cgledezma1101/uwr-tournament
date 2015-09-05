@@ -1,4 +1,6 @@
 class TournamentInvitationsController < ApplicationController
+  before_action :authenticate_user!
+
   # POST /tournament_invitations
   #
   # Allows the creation of an invitation of a club to a tournament
@@ -16,6 +18,20 @@ class TournamentInvitationsController < ApplicationController
     end
 
     redirect_to tournament_path(invitation.tournament), redirect_params
+  end
+
+  # DELETE /tournament_invitations/:id
+  #
+  # Destroys the instance of the tournament invitation with the specified id
+  #
+  # @param [Integer] id Identifier of the tournament invitation to be destroyed
+  def destroy
+    invitation = TournamentInvitation.find(params[:id])
+    authorize! :update, invitation.tournament
+
+    invitation.destroy
+
+    redirect_to tournament_path(invitation.tournament), notice: t('tournament_invitation.destroy_success', club_name: invitation.club.name, tournament_name: invitation.tournament.name)
   end
 
   # GET /tournament_invitations?tournament_id=:tournament_id

@@ -217,6 +217,7 @@ en:
     delete: "Cancel tournament"
     details: "Tournament details"
     invite_club: "Invite a club"
+    remove_club: "Remove"
     team_uninvited: "The club this team belongs to hasn't been invited to the tournament"
     teams: "Participating teams"
     user_tournaments: "Your tournaments"
@@ -230,6 +231,7 @@ en:
   tournament_invitation:
     create_failure: "An error has occurred while sending the invitation. Please try again later."
     create_success: "Club %{club_name} has been invited to %{tournament_name}"
+    destroy_success: "%{club_name} is no longer invited to %{tournament_name}"
     new: "Invite a club to %{tournament_name}"
   user_club:
     confirm_remove: "Are you sure you want to remove '%{user_name}' from the club?"

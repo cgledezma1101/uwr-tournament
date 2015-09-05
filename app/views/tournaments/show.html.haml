@@ -4,6 +4,7 @@
   Requires the following instance variables to be passed by the controller:
 
   @param [Tournament] tournament The tournament for which information will be shown
+  @param [Array<TournamentInvitation>] invitations Instances of the relationships to the clubs that have been invited to the tournament
 .panel.panel-primary
   .panel-heading
     %h1.panel-title= "#{@tournament.name} (#{@tournament.start_date}" + (@tournament.start_date == @tournament.end_date ? "" : " - #{@tournament.end_date}") + ")"
@@ -17,9 +18,12 @@
             %table.table
               %tr
                 %th.text-center= t('activerecord.attributes.club.name')
-              - for club in @tournament.clubs.order(:name)
+                %th.text-center= t('general.actions')
+              - for invitation in @invitations
                 %tr
-                  %td.text-center= club.name
+                  %td.text-center= invitation.club.name
+                  %td.text-center
+                    = link_to t('tournament.remove_club'), tournament_invitation_path(invitation), method: :delete
       .col-xs-6
         .panel.panel-info
           .panel-heading
