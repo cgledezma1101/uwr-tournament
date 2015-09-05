@@ -18,6 +18,8 @@ en:
         end_date: "End date"
         name: "Tournament's name"
         start_date: "Start date"
+      tournament_admin:
+        user: "Administrator"
       user:
         email: "Email"
         name: "Name"
@@ -204,6 +206,7 @@ en:
   tournament:
     add_admin: "Add administrator"
     administrate: "Manage tournament"
+    admins: "Administrators"
     amount_teams: "# of participating teams"
     clubs: "Invited clubs"
     create: "Start tournament"

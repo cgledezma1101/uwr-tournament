@@ -34,6 +34,8 @@ UwrTournament::Application.routes.draw do
     get 'players', on: :member
   end
 
+  resources :tournament_admins, only: [:new, :create]
+
   resources :tournaments, only: [:new, :create, :show]
 
   resources :user_clubs, only: [:destroy] do

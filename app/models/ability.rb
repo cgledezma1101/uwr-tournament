@@ -98,7 +98,7 @@ class Ability
     ###################################################
     can :create, Tournament
 
-    can :edit, Tournament do |tournament|
+    can :update, Tournament do |tournament|
       tournament.admins.where{ id == my{user.id} }.any?
     end
 

@@ -8,28 +8,31 @@
   .panel-heading
     %h1.panel-title= "#{@tournament.name} (#{@tournament.start_date}" + (@tournament.start_date == @tournament.end_date ? "" : " - #{@tournament.end_date}") + ")"
   .panel-body
-    .col-xs-6
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('tournament.clubs')
-        .panel-body
-          %table.table
-            %tr
-              %th.text-center= t('activerecord.attributes.club.name')
-            - for club in @tournament.clubs
+    .col-xs-12
+      .col-xs-6
+        .panel.panel-info
+          .panel-heading
+            .panel-title= t('tournament.clubs')
+          .panel-body
+            %table.table
               %tr
-                %td.text-center= club.name
-    .col-xs-6
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('tournament.teams')
-        .panel-body
-          %table.table
-            %tr
-              %th.text-center= t('activerecord.attributes.team.name')
-              %th.text-center= t('statistics.played_won_short')
-            - for team in @tournament.teams
+                %th.text-center= t('activerecord.attributes.club.name')
+              - for club in @tournament.clubs
+                %tr
+                  %td.text-center= club.name
+      .col-xs-6
+        .panel.panel-info
+          .panel-heading
+            .panel-title= t('tournament.teams')
+          .panel-body
+            %table.table
               %tr
-                %td.text-center= team.name
-                %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+                %th.text-center= t('activerecord.attributes.team.name')
+                %th.text-center= t('statistics.played_won_short')
+              - for team in @tournament.teams
+                %tr
+                  %td.text-center= team.name
+                  %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+    .col-xs-12
+      = render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament
 = render 'tournaments/navbar', tournament: @tournament
