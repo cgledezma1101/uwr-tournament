@@ -1,5 +1,4 @@
 - Tournaments:
-  - Invite
   - Request invite
   - Delete
 
