@@ -13,3 +13,5 @@
           = link_to t('team.add_player'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_player_path}?team_id=#{team.id}", formid: 'newPlayer'}
         %li
           = link_to t('team.edit'), '#', class: 'js-show-app-modal', data: { formlink: edit_team_path(team), formid: 'newTeam' }
+        %li
+          = link_to t('team.send_to_tournament'), '#', class: 'js-show-app-modal', data: { formlink: new_tournament_team_path + "?team_id=#{team.id}", formid: 'newTournamentTeam' }
