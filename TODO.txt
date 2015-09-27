@@ -1,5 +1,4 @@
 - Tournaments:
-  - Request invite
   - Delete
 
 Stages:

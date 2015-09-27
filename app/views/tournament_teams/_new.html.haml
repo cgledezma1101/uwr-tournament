@@ -1,0 +1,21 @@
+-#
+  Renders a form, meant to be embedded in a modal, which allows sending a particular team to a tournament
+
+  Expects the following instance variables to be defined
+
+  @param [TournamentTeam] tournament_team Instance of the relationship that will be populated with the form's data
+  @param [Team] team The team that will be sent to a tournament
+  @param [Array<Tournament>] available_tournaments A list of tournaments the team can be sent to
+#newTournamentTeam
+  .modal-header
+    %h1.modal-title= t('tournament_team.new', team_name: @tournament_team.team.name)
+  .modal-body
+    = form_for @tournament_team, method: 'post' do |f|
+      = f.hidden_field :team_id, value: @tournament_team.team_id
+      .form-horizontal
+        .form-group
+          = f.label :tournament, class: 'col-sm-4 control-label'
+          .col-sm-6
+            = f.collection_select :tournament_id, @available_tournaments, :id, :name, {}, { class: 'form-control' }
+        .form-group
+          = render 'public/modal_form_buttons'

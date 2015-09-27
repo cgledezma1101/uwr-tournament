@@ -3,6 +3,7 @@ class TournamentTeam < ActiveRecord::Base
   belongs_to :team
 
   validate :club_invited
+  validate :team, uniqueness: { scope: :tournament }
 
   private
 

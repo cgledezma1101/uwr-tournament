@@ -16,3 +16,5 @@
       - if can? :edit, club
         %td.text-center
           = link_to t('general.remove'), '#', class: 'js-show-app-modal', data: { formlink: confirm_destroy_team_path(team), formid: 'removeTeam' }
+          |
+          = link_to t('team.send_to_tournament'), '#', class: 'js-show-app-modal', data: { formlink: new_tournament_team_path + "?team_id=#{team.id}", formid: 'newTournamentTeam' }

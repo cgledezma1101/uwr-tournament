@@ -40,6 +40,8 @@ UwrTournament::Application.routes.draw do
 
   resources :tournament_invitations, only: [:new, :create, :destroy]
 
+  resources :tournament_teams, only: [:new, :create]
+
   resources :tournaments, only: [:new, :create, :show]
 
   resources :user_clubs, only: [:destroy] do
