@@ -12,6 +12,8 @@
       player:
         number: "Número"
         user: "Jugador"
+      stage:
+        name: "Nombre de la etapa"
       team:
         name: "Nombre del equipo"
       tournament:
@@ -167,7 +169,13 @@
     destroy_success: "El jugador ha sido retirado del equipo"
     errors:
       number_uniqueness: "El número del jugador no debe ser único en el equipo"
-    new: "Agregar player"
+    new: "Agregar jugador"
+  stage:
+    errors:
+      blank_name: "El nombre de la etapa está vacío"
+    new: "Agregar una etapa al torneo"
+    save_fail: "Ha ocuurrido un error al guardar la etapa. Por favor inténtalo de nuevo"
+    save_success: "La etapa ha sido agregada al torneo"
   statistics:
     games_lost_short: "JP"
     games_lost_long: "Juegos perdidos"
@@ -210,6 +218,7 @@
     update_success: "Se han actualizado los datos del equipo"
   tournament:
     add_admin: "Agregar administrador"
+    add_stage: "Agregar etapa"
     administrate: "Administrar torneo"
     admins: "Administradores"
     amount_teams: "Equipos participantes"

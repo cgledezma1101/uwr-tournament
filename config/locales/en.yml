@@ -12,6 +12,8 @@ en:
       player:
         number: "Number"
         user: "Player"
+      stage:
+        name: "Stage's name"
       team:
         name: "Team's name"
       tournament:
@@ -168,6 +170,12 @@ en:
     errors:
       number_uniqueness: "The player's number must be unique within the team"
     new: "Add player"
+  stage:
+    errors:
+      blank_name: "Stage's name is blank"
+    new: "Add a new stage to the tournament"
+    save_fail: "There has been a problem saving the stage. Please try again."
+    save_success: "The stage has been added to the tournament"
   statistics:
     games_lost_short: "L"
     games_lost_long: "Games lost"
@@ -210,6 +218,7 @@ en:
     update_success: "Team details updated successfully"
   tournament:
     add_admin: "Add administrator"
+    add_stage: "Add stage"
     administrate: "Manage tournament"
     admins: "Administrators"
     amount_teams: "# of participating teams"

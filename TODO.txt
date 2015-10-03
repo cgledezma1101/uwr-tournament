@@ -2,7 +2,6 @@
   - Delete
 
 Stages:
-  - Create
   - Add games
   - Remove games
   - Delete
@@ -24,3 +23,4 @@ Plus:
     - Invited team should propose
     - Special privileges on matches
   - Request invitation to tournament (team/club)
+  - Error messages
