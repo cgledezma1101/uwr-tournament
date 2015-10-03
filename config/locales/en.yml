@@ -230,6 +230,7 @@ en:
     details: "Tournament details"
     invite_club: "Invite a club"
     remove_club: "Remove"
+    stages: "Stages"
     team_uninvited: "The club this team belongs to hasn't been invited to the tournament"
     teams: "Participating teams"
     user_tournaments: "Your tournaments"

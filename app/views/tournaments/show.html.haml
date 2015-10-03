@@ -10,7 +10,7 @@
     %h1.panel-title= "#{@tournament.name} (#{@tournament.start_date}" + (@tournament.start_date == @tournament.end_date ? "" : " - #{@tournament.end_date}") + ")"
   .panel-body
     .col-xs-12
-      .col-xs-6
+      .col-xs-4
         .panel.panel-info
           .panel-heading
             .panel-title= t('tournament.clubs')
@@ -18,13 +18,15 @@
             %table.table
               %tr
                 %th.text-center= t('activerecord.attributes.club.name')
-                %th.text-center= t('general.actions')
+                - if can? :update, @tournament
+                  %th.text-center= t('general.actions')
               - for invitation in @invitations
                 %tr
                   %td.text-center= invitation.club.name
-                  %td.text-center
-                    = link_to t('tournament.remove_club'), tournament_invitation_path(invitation), method: :delete
-      .col-xs-6
+                  - if can? :update, @tournament
+                    %td.text-center
+                      = link_to t('tournament.remove_club'), tournament_invitation_path(invitation), method: :delete
+      .col-xs-4
         .panel.panel-info
           .panel-heading
             .panel-title= t('tournament.teams')
@@ -37,6 +39,22 @@
                 %tr
                   %td.text-center= team.name
                   %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+      .col-xs-4
+        .panel.panel-info
+          .panel-heading
+            .panel-title= t('tournament.stages')
+          .panel-body
+            %table.table
+              %tr
+                %th.text-center= t('activerecord.attributes.stage.name')
+                - if can? :update, @tournament
+                  %th.text-center= t('general.actions')
+              - for stage in @tournament.stages
+                %tr
+                  %td.text-center
+                    = link_to stage.name, stage_path(stage)
+                  %td.text-center
+                    PH
     .col-xs-12
       = render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament, actions_renderer: create_admin_actions_proc(@tournament)
 = render 'tournaments/navbar', tournament: @tournament
