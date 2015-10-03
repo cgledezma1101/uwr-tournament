@@ -16,11 +16,18 @@ class Team < ActiveRecord::Base
 
   before_destroy :dependents_set_nil
 
-  # Returns all the games that this team has played
+  # Returns all the games that this team is associated to
   #
   # @return [Array<Game>] The games played by this team
   def games
     Game.where{ (blue_team_id == my{self.id}) | (white_team_id == my{self.id}) }
+  end
+
+  # Determines the games that the team has finished
+  #
+  # @return [Array<Game>] The games the team has played and that have finished
+  def played_games
+    self.games.select{ |game| game.has_ended? }
   end
 
   # Determines how many goals the team has made

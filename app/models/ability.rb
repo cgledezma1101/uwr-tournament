@@ -143,8 +143,8 @@ class Ability
 
     can :read, Tournament do |tournament|
       user.administrated_tournaments.where{ id == my{tournament.id} }.any? ||
-      user.joins{ clubs.tournaments }.where{ clubs.tournaments.id == my{tournament.id} }.any? ||
-      user.joins{ administrated_clubs.tournaments }.where{ administrated_clubs.tournaments.id == my{tournament.id} }.any?
+      user.clubs.joins{ tournaments }.where{ tournaments.id == my{tournament.id} }.any? ||
+      user.administrated_clubs.joins{ tournaments }.where{ tournaments.id == my{tournament.id} }.any?
     end
 
     ###################################################

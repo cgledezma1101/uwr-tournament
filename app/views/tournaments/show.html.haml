@@ -38,7 +38,7 @@
               - for team in @tournament.teams
                 %tr
                   %td.text-center= team.name
-                  %td.text-center= "#{team.games.count}(#{team.won_games.count})"
+                  %td.text-center= "#{team.played_games.count}(#{team.won_games.count})"
       .col-xs-4
         .panel.panel-info
           .panel-heading
