@@ -3,7 +3,7 @@
 
   @param [Tournament] tournament Tournament that's being navigated
 = content_for :module_navbar do
-  - if can? :edit, tournament
+  - if can? :update, tournament
     %li.dropdown
       = link_to '#', data: { toggle: 'dropdown' }, role: 'button' do
         = t('tournament.administrate')

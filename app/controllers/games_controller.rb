@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  load_and_authorize_resource
   before_action :authenticate_user!
 
   # POST /games
@@ -6,14 +7,14 @@ class GamesController < ApplicationController
   # Based on the parameters received, creates a new game and redirects the user
   # to the screen that visualizes it.
   def create
-    @game = Game.new(new_game_params)
-    @game.date = Time.now
+    @game.status = Game::STATUS_READY
     if @game.save
-      redirect_to game_path(@game)
+      redirect_params = { notice: t('game.create_success') }
     else
-      @teams = Team.all
-      render 'games/new'
+      redirect_params = { alert: t('game.create_fail') }
     end
+
+    redirect_to stage_path(@game.stage), redirect_params
   end
 
   # GET /games
@@ -23,11 +24,19 @@ class GamesController < ApplicationController
     @games = Game.all
   end
 
-  # GET /
-  # On the root of the application, allows the creation of a new game
+  # GET /games/new?stage_id=:stage_id
+  #
+  # Renders a form that would allow the creation of a game in a stage
+  #
+  # @param [Integer] stage_id Identifier of the stage to which this game will be added
   def new
-    @teams = Team.all
-    @game = Game.new
+    stage = Stage.find(params[:stage_id])
+    authorize! :update, stage
+
+    @game.stage = stage
+    @teams = stage.tournament.teams.order(:name)
+
+    render 'games/_new', layout: false
   end
 
   # GET /games/:id
@@ -44,9 +53,7 @@ class GamesController < ApplicationController
 
   private
     # This defines the attributes that are permitted when creating a new game
-    def new_game_params
-      params.require(:game).permit(:blue_team_id,
-                                   :white_team_id,
-                                   player_ids: [])
+    def create_params
+      params.require(:game).permit(:blue_team_id, :white_team_id, :stage_id)
     end
 end

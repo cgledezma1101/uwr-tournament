@@ -45,6 +45,20 @@ class Ability
     can :decline, ClubJoinRequest do |club_join_request|
       user.administrated_clubs.where{ id == my{club_join_request.club_id} }.any?
     end
+
+    ###################################################
+    ################## GAMES ##########################
+    ###################################################
+    can :new, Game
+
+    can :create, Game do |game|
+      can? :update, game.stage
+    end
+
+    can :update, Game do |game|
+      can? :update, game.stage
+    end
+
     ###################################################
     ################## INVITATIONS ####################
     ###################################################
@@ -84,6 +98,10 @@ class Ability
 
     can :read, Stage do |stage|
       can? :read, stage.tournament
+    end
+
+    can :update, Stage do |stage|
+      can? :update, stage.tournament
     end
 
     ###################################################

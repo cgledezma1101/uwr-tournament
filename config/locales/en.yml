@@ -7,6 +7,8 @@ en:
         user: "Regular members"
       club_join_request:
         club: "Club"
+      game:
+        status: "Status"
       invitation:
         user: "Invitee's email"
       player:
@@ -117,8 +119,11 @@ en:
       email: 'Contact email'
   game:
     blue_team: "Blue team"
+    create_fail: "There has been an error creating the game. Please try again."
+    create_success: "The game has been successfully created"
     current_game: "Current game"
     errors:
+      invalid_status: "The game's status is invalid"
       player_not_in_team: "'%{player_name}' is not in '%{team_name}' list of players."
       players: "Each team must have at least 6 players. All participating players must belong to the participating teams."
       same_team: "Both selected teams are the same."
@@ -128,6 +133,11 @@ en:
     index: "Game index"
     new: "New game"
     scoring_player: "Scoring player"
+    statuses:
+      r: "Ready to start"
+      s: "Started"
+      e: "Ended"
+    watch: "Watch"
     white_team: "White team"
   general:
     accept: "Accept"
@@ -148,6 +158,7 @@ en:
     score: "Score"
     select_all: "Select all"
     update: "Update"
+    versus_short: "Vs."
   invitation:
     accept: "Join"
     accept_error: "There has been an error, we couldn't join you to the club"
@@ -171,6 +182,8 @@ en:
       number_uniqueness: "The player's number must be unique within the team"
     new: "Add player"
   stage:
+    add_game: "New game"
+    administrate: "Manage stage"
     destroy_successful: "The stage has been removed from the tournament"
     errors:
       blank_name: "Stage's name is blank"
