@@ -171,6 +171,7 @@ en:
       number_uniqueness: "The player's number must be unique within the team"
     new: "Add player"
   stage:
+    destroy_successful: "The stage has been removed from the tournament"
     errors:
       blank_name: "Stage's name is blank"
     new: "Add a new stage to the tournament"
@@ -230,6 +231,7 @@ en:
     details: "Tournament details"
     invite_club: "Invite a club"
     remove_club: "Remove"
+    remove_stage: "Remove"
     stages: "Stages"
     team_uninvited: "The club this team belongs to hasn't been invited to the tournament"
     teams: "Participating teams"

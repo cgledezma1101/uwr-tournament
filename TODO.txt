@@ -4,7 +4,6 @@
 Stages:
   - Add games
   - Remove games
-  - Delete
 
 Games:
   - Overall review of functionality

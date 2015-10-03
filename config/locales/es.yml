@@ -171,6 +171,7 @@
       number_uniqueness: "El número del jugador no debe ser único en el equipo"
     new: "Agregar jugador"
   stage:
+    destroy_successful: "La etapa ha sido eliminada del torneo"
     errors:
       blank_name: "El nombre de la etapa está vacío"
     new: "Agregar una etapa al torneo"
@@ -230,6 +231,7 @@
     details: "Detalles del torneo"
     invite_club: "Invitar a un club"
     remove_club: "Eliminar"
+    remove_stage: "Eliminar"
     stages: "Etapas"
     team_uninvited: "El club al que este equipo pertence no ha sido invitado al torneo"
     teams: "Equipos participantes"

@@ -54,7 +54,8 @@
                   %td.text-center
                     = link_to stage.name, stage_path(stage)
                   %td.text-center
-                    PH
+                    - if can? :destroy, stage
+                      = link_to t('tournament.remove_stage'), stage_path(stage), method: :delete
     .col-xs-12
       = render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament, actions_renderer: create_admin_actions_proc(@tournament)
 = render 'tournaments/navbar', tournament: @tournament

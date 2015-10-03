@@ -8,7 +8,7 @@ class Tournament < ActiveRecord::Base
   has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
 
-  has_many :stages
+  has_many :stages, dependent: :destroy
 
   validates :name, presence: true
   validates :start_date, presence: true

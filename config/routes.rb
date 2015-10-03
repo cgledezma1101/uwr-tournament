@@ -29,7 +29,8 @@ UwrTournament::Application.routes.draw do
 
   resources :scores, only: [:create]
 
-  resources :stages, only: [:new, :create, :show]
+  resources :stages, only: [:new, :create, :show, :destroy] do
+  end
 
   resources :teams, only: [:new, :create, :show, :destroy, :edit, :update] do
     get 'confirm_destroy', on: :member

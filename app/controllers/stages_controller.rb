@@ -1,19 +1,6 @@
 class StagesController < ApplicationController
   before_action :authenticate_user!
 
-  # GET /stages/new?tournament_id=:tournament_id
-  #
-  # Renders a form that would allow the creation of a stage inside a tournament
-  #
-  # @param [Integer] tournament_id Identifier of the tournament this stage will be added to
-  def new
-    tournament = Tournament.find(params[:tournament_id])
-    authorize! :update, tournament
-
-    @stage = Stage.new(tournament: tournament)
-    render 'stages/_new', layout: false
-  end
-
   # POST /stages
   #
   # Allows the creation of a new stage
@@ -31,6 +18,32 @@ class StagesController < ApplicationController
     end
 
     redirect_to tournament_path(stage.tournament), redirect_params
+  end
+
+  # DELETE /stage/:id
+  #
+  # Destroys the specified instance of the stage
+  #
+  # @param [Integer] id Identfier of the stage to be destroyed
+  def destroy
+    stage = Stage.find(params[:id])
+    authorize! :destroy, stage
+
+    stage.destroy
+    redirect_to tournament_path(stage.tournament), notice: t('stage.destroy_successful')
+  end
+
+  # GET /stages/new?tournament_id=:tournament_id
+  #
+  # Renders a form that would allow the creation of a stage inside a tournament
+  #
+  # @param [Integer] tournament_id Identifier of the tournament this stage will be added to
+  def new
+    tournament = Tournament.find(params[:tournament_id])
+    authorize! :update, tournament
+
+    @stage = Stage.new(tournament: tournament)
+    render 'stages/_new', layout: false
   end
 
   private
