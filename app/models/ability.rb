@@ -73,7 +73,7 @@ class Ability
     ################### STAGES ########################
     ###################################################
     can :destroy, Stage do |stage|
-      (can? :update, stage.tournament)
+      (can? :update, stage.tournament) && !stage.has_ended_games?
     end
 
     ###################################################

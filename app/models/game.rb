@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+  belongs_to :stage
   belongs_to :blue_team, class_name: 'Team'
   belongs_to :white_team, class_name: 'Team'
 
@@ -13,6 +14,7 @@ class Game < ActiveRecord::Base
   validates :blue_team, presence: true, unless: :has_ended?
   validates :white_team, presence: true, unless: :has_ended?
   validates :date, presence: true
+  validates :stage, presence: true
 
   validate :different_teams
   validate :player_validation
