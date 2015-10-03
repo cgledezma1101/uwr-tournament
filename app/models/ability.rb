@@ -72,8 +72,18 @@ class Ability
     ###################################################
     ################### STAGES ########################
     ###################################################
+    can :new, Stage
+
+    can :create, Stage do |stage|
+      can? :update, stage.tournament
+    end
+
     can :destroy, Stage do |stage|
       (can? :update, stage.tournament) && !stage.has_ended_games?
+    end
+
+    can :read, Stage do |stage|
+      can? :read, stage.tournament
     end
 
     ###################################################

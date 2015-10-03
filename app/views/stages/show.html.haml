@@ -1,0 +1,36 @@
+/
+  Displays general information and actions associated with a tournament's stage
+
+  Expects the following instance variables to be defined
+
+  @param [Stage] stage Stage for which the information will be displayed
+.panel.panel-primary
+  .panel-heading
+    %h1.panel-title= t('stage.long_name', stage_name: @stage.name, tournament_name: @stage.tournament.name)
+  .panel-body
+    .col-xs-12
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('stage.games')
+        .panel-body
+          %table.table
+            %tr
+              %th.text-center= t('game.blue_team')
+              %th.text-right
+              %th.text-center
+              %th.text-left
+              %th.text-center= t('game.white_team')
+            - for game in @stage.games
+              = link_to game_path(game) do
+                %tr
+                  %td.text-center= game.blue_team.name
+                  %td.text-right= game.blue_goals
+                  %td.text-center -
+                  %td.text-left= game.white-goals
+                  %td.text-center= game.white_team.name
+    .col-xs-12
+      .panel.panel-info
+        .panel-heading
+          .panel-title= t('statistics.statistics')
+        .panel-body
+          PH

@@ -1,5 +1,6 @@
 class StagesController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
 
   # POST /stages
   #
@@ -8,16 +9,13 @@ class StagesController < ApplicationController
   # @param [Integer] tournament_id Identifier of the tournament the stage will belong to
   # @param [Integer] name Name the stage is going to have
   def create
-    stage = Stage.new(create_params)
-    authorize! :update, stage.tournament
-
-    if stage.save
+    if @stage.save
       redirect_params = { notice: t('stage.save_success') }
     else
       redirect_params = { alert: t('stage.save_fail') }
     end
 
-    redirect_to tournament_path(stage.tournament), redirect_params
+    redirect_to tournament_path(@stage.tournament), redirect_params
   end
 
   # DELETE /stage/:id
@@ -26,11 +24,8 @@ class StagesController < ApplicationController
   #
   # @param [Integer] id Identfier of the stage to be destroyed
   def destroy
-    stage = Stage.find(params[:id])
-    authorize! :destroy, stage
-
-    stage.destroy
-    redirect_to tournament_path(stage.tournament), notice: t('stage.destroy_successful')
+    @stage.destroy
+    redirect_to tournament_path(@stage.tournament), notice: t('stage.destroy_successful')
   end
 
   # GET /stages/new?tournament_id=:tournament_id
@@ -42,7 +37,7 @@ class StagesController < ApplicationController
     tournament = Tournament.find(params[:tournament_id])
     authorize! :update, tournament
 
-    @stage = Stage.new(tournament: tournament)
+    @stage.tournament = tournament
     render 'stages/_new', layout: false
   end
 
