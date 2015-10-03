@@ -42,6 +42,13 @@ class Game < ActiveRecord::Base
     self.scores.where{ player_id == my{player.id} }.count
   end
 
+  # Determines whether the game represented has already finished
+  #
+  # @return [Boolean] Whether the game is over
+  def has_ended?
+    self.status == STATUS_ENDED
+  end
+
   # Determines the amount of goals that have been scored by the white team
   #
   # @return [Integer] Amount of blue goals
@@ -57,13 +64,6 @@ class Game < ActiveRecord::Base
       unless self.blue_team != self.white_team || self.blue_team == nil || self.white_team == nil
         errors.add(:blue_team, I18n.t('game.errors.same_team'))
       end
-    end
-
-    # Determines whether the game represented has already finished
-    #
-    # @return [Boolean] Whether the game is over
-    def has_ended?
-      self.status == STATUS_ENDED
     end
 
     # Validates that the status is always valid

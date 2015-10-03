@@ -17,11 +17,14 @@ class GamesController < ApplicationController
     redirect_to stage_path(@game.stage), redirect_params
   end
 
-  # GET /games
+  # DELETE /games/:id
   #
-  # Renders the list of games played during the tournament
-  def index
-    @games = Game.all
+  # Destroys the specified instance of a game
+  #
+  # @param [Integer] id Identifier of the game to be destroyed
+  def destroy
+    @game.destroy
+    redirect_to stage_path(@game.stage), notice: t('game.destroy_success')
   end
 
   # GET /games/new?stage_id=:stage_id

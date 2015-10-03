@@ -1,10 +1,6 @@
 - Tournaments:
   - Delete
 
-Stages:
-  - Add games
-  - Remove games
-
 Games:
   - Overall review of functionality
   - Setup blue_player / white_player relationships (for statistics)

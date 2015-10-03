@@ -55,6 +55,10 @@ class Ability
       can? :update, game.stage
     end
 
+    can :destroy, Game do |game|
+      (can? :update, game.stage) && !game.has_ended?
+    end
+
     can :update, Game do |game|
       can? :update, game.stage
     end

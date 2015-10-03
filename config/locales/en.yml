@@ -122,6 +122,7 @@ en:
     create_fail: "There has been an error creating the game. Please try again."
     create_success: "The game has been successfully created"
     current_game: "Current game"
+    destroy_success: "The game has been cancelled"
     errors:
       invalid_status: "The game's status is invalid"
       player_not_in_team: "'%{player_name}' is not in '%{team_name}' list of players."

@@ -34,7 +34,7 @@
                   = link_to t('game.watch'), game_path(game)
                   - if (can? :update, game)
                     |
-                    = link_to t('general.cancel'), '#'
+                    = link_to t('general.cancel'), game_path(game), method: :delete
     .col-xs-12
       .panel.panel-info
         .panel-heading
