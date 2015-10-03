@@ -23,5 +23,4 @@ Plus:
   - Referees:
     - Invited team should propose
     - Special privileges on matches
-  - Request to join club (User profile)
   - Request invitation to tournament (team/club)
