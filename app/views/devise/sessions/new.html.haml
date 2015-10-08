@@ -12,21 +12,23 @@
       = link_to user_omniauth_authorize_path(:google_oauth2) do
         %button.col-sm-offset-2.col-sm-6.btn-lg.btn-danger.text-center
           = t('devise.omniauth.google')
-    - if Rails.env.development?
-      %hr
+    %hr
+    .form-group.field
+      = f.label :email, class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.email_field :email, autofocus: true, class: 'form-control'
+    .form-group.field
+      = f.label :password, class: 'col-sm-2 control-label'
+      .col-sm-6
+        = f.password_field :password, autocomplete: "off", class: 'form-control'
+    - if devise_mapping.rememberable?
       .form-group.field
-        = f.label :email, class: 'col-sm-2 control-label'
-        .col-sm-6
-          = f.email_field :email, autofocus: true, class: 'form-control'
-      .form-group.field
-        = f.label :password, class: 'col-sm-2 control-label'
-        .col-sm-6
-          = f.password_field :password, autocomplete: "off", class: 'form-control'
-      - if devise_mapping.rememberable?
-        .form-group.field
-          .col-sm-offset-2.col-sm-10
-            = f.check_box :remember_me
-            = f.label :remember_me
-      .form-group.actions
         .col-sm-offset-2.col-sm-10
-          = f.submit t('devise.session.log_in'), class:'btn btn-primary'
+          = f.check_box :remember_me
+          = f.label :remember_me
+    .form-group.actions
+      .col-sm-offset-2.col-sm-10
+        = f.submit t('devise.session.log_in'), class:'btn btn-primary'
+    .form-group.field
+      .col-sm-offset-2.col-sm-10
+        = link_to t('devise.sessions.sign_up'), new_user_registration_path
