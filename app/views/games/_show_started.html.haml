@@ -15,9 +15,11 @@
         .col-xs-3
           %h4.text-center= t('game.chronometer_seconds')
     - if can? :update, game
-      %hr
       .text-right
-        = link_to t('game.add_chronometer'), add_chronometer_games_path, class: 'btn btn-primary', remote: true
+        .btn-group{ style: 'margin-top: 5px;' }
+          = link_to t('game.add_chronometer'), add_chronometer_games_path, class: 'btn btn-primary', remote: true
+          %button.btn.btn-success.js-chronometer-resumeall= t('game.chronometer_resume_all')
+          %button.btn.btn-danger.js-chronometer-stopall= t('game.chronometer_stop_all')
   .col-xs-12{ style: 'margin-top: 20px;' }
     %h3= t('game.scoreboard')
     .col-xs-5

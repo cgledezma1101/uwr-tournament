@@ -7,8 +7,29 @@ var updateChronometers = function()
   {
     $.each(entries, function(index, entry)
     {
-      console.log(entry.id);
-      entry.chronometer.find('.js-chronometer-stop').click();
+      var minutesInput = entry.chronometer.find('.js-chronometer-minutes');
+      var secondsInput = entry.chronometer.find('.js-chronometer-seconds');
+
+      var currentMinutes = +(minutesInput.val());
+      var currentSeconds = +(secondsInput.val());
+
+      var newSeconds = currentSeconds - 1;
+      if (newSeconds === -1)
+      {
+        if (currentMinutes === 0)
+        {
+          entry.chronometer.find('.js-chronometer-stop').click();
+        }
+        else
+        {
+            minutesInput.val(currentMinutes - 1);
+            secondsInput.val(59);
+        }
+      }
+      else
+      {
+        secondsInput.val(newSeconds);
+      }
     });
   });
 }
@@ -83,3 +104,28 @@ var chronometerStop = function(event)
     }
   }
 };
+
+var chronometerRemove = function(event)
+{
+  event.preventDefault();
+  var chronometer = $(this).parents('.js-chronometer');
+  chronometer.find('.js-chronometer-stop').click();
+  chronometer.remove();
+}
+
+$(document).ready(function()
+{
+  $('.js-chronometer-stopall').on('click', function(event)
+  {
+    event.preventDefault();
+    var panel = $(this).parents('.js-chronometers-panel');
+    panel.find('.js-chronometer-stop').click();
+  });
+
+  $('.js-chronometer-resumeall').on('click', function(event)
+  {
+    event.preventDefault();
+    var panel = $(this).parents('.js-chronometers-panel');
+    panel.find('.js-chronometer-start').click();
+  });
+});
