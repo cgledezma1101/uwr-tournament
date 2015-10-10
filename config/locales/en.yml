@@ -138,6 +138,7 @@ en:
     goal_for: "Goal scored by %{team_name}"
     index: "Game index"
     new: "New game"
+    player: "Player"
     scoring_player: "Scoring player"
     start: "Start game"
     statuses:

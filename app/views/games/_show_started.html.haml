@@ -9,13 +9,15 @@
       .panel-heading
         %h2.panel-title= game.blue_team.name
       .panel-content
-        %ul.list-group
+        %table.table
+          %tr
+            %th.text-center= t('game.player')
+            %th.text-center= t('statistics.goals_scored')
           - game.blue_players.each do |player|
-            %li.list-group-item{ id: player.id }
-              %span
-                = player.number_name
-              %span.text-right
-                = "G" * game.goals_for(player)
+            %tr
+              %td.text-center= player.number_name
+              - scored_goals = game.goals_for(player)
+              %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
 
   .col-xs-2.scoreboard.text-center
     %table
@@ -44,13 +46,15 @@
       .panel-heading
         %h2.panel-title= game.white_team.name
       .panel-content
-        %ul.list-group
+        %table.table
+          %tr
+            %th.text-center= t('game.player')
+            %th.text-center= t('statistics.goals_scored')
           - game.white_players.each do |player|
-            %li.list-group-item{ id: player.id }
-              %span
-                = player.number_name
-              %span.text-right
-                = "G" * game.goals_for(player)
+            %tr
+              %td.text-center= player.number_name
+              - scored_goals = game.goals_for(player)
+              %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
 
 / Modals
 .modal.fade#blueGoalModal

@@ -138,6 +138,7 @@
     goal_for: "Gol anotado por %{team_name}"
     index: "Índice de juegos"
     new: "Nuevo juego"
+    player: "Jugador"
     scoring_player: "Jugador que anotó"
     start: "Comenzar juego"
     statuses:

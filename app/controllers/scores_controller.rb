@@ -1,6 +1,7 @@
 class ScoresController < ApplicationController
+  load_and_authorize_resource
   before_action :authenticate_user!
-  
+
   # POST /scores
   #
   # Method called when a player scores a goal on a game
@@ -8,9 +9,16 @@ class ScoresController < ApplicationController
   # @param [Integer] game_id Identifier of the game where the score was made
   # @param [Integer] player_id Identifier of the player that scored
   def create
-    @game = Game.find params[:score][:game_id]
-    @player = Player.find params[:score][:player_id]
+    @game = @score.game
+    @player = @score.player
 
-    @score = Score.create(game: @game, player: @player)
+    @score.save
+  end
+
+  private
+
+  # Sanitizes parameters for creating a new score
+  def create_params
+    params.require(:score).permit(:game_id, :player_id)
   end
 end

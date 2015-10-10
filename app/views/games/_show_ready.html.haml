@@ -11,7 +11,7 @@
         %ul.list-group
           - for player in game.blue_team.active_players
             %li.list-group-item.text-center= player.number_name
-            
+
   .col-xs-2
     %h2.text-center= t('general.versus_short')
     - if can? :start, game
