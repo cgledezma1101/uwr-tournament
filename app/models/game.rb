@@ -58,6 +58,13 @@ class Game < ActiveRecord::Base
     self.status == STATUS_ENDED
   end
 
+  # Returns a text representing the two teams that will be playing
+  #
+  # @return String The name of the match
+  def matchup_name
+    "#{self.blue_team.name} #{I18n.t('general.versus_short')} #{self.white_team.name}"
+  end
+
   # Determines the amount of goals that have been scored by the white team
   #
   # @return [Integer] Amount of blue goals

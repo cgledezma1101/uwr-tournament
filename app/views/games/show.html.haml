@@ -7,7 +7,7 @@
   @param Score score If the game is in a started state, this variable will be used to add scores to players.
 .panel.panel-success
   .panel-heading
-    %h1.panel-title= t('game.current_game')
+    %h1.panel-title= @game.matchup_name
   .panel-content
     - if @game.status == Game::STATUS_READY
       = render 'games/show_ready', game: @game
