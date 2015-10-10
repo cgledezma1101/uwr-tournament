@@ -2,8 +2,6 @@
   - Delete
 
 Games:
-  - Overall review of functionality
-  - Setup blue_player / white_player relationships (for statistics)
   - Setup winning_color field (for statistics) - blue, white, none
   - Game timer
   - Time penalty timer
