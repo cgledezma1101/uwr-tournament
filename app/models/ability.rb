@@ -59,6 +59,14 @@ class Ability
       (can? :update, game.stage) && !game.has_ended?
     end
 
+    can :read, Game do |game|
+      (can? :update, game) || (can? :read, game.stage)
+    end
+
+    can :start, Game do |game|
+      (game.status == Game::STATUS_READY) && (can? :update, game)
+    end
+
     can :update, Game do |game|
       can? :update, game.stage
     end

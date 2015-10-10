@@ -49,24 +49,24 @@ class User < ActiveRecord::Base
    #
    # @return [Integer] Amount of games the user has lost
    def lost_games
-     Game.joins{ blue_players }.where{ (blue_players.user_id == my{self.id}) & (winning_color == 'white') }.count +
-     Game.joins{ white_players }.where{ (white_players.user_id == my{self.id}) & (winning_color == 'blue') }.count
+     Game.joins{ player_games.player }
+         .where{ (player_games.player.user_id == my{self.id}) &
+                 ((player_games.team_color == my{PlayerGame::BLUE_TEAM}) & (winning_color == my{PlayerGame::WHITE_TEAM}) |
+                  (player_games.team_color == my{PlayerGame::WHITE_TEAM}) & (winning_color == my{PlayerGame::BLUE_TEAM})) }.count
    end
 
    # Determines the amount of games this user has been involved in
    #
    # @return [Integer] Games the user has played
    def played_games
-     Game.joins{ blue_players }.where{ blue_players.user_id == my{self.id} }.count +
-     Game.joins{ white_players }.where{ white_players.user_id == my{self.id} }.count
+     Game.joins{ players }.where{ players.user_id == my{self.id} }.count
    end
 
    # The amount of games where the user participated and there was no victor
    #
    # @return [Integer] Amount of tied games where the user played
    def tied_games
-     Game.joins{ blue_players }.where{ (blue_players.user_id == my{self.id}) & (winning_color == 'none') }.count +
-     Game.joins{ white_players }.where{ (white_players.user_id == my{self.id}) & (winning_color == 'none') }.count
+     Game.joins{ players }.where{ (players.user_id == my{self.id}) & (winning_color == Game::TIED_GAME) }.count
    end
 
    # Total goals scored by the user.
@@ -80,8 +80,10 @@ class User < ActiveRecord::Base
    #
    # @return [Integer] Amount of games the user has won
    def won_games
-     Game.joins{ blue_players }.where{ (blue_players.user_id == my{self.id}) & (winning_color == 'blue') }.count +
-     Game.joins{ white_players }.where{ (white_players.user_id == my{self.id}) & (winning_color == 'white') }.count
+     Game.joins{ player_games.player }
+         .where{ (player_games.player.user_id == my{self.id}) &
+                 ((player_games.team_color == my{PlayerGame::BLUE_TEAM}) & (winning_color == my{PlayerGame::BLUE_TEAM}) |
+                  (player_games.team_color == my{PlayerGame::WHITE_TEAM}) & (winning_color == my{PlayerGame::WHITE_TEAM})) }.count
    end
 
    # Tournaments in which the user will participate, or that the user administrates

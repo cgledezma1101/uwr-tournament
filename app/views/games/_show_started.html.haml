@@ -1,0 +1,85 @@
+-#
+  Displays the information, and allows manipulating, a game that has already started
+
+  @param Game game The game to be displayed, which should be in a started state
+  @param Score score An instance that will be used to add scores to players
+.row
+  .col-xs-4
+    .panel.panel-primary
+      .panel-heading
+        %h2= game.blue_team.name
+      .panel-content
+        - game.blue_players.each do |player|
+          .row{ id: player.id }
+            .col-xs-2
+              = player.number
+            .col-xs-8
+              = player.name
+            .col-xs-2.goals
+              = "G" * game.goals_for(player)
+
+  .col-xs-2.scoreboard
+    .col-xs-4.js-blue-goals
+      %h3= game.blue_goals
+      %a.btn.btn-primary{ href: '#',
+                          data: { toggle: 'modal',
+                                  target: '#blueGoalModal' } }
+        = t('game.goal')
+    .col-xs-4
+      %h3 -
+    .col-xs-4.js-white-goals
+      %h3= game.white_goals
+      %a.btn.btn-default{ href: '#',
+                          data: { toggle: 'modal',
+                                  target: '#whiteGoalModal' } }
+        = t('game.goal')
+  .col-xs-4
+    .panel.panel-default
+      .panel-heading
+        %h2= game.white_team.name
+      .panel-content
+        - game.white_players.each do |player|
+          .row{ id: player.id }
+            .col-xs-2
+              = player.number
+            .col-xs-8
+              = player.name
+            .col-xs-2.goals
+              = "G" * game.goals_for(player)
+
+/ Modals
+.modal.fade#blueGoalModal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h2.modal-title= t('game.goal_for', team_name: "#{game.blue_team.name}")
+      .modal-body
+        = form_for score, remote: true do |f|
+          .form-group
+            = f.hidden_field :game_id, value: game.id
+            %h3= t('game.scoring_player')
+            = f.collection_select :player_id,
+                                  game.blue_players,
+                                  :id,
+                                  :number_name,
+                                  {},
+                                  { class: 'form-control' }
+            = f.submit t('general.score'), class: 'btn btn-primary form-control'
+
+.modal.fade#whiteGoalModal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h2.modal-title= t('game.goal_for', team_name: "#{game.white_team.name}")
+      .modal-body
+        = form_for score, remote: true do |f|
+          .form-group
+            = f.hidden_field :game_id, value: game.id
+            %h3= t('game.scoring_player')
+            = f.collection_select :player_id,
+                                  game.white_players,
+                                  :id,
+                                  :number_name,
+                                  {},
+                                  { class: 'form-control' }
+            = f.submit t('general.score'), class: 'btn btn-default form-control'

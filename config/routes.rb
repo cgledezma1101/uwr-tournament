@@ -16,7 +16,9 @@ UwrTournament::Application.routes.draw do
 
   resources :clubs, only: [:show, :new, :create, :edit, :update]
 
-  resources :games, only: [:create, :new, :show, :destroy]
+  resources :games, only: [:create, :new, :show, :destroy] do
+    post 'start', on: :member
+  end
 
   resources :invitations, only: [:new, :create] do
     post 'accept', on: :member

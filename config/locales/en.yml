@@ -118,6 +118,7 @@ en:
       name: 'Name'
       email: 'Contact email'
   game:
+    back_to_stage: "Back to stage"
     blue_team: "Blue team"
     create_fail: "There has been an error creating the game. Please try again."
     create_success: "The game has been successfully created"
@@ -125,15 +126,20 @@ en:
     destroy_success: "The game has been cancelled"
     errors:
       invalid_status: "The game's status is invalid"
+      player_count: "Team %{team} must have at least 6 players to start the game"
       player_not_in_team: "'%{player_name}' is not in '%{team_name}' list of players."
       players: "Each team must have at least 6 players. All participating players must belong to the participating teams."
       same_team: "Both selected teams are the same."
+      wrong_winning_color: "Trying to assign an invalid color to the winning team"
+    game_start_error: "An error has occurred when starting the game. Please try again."
+    game_started: "The game has successfully started"
     games_played: "Games played"
     goal: "Goal!"
     goal_for: "Goal scored by %{team_name}"
     index: "Game index"
     new: "New game"
     scoring_player: "Scoring player"
+    start: "Start game"
     statuses:
       r: "Ready to start"
       s: "Started"
@@ -182,9 +188,13 @@ en:
     errors:
       number_uniqueness: "The player's number must be unique within the team"
     new: "Add player"
+  player_game:
+    errors:
+      team_color: "The color assigned to %{player} is invalid"
   stage:
     add_game: "New game"
     administrate: "Manage stage"
+    back_to_tournament: "Back to tournament"
     destroy_successful: "The stage has been removed from the tournament"
     errors:
       blank_name: "Stage's name is blank"

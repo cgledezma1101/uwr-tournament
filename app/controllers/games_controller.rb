@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     else
       redirect_params = { alert: t('game.create_fail') }
     end
-
+    
     redirect_to stage_path(@game.stage), redirect_params
   end
 
@@ -48,10 +48,47 @@ class GamesController < ApplicationController
   #
   # @param [Integer] id The identifier of the game to be displayed
   def show
-    @game = Game.find(params[:id])
-    @blue_players = @game.blue_players
-    @white_players = @game.white_players
     @score = Score.new
+  end
+
+  # POST /start_game/:id
+  #
+  # Marks the given game as started and associates all the currently active players on each team to their respective colors
+  #
+  # @param [Integer] id Identifier of the game that will be started
+  def start
+    rolled_back = false
+    ActiveRecord::Base.transaction do
+      for blue_player in @game.blue_team.active_players do
+        relation = PlayerGame.new(game: @game, player: blue_player, team_color: PlayerGame::BLUE_TEAM)
+        if !relation.save
+          rolled_back = true
+          raise ActiveRecord::Rollback
+        end
+      end
+
+      for white_player in @game.white_team.active_players do
+        relation = PlayerGame.new(game: @game, player: white_player, team_color: PlayerGame::WHITE_TEAM)
+        if !relation.save
+          rolled_back = true
+          raise ActiveRecord::Rollback
+        end
+      end
+
+      @game.status = Game::STATUS_STARTED
+      if !@game.save
+        rolled_back = true
+        raise ActiveRecord::Rollback
+      end
+    end
+
+    if rolled_back
+      redirect_params = { alert: t('game.game_start_error') }
+    else
+      redirect_params = { notice: t('game.game_started') }
+    end
+
+    redirect_to game_path(@game), redirect_params
   end
 
   private

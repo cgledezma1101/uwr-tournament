@@ -1,0 +1,28 @@
+-#
+  Displays the information regarding a game that's ready to be started
+
+  @param Game game The game who's information will be displayed
+.col-xs-12{ style: 'margin-top: 20px;' }
+  .col-xs-5
+    .panel.panel-primary
+      .panel.panel-heading
+        %h2.panel-title= game.blue_team.name
+      .panel-content
+        %ul.list-group
+          - for player in game.blue_team.active_players
+            %li.list-group-item.text-center= player.number_name
+  .col-xs-2
+    %h2.text-center= t('general.versus_short')
+    - if can? :start, game
+      .text-center
+        = link_to start_game_path(game), method: :post do
+          %button.btn.btn-primary
+            = t('game.start')
+  .col-xs-5
+    .panel.panel-default
+      .panel.panel-heading
+        %h2.panel-title= game.white_team.name
+      .panel-content
+        %ul.list-group
+          - for player in game.white_team.active_players
+            %li.list-group-item.text-center= player.number_name

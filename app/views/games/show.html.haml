@@ -1,84 +1,16 @@
+-#
+  Renders the information regarding the game given, depending on the status of it.
+
+  Expects the following instance variables to be defined:
+
+  @param Game game The game to be displayed
+  @param Score score If the game is in a started state, this variable will be used to add scores to players.
 .panel.panel-success
   .panel-heading
-    %h1= t('game.current_game')
+    %h1.panel-title= t('game.current_game')
   .panel-content
-    .row
-      .col-xs-4
-        .panel.panel-primary
-          .panel-heading
-            %h2= @game.blue_team.name
-          .panel-content
-            - @blue_players.each do |player|
-              .row{ id: player.id }
-                .col-xs-2
-                  = player.number
-                .col-xs-8
-                  = player.name
-                .col-xs-2.goals
-                  = "G" * @game.goals_for(player)
-
-      .col-xs-2.scoreboard
-        .col-xs-4.js-blue-goals
-          %h3= @game.blue_goals
-          %a.btn.btn-primary{ href: '#',
-                              data: { toggle: 'modal',
-                                      target: '#blueGoalModal' } }
-            = t('game.goal')
-        .col-xs-4
-          %h3 -
-        .col-xs-4.js-white-goals
-          %h3= @game.white_goals
-          %a.btn.btn-default{ href: '#',
-                              data: { toggle: 'modal',
-                                      target: '#whiteGoalModal' } }
-            = t('game.goal')
-      .col-xs-4
-        .panel.panel-default
-          .panel-heading
-            %h2= @game.white_team.name
-          .panel-content
-            - @white_players.each do |player|
-              .row{ id: player.id }
-                .col-xs-2
-                  = player.number
-                .col-xs-8
-                  = player.name
-                .col-xs-2.goals
-                  = "G" * @game.goals_for(player)
-
-/ Modals
-.modal.fade#blueGoalModal
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h2.modal-title= t('game.goal_for', team_name: "#{@game.blue_team.name}")
-      .modal-body
-        = form_for @score, remote: true do |f|
-          .form-group
-            = f.hidden_field :game_id, value: @game.id
-            %h3= t('game.scoring_player')
-            = f.collection_select :player_id,
-                                  @blue_players,
-                                  :id,
-                                  :number_name,
-                                  {},
-                                  { class: 'form-control' }
-            = f.submit t('general.score'), class: 'btn btn-primary form-control'
-
-.modal.fade#whiteGoalModal
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h2.modal-title= t('game.goal_for', team_name: "#{@game.white_team.name}")
-      .modal-body
-        = form_for @score, remote: true do |f|
-          .form-group
-            = f.hidden_field :game_id, value: @game.id
-            %h3= t('game.scoring_player')
-            = f.collection_select :player_id,
-                                  @white_players,
-                                  :id,
-                                  :number_name,
-                                  {},
-                                  { class: 'form-control' }
-            = f.submit t('general.score'), class: 'btn btn-default form-control'
+    - if @game.status == Game::STATUS_READY
+      = render 'games/show_ready', game: @game
+    - elsif @game.status == Game::STATUS_STARTED
+      = render 'games/show_started', game: @game, score: @score
+= render 'games/navbar', game: @game

@@ -3,6 +3,8 @@
 
   @param [Stge] stage Stage that's being navigated
 = content_for :module_navbar do
+  %li
+    = link_to t('stage.back_to_tournament'), tournament_path(stage.tournament)
   - if can? :update, stage
     %li.dropdown
       = link_to '#', data: { toggle: 'dropdown' }, role: 'button' do

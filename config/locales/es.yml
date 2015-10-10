@@ -118,6 +118,7 @@
       name: 'Nombre'
       email: 'Correo de contacto'
   game:
+    back_to_stage: "Volver a etapa"
     blue_team: "Equipo azul"
     create_fail: "Ha ocurrido un error al crear el juego. Por favor inténtalo de nuevo."
     create_success: "El juego se ha creado exitosamente"
@@ -125,15 +126,20 @@
     destroy_success: "El juego ha sido cancelado"
     errors:
       invalid_status: "El estado del juego es inválido"
+      player_count: "El equipo %{team} debe tener por lo menos 6 jugadores para empezar el juego"
       player_not_in_team: "'%{player_name}' no esta en el listado de jugadores de '%{team_name}'."
       players: "Cada jugador debe tener al menos 6 jugadores. Todos los jugadores deben pertenecer a los equipos que se enfrentarán"
       same_team: "Se deben seleccionar equipos diferentes"
+      wrong_winning_color: "El color del equipo ganador es inválido"
+    game_start_error: "Ha ocurrido un error al iniciar el juego. Por favor inténtalo de nuevo"
+    game_started: "El juego ha iniciado"
     games_played: "Juegos jugados"
     goal: "¡Gol!"
     goal_for: "Gol anotado por %{team_name}"
     index: "Índice de juegos"
     new: "Nuevo juego"
     scoring_player: "Jugador que anotó"
+    start: "Comenzar juego"
     statuses:
       r: "Listo para iniciar"
       s: "Iniciado"
@@ -182,9 +188,13 @@
     errors:
       number_uniqueness: "El número del jugador no debe ser único en el equipo"
     new: "Agregar jugador"
+  player_game:
+    errors:
+      team_color: "El color asignado a %{player} es inválido"
   stage:
     add_game: "Nuevo juego"
     administrate: "Administrar etapa"
+    back_to_tournament: "Volver al torneo"
     destroy_successful: "La etapa ha sido eliminada del torneo"
     errors:
       blank_name: "El nombre de la etapa está vacío"
