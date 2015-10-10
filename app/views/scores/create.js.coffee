@@ -11,5 +11,5 @@ if <%= @player.team_id %> is <%= @game.blue_team_id %>
 else
   selector = '.js-white-goals'
 
-teams_score = $(selector).children('h3')
+teams_score = $(selector)
 teams_score.text(+(teams_score.text()) + 1)

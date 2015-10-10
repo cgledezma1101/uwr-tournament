@@ -17,21 +17,28 @@
               %span.text-right
                 = "G" * game.goals_for(player)
 
-  .col-xs-2.scoreboard
-    .col-xs-4.js-blue-goals
-      %h3.text-center= game.blue_goals
-      %a.btn.btn-primary{ href: '#',
-                          data: { toggle: 'modal',
-                                  target: '#blueGoalModal' } }
-        = t('game.goal')
-    .col-xs-4
-      %h3.text-center -
-    .col-xs-4.js-white-goals
-      %h3.text-center= game.white_goals
-      %a.btn.btn-default{ href: '#',
-                          data: { toggle: 'modal',
-                                  target: '#whiteGoalModal' } }
-        = t('game.goal')
+  .col-xs-2.scoreboard.text-center
+    %table
+      %tr
+        %td.text-center
+          %h1.js-blue-goals= game.blue_goals
+        %td.text-center
+          %h1 -
+        %td.text-center
+          %h1.js-white-goals= game.white_goals
+      %tr
+        %td.text-center
+          %a.btn.btn-primary{ href: '#',
+                              data: { toggle: 'modal',
+                                      target: '#blueGoalModal' } }
+            = t('game.goal')
+        %td.text-center
+        %td.text-center
+          %a.btn.btn-default{ href: '#',
+                              data: { toggle: 'modal',
+                                      target: '#whiteGoalModal' } }
+            = t('game.goal')
+
   .col-xs-5
     .panel.panel-default
       .panel-heading

@@ -134,7 +134,7 @@ en:
     game_start_error: "An error has occurred when starting the game. Please try again."
     game_started: "The game has successfully started"
     games_played: "Games played"
-    goal: "Goal!"
+    goal: "Goal"
     goal_for: "Goal scored by %{team_name}"
     index: "Game index"
     new: "New game"
