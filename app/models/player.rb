@@ -23,7 +23,7 @@ class Player < ActiveRecord::Base
   #
   # @return [String] The name of the player
   def name
-    self.number_name
+    self.user.name
   end
 
   # Name of the team the player belongs to

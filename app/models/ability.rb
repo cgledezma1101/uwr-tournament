@@ -60,7 +60,7 @@ class Ability
     end
 
     can :read, Game do |game|
-      (can? :update, game) || (can? :read, game.stage)
+      can? :read, game.stage
     end
 
     can :start, Game do |game|

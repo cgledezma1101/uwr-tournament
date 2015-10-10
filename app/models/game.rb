@@ -39,7 +39,7 @@ class Game < ActiveRecord::Base
   #
   #  @return Array<Player> Blue team's players
   def blue_players
-    Player.joins{ player_games }.where{ player_games.game_id == my{self.id} && player_games.team_color == my{PlayerGame::BLUE_TEAM} }
+    Player.joins{ player_games }.where{ (player_games.game_id == my{self.id}) & (player_games.team_color == my{PlayerGame::BLUE_TEAM}) }
   end
 
   # Determines the amount of goals this player made on the match
@@ -71,7 +71,7 @@ class Game < ActiveRecord::Base
   #
   #  @return Array<Player> White team's players
   def white_players
-    Player.joins{ player_games }.where{ player_games.game_id == my{self.id} && player_games.team_color == my{PlayerGame::WHITE_TEAM} }
+    Player.joins{ player_games }.where{ (player_games.game_id == my{self.id}) & (player_games.team_color == my{PlayerGame::WHITE_TEAM}) }
   end
 
   private

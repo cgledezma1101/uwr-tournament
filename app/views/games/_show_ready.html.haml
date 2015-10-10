@@ -11,13 +11,13 @@
         %ul.list-group
           - for player in game.blue_team.active_players
             %li.list-group-item.text-center= player.number_name
+            
   .col-xs-2
     %h2.text-center= t('general.versus_short')
     - if can? :start, game
       .text-center
-        = link_to start_game_path(game), method: :post do
-          %button.btn.btn-primary
-            = t('game.start')
+        = link_to t('game.start'), start_game_path(game), class: 'btn btn-primary', method: :post
+
   .col-xs-5
     .panel.panel-default
       .panel.panel-heading

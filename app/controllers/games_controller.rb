@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     else
       redirect_params = { alert: t('game.create_fail') }
     end
-    
+
     redirect_to stage_path(@game.stage), redirect_params
   end
 
@@ -76,6 +76,7 @@ class GamesController < ApplicationController
       end
 
       @game.status = Game::STATUS_STARTED
+
       if !@game.save
         rolled_back = true
         raise ActiveRecord::Rollback
