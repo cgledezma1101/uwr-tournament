@@ -118,8 +118,15 @@
       name: 'Nombre'
       email: 'Correo de contacto'
   game:
+    add_chronometer: "Agregar cronómetro"
     back_to_stage: "Volver a etapa"
     blue_team: "Equipo azul"
+    chronometer_minutes: "Minutos"
+    chronometer_seconds: "Segundos"
+    chronometer_start: "Comenzar"
+    chronometer_stop: "Detener"
+    chronometer_name: "Nombre"
+    chronometers: "Cronómetros"
     create_fail: "Ha ocurrido un error al crear el juego. Por favor inténtalo de nuevo."
     create_success: "El juego se ha creado exitosamente"
     current_game: "Juego en curso"
@@ -139,6 +146,7 @@
     index: "Índice de juegos"
     new: "Nuevo juego"
     player: "Jugador"
+    scoreboard: "Marcador"
     scoring_player: "Jugador que anotó"
     start: "Comenzar juego"
     statuses:

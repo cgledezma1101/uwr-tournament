@@ -2,6 +2,15 @@ class GamesController < ApplicationController
   load_and_authorize_resource
   before_action :authenticate_user!
 
+  # GET /games/add_chronometer
+  #
+  # Returns javascript appropriate for adding a chronometer to the game that performs the request
+  def add_chronometer
+    respond_to do |format|
+      format.js { render }
+    end
+  end
+
   # POST /games
   #
   # Based on the parameters received, creates a new game and redirects the user

@@ -118,8 +118,15 @@ en:
       name: 'Name'
       email: 'Contact email'
   game:
+    add_chronometer: "Add chronometer"
     back_to_stage: "Back to stage"
     blue_team: "Blue team"
+    chronometer_minutes: "Minutes"
+    chronometer_name: "Name"
+    chronometer_seconds: "Seconds"
+    chronometer_start: "Start"
+    chronometer_stop: "Stop"
+    chronometers: "Chronometers"
     create_fail: "There has been an error creating the game. Please try again."
     create_success: "The game has been successfully created"
     current_game: "Current game"
@@ -139,6 +146,7 @@ en:
     index: "Game index"
     new: "New game"
     player: "Player"
+    scoreboard: "Scoreboard"
     scoring_player: "Scoring player"
     start: "Start game"
     statuses:

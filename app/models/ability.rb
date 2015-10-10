@@ -51,6 +51,8 @@ class Ability
     ###################################################
     can :new, Game
 
+    can :add_chronometer, Game
+
     can :create, Game do |game|
       can? :update, game.stage
     end

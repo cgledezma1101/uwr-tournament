@@ -17,6 +17,7 @@ UwrTournament::Application.routes.draw do
   resources :clubs, only: [:show, :new, :create, :edit, :update]
 
   resources :games, only: [:create, :new, :show, :destroy] do
+    get 'add_chronometer', on: :collection
     post 'start', on: :member
   end
 
