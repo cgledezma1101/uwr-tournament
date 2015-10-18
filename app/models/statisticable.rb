@@ -18,7 +18,7 @@ class Statisticable
     raise "This method hasn't been implemented"
   end
 
-  # @return [Array<Team>] An array of teams, sorted in ascending order by the amount of goals they've received
+  # @return [Array<Array<Team, Integer>>] An array containing tuples whose first item is a team, and whose second item is the amount of goals that team has received. The array should be sorted in ascending order by goals received
   def least_defeated
     raise "This method hasn't been implemented"
   end
@@ -46,7 +46,7 @@ class Statisticable
     raise "This method hasn't been implemented"
   end
 
-  # @return [Array<Array<Player, Integer>>] An array where each element contains a tuple whose first item is a player, and second item is the amount of goals that player has scored in the tournament
+  # @return [Array<Array<Player, Integer>>] An array where each element contains a tuple whose first item is a player, and second item is the amount of goals that player has scored in the tournament. The array should be sorted in descending order by goals scored
   def top_scorers
     raise "This method hasn't been implemented"
   end

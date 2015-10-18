@@ -43,9 +43,11 @@ class Stage < ActiveRecord::Base
   end
 
   def least_defeated
-    teams = (Team.joins{ blue_games }.where{ (blue_games.stage_id == my{self.id}) & (game.status == my{Game::STATUS_ENDED}) }.to_a +
-             Team.joins{ white_games }.where{ (white_games.stage_id == my{self.id}) & (game.status == my{Game::STATUS_ENDED}) }.to_a).uniq
-    return teams.sort{ |team0, team1| self.goals_received(team0) <=> self.goals_received(team1) }
+    teams = (Team.joins{ blue_games }.where{ (blue_games.stage_id == my{self.id}) & (blue_games.status == my{Game::STATUS_ENDED}) }.to_a +
+             Team.joins{ white_games }.where{ (white_games.stage_id == my{self.id}) & (white_games.status == my{Game::STATUS_ENDED}) }.to_a).uniq
+
+    goals_against = teams.map{ |team| [team, self.goals_received(team)] }
+    return goals_against.sort{ |against0, against1| against0[1] <=> against1[1] }
   end
 
   def lost_games(team)
@@ -93,12 +95,12 @@ class Stage < ActiveRecord::Base
   def top_scorers
     players = Player.joins{ games }.where{ (games.stage_id == my{self.id}) & (games.status == my{Game::STATUS_ENDED}) }.uniq
 
-    players_points = (players.map do |player|
+    players_points = players.map do |player|
       scores = self.games.to_a.inject(0){ |sum, game| sum + game.goals_for(player) }
       [player, scores]
-    end).to_h
+    end
 
-    players.sort{ |player0, player1| players_points[player0] < players_points[player1] ? 1 : -1 }.map{ |player| [player, players_points[player]] }
+    players_points.sort{ |points0, points1| points0[1] < points1[1] ? 1 : -1 }
   end
 
   def won_games(team)

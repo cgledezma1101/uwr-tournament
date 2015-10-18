@@ -234,6 +234,7 @@ en:
     index: "Statistics"
     leaderboard: "Leaderboard"
     least_defeated_goal: "Least defeated goal"
+    least_defeated_goals: "Least defeated goals"
     player_name: "Player"
     positions_table: "Positions table"
     statistics: "Statistics"
