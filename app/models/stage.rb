@@ -75,7 +75,7 @@ class Stage < ActiveRecord::Base
         if average_0 < average_1
           compare = 1
         elsif average_0 > average_1
-          compare = -11
+          compare = -1
         end
       end
 
@@ -96,7 +96,7 @@ class Stage < ActiveRecord::Base
     players = Player.joins{ games }.where{ (games.stage_id == my{self.id}) & (games.status == my{Game::STATUS_ENDED}) }.uniq
 
     players_points = players.map do |player|
-      scores = self.games.to_a.inject(0){ |sum, game| sum + game.goals_for(player) }
+      scores = Score.joins{ game }.where{ (game.stage_id == my{self.id}) & (player_id == my{player.id}) }.count
       [player, scores]
     end
 
