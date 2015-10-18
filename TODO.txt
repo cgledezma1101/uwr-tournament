@@ -1,9 +1,6 @@
 - Tournaments:
   - Delete
 
-Games:
-  - Setup winning_color field (for statistics) - blue, white, none
-
 Statistics:
   - Per stage
   - Tournament
