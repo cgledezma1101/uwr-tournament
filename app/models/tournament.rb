@@ -1,4 +1,4 @@
-class Tournament < Statisticable
+class Tournament < ActiveRecord::Base
   has_many :tournament_admins, dependent: :destroy
   has_many :admins, through: :tournament_admins, source: :user
 

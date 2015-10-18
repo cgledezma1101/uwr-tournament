@@ -36,9 +36,5 @@
                     |
                     = link_to t('general.cancel'), game_path(game), method: :delete
     .col-xs-12
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('statistics.statistics')
-        .panel-body
-          PH
+      = render 'statisticables/show', statisticable: @stage
 = render 'stages/navbar', stage: @stage

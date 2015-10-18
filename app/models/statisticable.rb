@@ -1,5 +1,5 @@
 # This is an "interface" that defines models that can retrieve statistics
-class Statisticable < ActiveRecord::Base
+class Statisticable
   # @param [Team] The team for whom the amount of goals is desired
   # @return [Integer] A numeric representation of the balance between the goals the team has scored and received
   def goals_average(team)

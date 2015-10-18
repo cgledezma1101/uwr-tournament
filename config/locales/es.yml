@@ -227,6 +227,7 @@
     games_won_short: "JG"
     games_won_long: "Juegos ganados"
     goal_count: "Goles: %{total_goals}"
+    goal_difference_long: "Diferencia de goles"
     goal_difference_short: "DG"
     goals_received: "Goles recibidos"
     goals_scored: "Goles anotados"
