@@ -1,10 +1,6 @@
 - Tournaments:
   - Delete
 
-Statistics:
-  - Per stage
-  - Tournament
-
 Plus:
   - Print game sheets
   - Referees:

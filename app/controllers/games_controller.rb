@@ -55,7 +55,7 @@ class GamesController < ApplicationController
     end
 
     @game.update(status: Game::STATUS_ENDED, winning_color: winning_color)
-    redirect_to game_path(@game, notice: t('game.finalize_success'))
+    redirect_to game_path(@game), notice: t('game.finalize_success')
   end
 
 
