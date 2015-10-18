@@ -29,8 +29,8 @@ class Statisticable
     raise "This method hasn't been implemented"
   end
 
-  # @return [Array<Team>] Determines the teams that participate in this set of statistics
-  def participating_teams
+  # @return [Array<Array<Team, Integer>>] Retrieves the teams that participate in this statistic set, ordered by the amount of points they've accumulated
+  def leaderboard
     raise "This method hasn't been implemented"
   end
 

@@ -40,29 +40,28 @@ class Tournament < ActiveRecord::Base
     self.stages.inject(0){ |sum, stage| sum + stage.lost_games(team) }
   end
 
-  def participating_teams
-    teams_a = teams.to_a
-    teams_points = teams_a.map{ |team| [team, self.points_for(team)] }.to_h
+  def leaderboard
+    teams.to_a
+         .map{ |team| [team, self.points_for(team)] }
+         .sort do |team0, team1|
+           compare = 0
+           if team0[1] < team1[1]
+             compare = 1
+           elsif team0[1] > team1[1]
+             compare = -1
+           else
+             average0 = self.goals_average(team0[0])
+             average1 = self.goals_average(team1[0])
 
-    teams_a.sort do |team0, team1|
-      compare = 0
-      if teams_points[team0] < teams_points[team1]
-        compare = 1
-      elsif teams_points[team0] > teams_points[team1]
-        compare = -1
-      else
-        average0 = self.goals_average(team0)
-        average1 = self.goals_average(team1)
+             if average0 < average1
+               compare = 1
+             elsif average0 > average1
+               compare = -1
+             end
+           end
 
-        if average0 < average1
-          compare = 1
-        elsif average0 > average1
-          compare = -1
-        end
-      end
-
-      compare
-    end
+           compare
+         end
   end
 
   def points_for(team)

@@ -21,16 +21,16 @@
               %th.text-center= t('statistics.goals_received')
               %th.text-center= t('statistics.total_points')
               %th.text-center= t('statistics.goal_difference_long')
-            - for team in statisticable.participating_teams
+            - for team_points in statisticable.leaderboard
               %tr
-                %td.text-center= team.name
-                %td.text-center= statisticable.won_games(team)
-                %td.text-center= statisticable.tied_games(team)
-                %td.text-center= statisticable.lost_games(team)
-                %td.text-center= statisticable.goals_scored(team)
-                %td.text-center= statisticable.goals_received(team)
-                %td.text-center= statisticable.points_for(team)
-                %td.text-center= statisticable.goals_average(team)
+                %td.text-center= team_points[0].name
+                %td.text-center= statisticable.won_games(team_points[0])
+                %td.text-center= statisticable.tied_games(team_points[0])
+                %td.text-center= statisticable.lost_games(team_points[0])
+                %td.text-center= statisticable.goals_scored(team_points[0])
+                %td.text-center= statisticable.goals_received(team_points[0])
+                %td.text-center= team_points[1]
+                %td.text-center= statisticable.goals_average(team_points[0])
     .col-xs-6
       .panel.panel-default
         .panel-heading

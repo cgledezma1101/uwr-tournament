@@ -56,31 +56,30 @@ class Stage < ActiveRecord::Base
                .count
   end
 
-  def participating_teams
+  def leaderboard
     teams = (Team.joins{ blue_games }.where{ blue_games.stage_id == my{self.id} }.to_a +
              Team.joins{ white_games }.where{ white_games.stage_id == my{self.id} }.to_a).uniq
 
-    teams_points = teams.collect{ |team| [team, self.points_for(team)] }.to_h
+    teams.collect{ |team| [team, self.points_for(team)] }
+         .sort do |team0, team1|
+           compare = 0
+           if team0[1] < team1[1]
+             compare = 1
+           elsif team0[1] > team1[1]
+             compare = -1
+           else
+             average_0 = self.goals_average(team0[0])
+             average_1 = self.goals_average(team1[0])
 
-    return teams.sort do |team0, team1|
-      compare = 0
-      if teams_points[team0] < teams_points[team1]
-        compare = 1
-      elsif teams_points[team0] > teams_points[team1]
-        compare = -1
-      else
-        average_0 = self.goals_average(team0)
-        average_1 = self.goals_average(team1)
+             if average_0 < average_1
+               compare = 1
+             elsif average_0 > average_1
+               compare = -1
+             end
+           end
 
-        if average_0 < average_1
-          compare = 1
-        elsif average_0 > average_1
-          compare = -1
-        end
-      end
-
-      compare
-    end
+           compare
+         end
   end
 
   def points_for(team)
