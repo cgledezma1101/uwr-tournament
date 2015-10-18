@@ -134,6 +134,7 @@
     create_success: "El juego se ha creado exitosamente"
     current_game: "Juego en curso"
     destroy_success: "El juego ha sido cancelado"
+    end: "Terminar juego"
     errors:
       invalid_status: "El estado del juego es inválido"
       player_count: "El equipo %{team} debe tener por lo menos 6 jugadores para empezar el juego"
@@ -141,6 +142,7 @@
       players: "Cada jugador debe tener al menos 6 jugadores. Todos los jugadores deben pertenecer a los equipos que se enfrentarán"
       same_team: "Se deben seleccionar equipos diferentes"
       wrong_winning_color: "El color del equipo ganador es inválido"
+    finalize_success: "El juego ha finalizado satisfactoriamente"
     game_start_error: "Ha ocurrido un error al iniciar el juego. Por favor inténtalo de nuevo"
     game_started: "El juego ha iniciado"
     games_played: "Juegos jugados"

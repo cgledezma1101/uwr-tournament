@@ -36,6 +36,29 @@ class GamesController < ApplicationController
     redirect_to stage_path(@game.stage), notice: t('game.destroy_success')
   end
 
+  # POST /games/:id/end
+  #
+  # Marks the specified game as ended, so that no further changes can be done on it
+  #
+  # @param [Integer] id Identifier of the game to mark as ended
+  def finalize
+    @game.status = Game::STATUS_ENDED
+    white_goals = @game.white_goals
+    blue_goals = @game.blue_goals
+
+    if white_goals > blue_goals
+      winning_color = PlayerGame::WHITE_TEAM
+    elsif blue_goals > white_goals
+      winning_color = PlayerGame::BLUE_TEAM
+    else
+      winning_color = Game::TIED_GAME
+    end
+
+    @game.update(status: Game::STATUS_ENDED, winning_color: winning_color)
+    redirect_to game_path(@game, notice: t('game.finalize_success'))
+  end
+
+
   # GET /games/new?stage_id=:stage_id
   #
   # Renders a form that would allow the creation of a game in a stage
@@ -60,7 +83,7 @@ class GamesController < ApplicationController
     @score = Score.new
   end
 
-  # POST /start_game/:id
+  # POST /game/:id/start
   #
   # Marks the given game as started and associates all the currently active players on each team to their respective colors
   #

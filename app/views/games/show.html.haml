@@ -13,4 +13,6 @@
       = render 'games/show_ready', game: @game
     - elsif @game.status == Game::STATUS_STARTED
       = render 'games/show_started', game: @game, score: @score
+    - else
+      = render 'games/show_ended', game: @game
 = render 'games/navbar', game: @game

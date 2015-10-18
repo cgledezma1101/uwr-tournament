@@ -1,0 +1,43 @@
+-#
+  Displays the information regarding a game that has already ended
+
+  @param Game game The game to be displayed, which should be in an ended state
+.col-xs-12{ style: 'margin-top: 20px;' }
+  %h3= t('game.scoreboard')
+  .col-xs-5
+    .panel.panel-primary
+      .panel-heading
+        %h2.panel-title= game.blue_team.name
+      .panel-content
+        %table.table
+          %tr
+            %th.text-center= t('game.player')
+            %th.text-center= t('statistics.goals_scored')
+          - game.blue_players.each do |player|
+            %tr
+              %td.text-center= player.number_name
+              - scored_goals = game.goals_for(player)
+              %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
+
+  .col-xs-2.scoreboard.text-center
+    .col-xs-4.text-center
+      %h1.js-blue-goals= game.blue_goals
+    .col-xs-2.text-center
+      %h1 -
+    .col-xs-4.text-center
+      %h1.js-white-goals= game.white_goals
+
+  .col-xs-5
+    .panel.panel-default
+      .panel-heading
+        %h2.panel-title= game.white_team.name
+      .panel-content
+        %table.table
+          %tr
+            %th.text-center= t('game.player')
+            %th.text-center= t('statistics.goals_scored')
+          - game.white_players.each do |player|
+            %tr
+              %td.text-center= player.number_name
+              - scored_goals = game.goals_for(player)
+              %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""

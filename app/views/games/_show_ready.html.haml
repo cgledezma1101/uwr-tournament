@@ -14,9 +14,6 @@
 
   .col-xs-2
     %h2.text-center= t('general.versus_short')
-    - if can? :start, game
-      .text-center
-        = link_to t('game.start'), start_game_path(game), class: 'btn btn-primary', method: :post
 
   .col-xs-5
     .panel.panel-default

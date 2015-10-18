@@ -38,27 +38,25 @@
                 %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
 
     .col-xs-2.scoreboard.text-center
-      %table
-        %tr
-          %td.text-center
-            %h1.js-blue-goals= game.blue_goals
-          %td.text-center
-            %h1 -
-          %td.text-center
-            %h1.js-white-goals= game.white_goals
-        - if can? :update, game
-          %tr
-            %td.text-center
-              %a.btn.btn-primary{ href: '#',
-                                  data: { toggle: 'modal',
-                                          target: '#blueGoalModal' } }
-                = t('game.goal')
-            %td.text-center
-            %td.text-center
-              %a.btn.btn-default{ href: '#',
-                                  data: { toggle: 'modal',
-                                          target: '#whiteGoalModal' } }
-                = t('game.goal')
+      .col-xs-12
+        .col-xs-4.text-center
+          %h1.js-blue-goals= game.blue_goals
+        .col-xs-2.text-center
+          %h1 -
+        .col-xs-4.text-center
+          %h1.js-white-goals= game.white_goals
+      - if can? :update, game
+        .col-xs-12
+          .col-xs-4.text-center
+            %a.btn.btn-primary{ href: '#',
+                                data: { toggle: 'modal',
+                                        target: '#blueGoalModal' } }
+              = t('game.goal')
+          .col-xs-offset-2.col-xs-4.text-center
+            %a.btn.btn-default{ href: '#',
+                                data: { toggle: 'modal',
+                                        target: '#whiteGoalModal' } }
+              = t('game.goal')
 
     .col-xs-5
       .panel.panel-default
