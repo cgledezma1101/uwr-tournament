@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
    #
    # @return [Integer] Games the user has played
    def played_games
-     Game.joins{ players }.where{ players.user_id == my{self.id} }.count
+     Game.joins{ players }.where{ (status == my{Game::STATUS_ENDED}) & (players.user_id == my{self.id}) }.count
    end
 
    # The amount of games where the user participated and there was no victor
