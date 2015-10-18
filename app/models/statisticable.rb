@@ -18,7 +18,7 @@ class Statisticable
     raise "This method hasn't been implemented"
   end
 
-  # @return [Array<Hash<String, Integer>>] An array where each item is a hash containing the name of a team and the amount of goals it has received
+  # @return [Array<Team>] An array of teams, sorted in ascending order by the amount of goals they've received
   def least_defeated
     raise "This method hasn't been implemented"
   end
@@ -46,7 +46,7 @@ class Statisticable
     raise "This method hasn't been implemented"
   end
 
-  # @return [Array<Hash<String, Integer>>] An array where each item contains the name of a player and the amount of goals it has scored
+  # @return [Array<Array<Player, Integer>>] An array where each element contains a tuple whose first item is a player, and second item is the amount of goals that player has scored in the tournament
   def top_scorers
     raise "This method hasn't been implemented"
   end

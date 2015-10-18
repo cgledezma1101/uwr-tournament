@@ -31,3 +31,18 @@
                 %td.text-center= statisticable.goals_received(team)
                 %td.text-center= statisticable.points_for(team)
                 %td.text-center= statisticable.goals_average(team)
+    .col-xs-6
+      .panel.panel-default
+        .panel-heading
+          %h2.panel-title= t('statistics.scoring_champions')
+        .panel-body
+          %table.table
+            %tr
+              %th.text-center= t('statistics.player_name')
+              %th.text-center= t('statistics.team')
+              %th.text-center= t('statistics.goals_scored')
+            - for player_score in statisticable.top_scorers.take(5)
+              %tr
+                %td.text-center= player_score[0].name
+                %td.text-center= player_score[0].team.name
+                %td.text-center= player_score[1]

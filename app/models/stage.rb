@@ -91,14 +91,14 @@ class Stage < ActiveRecord::Base
   end
 
   def top_scorers
-    players = Player.joins{ game }.where{ (game.stage_id == my{self.id}) & (game.status == my{Game::STATUS_ENDED}) }.uniq
+    players = Player.joins{ games }.where{ (games.stage_id == my{self.id}) & (games.status == my{Game::STATUS_ENDED}) }.uniq
 
     players_points = (players.map do |player|
-      scores = self.games.to_a.inject{ |sum, game| sum + game.goals_for(player) }
-      return [player, scores]
+      scores = self.games.to_a.inject(0){ |sum, game| sum + game.goals_for(player) }
+      [player, scores]
     end).to_h
 
-    return players.sort{ |player0, player1| players_points[player0] <=> players_points[player1] }
+    players.sort{ |player0, player1| players_points[player0] < players_points[player1] ? 1 : -1 }.map{ |player| [player, players_points[player]] }
   end
 
   def won_games(team)

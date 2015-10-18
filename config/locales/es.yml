@@ -234,6 +234,7 @@
     index: "Estadísticas"
     leaderboard: "Tabla de posiciones"
     least_defeated_goal: "Portería menos vencida"
+    player_name: "Jugador"
     positions_table: "Tabla de posiciones"
     statistics: "Estadísticas"
     team: "Equipo"
