@@ -33,7 +33,7 @@ class Tournament < ActiveRecord::Base
 
   def least_defeated
     teams_defeats = self.teams.to_a.map{ |team| [team, self.goals_received(team)] }
-    team_defeats.sort{ |defeat0, defeat1| defeat0[1] <=> defeat1[1] }
+    teams_defeats.sort{ |defeat0, defeat1| defeat0[1] <=> defeat1[1] }
   end
 
   def lost_games(team)
@@ -42,7 +42,7 @@ class Tournament < ActiveRecord::Base
 
   def participating_teams
     teams_a = teams.to_a
-    teams_points = self.teams_a.map{ |team| [team, self.points_for(team)] }.to_h
+    teams_points = teams_a.map{ |team| [team, self.points_for(team)] }.to_h
 
     teams_a.sort do |team0, team1|
       compare = 0

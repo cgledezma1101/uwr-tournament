@@ -22,8 +22,8 @@ class Stage < ActiveRecord::Base
 
   def goals_received(team)
     return Score.joins{ player }
-               .joins{ game }
-               .where{
+                .joins{ game }
+                .where{
                   (game.stage_id == my{self.id}) &
                   (game.status == my{Game::STATUS_ENDED}) &
                   ((game.blue_team_id == my{team.id}) | (game.white_team_id == my{team.id})) &
