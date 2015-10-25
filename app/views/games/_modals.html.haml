@@ -18,3 +18,9 @@
          players: game.white_players,
          score: score,
          button_type: 'default'
+
+- for player in game.players
+  = render 'games/remove_score',
+           id: "remove-goal-#{player.id}",
+           player: player,
+           game: game

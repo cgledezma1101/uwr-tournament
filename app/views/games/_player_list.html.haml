@@ -20,4 +20,7 @@
             - scored_goals = game.goals_for(player)
             %div{ class: scored_goals == 0 ? 'player-no-scores' : ''  }
               %span{ id: "goals-#{player.id}"}= scored_goals
-              = link_to 'x', '#'
+              %a{ href: '#',
+                  data: { toggle: 'modal',
+                          target: "#remove-goal-#{player.id}" } }
+                x

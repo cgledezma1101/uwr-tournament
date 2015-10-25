@@ -74,6 +74,23 @@ class GamesController < ApplicationController
     render 'games/_new', layout: false
   end
 
+  # DELETE /games/:id/remove_score
+  #
+  # Allows removing a goal from a player in this game
+  #
+  # @param [Integer] id Identifier if the game where the change is being made
+  # @param [Integer] game.player_id Identifier of the player that will loose a score
+  def remove_score
+    @player = Player.find(params[:game][:player_id])
+    score_to_remove = @game.scores.where{ player_id == my{@player.id} }.first
+    if !score_to_remove.nil?
+      score_to_remove.destroy
+    end
+
+    @player_goals = @game.goals_for(@player)
+    @team_goals = @game.scores.joins{ player }.where{ player.team_id == my{@player.team_id} }.count
+  end
+
   # GET /games/:id
   #
   # Displays a game and allows basic mannipulation over it

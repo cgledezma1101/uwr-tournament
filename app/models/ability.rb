@@ -69,6 +69,10 @@ class Ability
       can? :read, game.stage
     end
 
+    can :remove_score, Game do |game|
+      can? :update, game
+    end
+
     can :start, Game do |game|
       (game.status == Game::STATUS_READY) && (can? :update, game)
     end

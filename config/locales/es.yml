@@ -151,6 +151,7 @@
     index: "Índice de juegos"
     new: "Nuevo juego"
     player: "Jugador"
+    remove_goal: "Anular un gol a '%{player_name}'"
     scoreboard: "Marcador"
     scoring_player: "Jugador que anotó"
     start: "Comenzar juego"
