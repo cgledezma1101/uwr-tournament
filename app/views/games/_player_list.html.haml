@@ -20,7 +20,8 @@
             - scored_goals = game.goals_for(player)
             %div{ class: scored_goals == 0 ? 'player-no-scores' : ''  }
               %span{ id: "goals-#{player.id}"}= scored_goals
-              %a{ href: '#',
-                  data: { toggle: 'modal',
-                          target: "#remove-goal-#{player.id}" } }
-                x
+              - if can? :update, game
+                %a{ href: '#',
+                    data: { toggle: 'modal',
+                            target: "#remove-goal-#{player.id}" } }
+                  x

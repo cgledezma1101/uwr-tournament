@@ -48,4 +48,5 @@
 
     .col-xs-5
       = render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'default'
-= render 'games/modals', game: game, score: score
+- if can? :update, game
+  = render 'games/modals', game: game, score: score
