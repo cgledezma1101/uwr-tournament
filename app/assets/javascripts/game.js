@@ -1,131 +1,147 @@
-var playingChronometers = {};
+var registeredChronometers = {};
 var chronometerInterval = undefined;
+var activeChronometers = 0;
 
 var updateChronometers = function()
 {
-  $.each(playingChronometers, function(gameId, entries)
+  $.each(registeredChronometers, function(chronometerId, chronometer)
   {
-    $.each(entries, function(index, entry)
+    if (!chronometer)
     {
-      var minutesInput = entry.chronometer.find('.js-chronometer-minutes');
-      var secondsInput = entry.chronometer.find('.js-chronometer-seconds');
+      return true;
+    }
 
-      var currentMinutes = +(minutesInput.val());
-      var currentSeconds = +(secondsInput.val());
+    var minutesInput = chronometer.find('.js-chronometer-minutes');
+    var secondsInput = chronometer.find('.js-chronometer-seconds');
 
-      var newSeconds = currentSeconds - 1;
-      if (newSeconds === -1)
+    var currentMinutes = +(minutesInput.val());
+    var currentSeconds = +(secondsInput.val());
+
+    --currentSeconds;
+
+    if (currentMinutes === 0 && currentSeconds <= 15)
+    {
+      minutesInput.css('background-color', '#FFFD60');
+      secondsInput.css('background-color', '#FFFD60');
+    }
+
+    if (currentSeconds === -1)
+    {
+      if (currentMinutes === 0)
       {
-        if (currentMinutes === 0)
-        {
-          entry.chronometer.find('.js-chronometer-stop').click();
-        }
-        else
-        {
-            minutesInput.val(currentMinutes - 1);
-            secondsInput.val(59);
-        }
+        chronometer.find('.js-chronometer-stop').click();
       }
       else
       {
-        secondsInput.val(newSeconds);
+          minutesInput.val(--currentMinutes);
+          secondsInput.val(59);
       }
-    });
+    }
+    else
+    {
+      secondsInput.val(currentSeconds);
+    }
+
+    return true;
   });
 }
 
-var chronometerStart = function(event)
+var chronometerStart = function()
 {
-  event.preventDefault();
   var chronometer = $(this).parents('.js-chronometer');
   var name = chronometer.find('.js-chronometer-name');
   var minutes = chronometer.find('.js-chronometer-minutes');
   var seconds = chronometer.find('.js-chronometer-seconds');
+
+  chronometerId = name.val();
+
+  if (!chronometerId || registeredChronometers[chronometerId])
+  {
+    name.css('border-color', 'rgb(233, 102, 102)');
+    name.css('box-shadow', '0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 102, 102, 0.6)');
+    return false;
+  }
+
+  name.css('border-color', '');
+  name.css('box-shadow', '');
 
   minutes.prop("readonly", "readonly");
   seconds.prop("readonly", "readonly");
   name.prop("readonly", "readonly");
 
-  var gameId = chronometer.parents('.js-chronometers').data('game');
-  var intervalEntry = {
-    id: name.val(),
-    chronometer: chronometer
-  };
-  if (!playingChronometers[gameId] || playingChronometers[gameId].length === 0)
+  if (activeChronometers === 0)
   {
-    playingChronometers[gameId] = [intervalEntry];
     chronometerInterval = window.setInterval(updateChronometers, 1000);
   }
-  else
+
+  if (!registeredChronometers[chronometerId])
   {
-    var isInArray = false;
-    $.each(playingChronometers[gameId], function(index, entry)
-    {
-      if (entry.id == intervalEntry.id)
-      {
-        isInArray = true;
-        return false;
-      }
-
-      return true;
-    })
-
-    if (!isInArray)
-    {
-      $.merge(playingChronometers[gameId], [intervalEntry]);
-    }
+    registeredChronometers[chronometerId] = chronometer;
+    ++activeChronometers;
   }
+
+  // Prevent default behaviour and stop event propagation
+  return false;
 };
 
-var chronometerStop = function(event)
+var chronometerStop = function()
 {
-  event.preventDefault();
   var chronometer = $(this).parents('.js-chronometer');
   var minutes = chronometer.find('.js-chronometer-minutes');
   var seconds = chronometer.find('.js-chronometer-seconds');
   var name = chronometer.find('.js-chronometer-name');
 
+  minutes.css('background-color', '');
   minutes.prop("readonly", "");
+
+  seconds.css('background-color', '');
   seconds.prop("readonly", "");
+
   name.prop("readonly", "");
 
-  var gameId = chronometer.parents('.js-chronometers').data('game');
-  var chronometerName = name.val();
-  if (playingChronometers[gameId])
+  var chronometerId = name.val();
+  if (registeredChronometers[chronometerId])
   {
-    playingChronometers[gameId] = $.grep(playingChronometers[gameId], function(entry, index)
-    {
-      return entry.id !== chronometerName;
-    });
+    registeredChronometers[chronometerId] = undefined
+    --activeChronometers;
 
-    if (playingChronometers[gameId].length === 0)
+    if (activeChronometers === 0)
     {
       window.clearInterval(chronometerInterval);
     }
   }
+
+  // Prevent default behaviour and stop event propagation
+  return false;
 };
 
-var chronometerRemove = function(event)
+var chronometerRemove = function()
 {
-  event.preventDefault();
   var chronometer = $(this).parents('.js-chronometer');
   chronometer.find('.js-chronometer-stop').click();
   chronometer.remove();
+
+  // Prevent default behaviour and stop event propagation
+  return false;
 }
 
 $(document).ready(function()
 {
-  $('.js-chronometer-stopall').on('click', function(event)
+  $('.js-chronometer-stopall').on('click', function()
   {
-    event.preventDefault();
     var panel = $(this).parents('.js-chronometers-panel');
     panel.find('.js-chronometer-stop').click();
+
+    // Prevent default behaviour and stop event propagation
+    return false;
   });
 
-  $('.js-chronometer-resumeall').on('click', function(event)
+  $('.js-chronometer-resumeall').on('click', function()
   {
-    event.preventDefault();
     var panel = $(this).parents('.js-chronometers-panel');
     panel.find('.js-chronometer-start').click();
+
+    // Prevent default behaviour and stop event propagation
+    return false;
   });
 });
