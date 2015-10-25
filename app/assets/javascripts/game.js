@@ -21,8 +21,8 @@ var updateChronometers = function()
 
     if (currentMinutes === 0 && currentSeconds <= 15)
     {
-      minutesInput.css('background-color', '#FFFD60');
-      secondsInput.css('background-color', '#FFFD60');
+      minutesInput.addClass('timer-low');
+      secondsInput.addClass('timer-low');
     }
 
     if (currentSeconds === -1)
@@ -55,15 +55,13 @@ var chronometerStart = function()
 
   chronometerId = name.val();
 
-  if (!chronometerId || registeredChronometers[chronometerId])
+  if (!chronometerId || (registeredChronometers[chronometerId] && !chronometer.hasClass('js-chronometer-playing')))
   {
-    name.css('border-color', 'rgb(233, 102, 102)');
-    name.css('box-shadow', '0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 102, 102, 0.6)');
+    name.addClass('chronometer-error');
     return false;
   }
 
-  name.css('border-color', '');
-  name.css('box-shadow', '');
+  name.removeClass('chronometer-error');
 
   minutes.prop("readonly", "readonly");
   seconds.prop("readonly", "readonly");
@@ -76,6 +74,7 @@ var chronometerStart = function()
 
   if (!registeredChronometers[chronometerId])
   {
+    chronometer.addClass('js-chronometer-playing');
     registeredChronometers[chronometerId] = chronometer;
     ++activeChronometers;
   }
@@ -91,10 +90,12 @@ var chronometerStop = function()
   var seconds = chronometer.find('.js-chronometer-seconds');
   var name = chronometer.find('.js-chronometer-name');
 
-  minutes.css('background-color', '');
+  chronometer.removeClass('js-chronometer-playing');
+
+  minutes.removeClass('timer-low');
   minutes.prop("readonly", "");
 
-  seconds.css('background-color', '');
+  seconds.removeClass('timer-low');
   seconds.prop("readonly", "");
 
   name.prop("readonly", "");

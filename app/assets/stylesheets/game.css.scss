@@ -1,12 +1,10 @@
-.team-dropdown {
-  margin-bottom: 10px;
+input.chronometer-error
+{
+  border-color: rgb(233, 102, 102);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 102, 102, 0.6);
 }
 
-.scoreboard{
-  padding-top: 50px;
-  text-align: center;
-}
-
-.btn.form-control {
-  margin-top: 10px;
+input.timer-low
+{
+  background-color: #FFFD60 !important;
 }
