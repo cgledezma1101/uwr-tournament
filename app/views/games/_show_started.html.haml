@@ -4,17 +4,17 @@
   @param Game game The game to be displayed, which should be in a started state
   @param Score score An instance that will be used to add scores to players
 .col-xs-12
-  .col-xs-12.js-chronometers-panel
-    %h3= t('game.chronometers')
-    .js-chronometers{ data: { game: game.id } }
-      .col-xs-12
-        .col-xs-3
-          %h4.text-center= t('game.chronometer_name')
-        .col-xs-3
-          %h4.text-center= t('game.chronometer_minutes')
-        .col-xs-3
-          %h4.text-center= t('game.chronometer_seconds')
-    - if can? :update, game
+  - if can? :update, game
+    .col-xs-12.js-chronometers-panel
+      %h3= t('game.chronometers')
+      .js-chronometers{ data: { game: game.id } }
+        .col-xs-12
+          .col-xs-3
+            %h4.text-center= t('game.chronometer_name')
+          .col-xs-3
+            %h4.text-center= t('game.chronometer_minutes')
+          .col-xs-3
+            %h4.text-center= t('game.chronometer_seconds')
       .text-right
         .btn-group{ style: 'margin-top: 5px;' }
           = link_to t('game.add_chronometer'), add_chronometer_games_path, class: 'btn btn-primary', remote: true

@@ -13,6 +13,9 @@ class ScoresController < ApplicationController
     @player = @score.player
 
     @score.save
+
+    @player_goals = @score.game.goals_for(@player)
+    @team_goals = @score.game.scores.joins{ player }.where{ player.team_id == my{@player.team_id} }.count
   end
 
   private
