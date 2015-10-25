@@ -23,7 +23,7 @@
   .col-xs-12{ style: 'margin-top: 20px;' }
     %h3= t('game.scoreboard')
     .col-xs-5
-      = render 'games/player_list', team_name: game.blue_team.name, players: game.blue_players, game: game, panel_type: 'panel-primary'
+      = render 'games/player_list', team_name: game.blue_team.name, players: game.blue_players, game: game, panel_type: 'primary'
 
     .col-xs-2.scoreboard.text-center
       .col-xs-12
@@ -47,5 +47,5 @@
               = t('game.goal')
 
     .col-xs-5
-      = render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'panel-default'
-= render 'games/score_modals', game: game, score: score
+      = render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'default'
+= render 'games/modals', game: game, score: score

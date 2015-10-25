@@ -1,0 +1,26 @@
+-#
+  Renders a modal that will display a form that allows assigning a score to the player who scored it
+
+  @param [String] id Identifier for the modal
+  @param [String] team_name Name of the team the scoring player belongs to
+  @param [Game] game The game where this score is being created
+  @param [Array<Player>] players A list of players that are elegible to score this goal
+  @param [Score] score An instance that will be used to create the form for the score
+  @param [String] button_type Kind of button that will submit the form
+.modal.fade{ id: id }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h2.modal-title= t('game.goal_for', team_name: team_name)
+      .modal-body
+        = form_for score, remote: true do |f|
+          .form-group
+            = f.hidden_field :game_id, value: game.id
+            %h3= t('game.scoring_player')
+            = f.collection_select :player_id,
+                                  players,
+                                  :id,
+                                  :number_name,
+                                  {},
+                                  { class: 'form-control team-dropdown' }
+            = f.submit t('general.score'), class: "btn btn-#{button_type} form-control"

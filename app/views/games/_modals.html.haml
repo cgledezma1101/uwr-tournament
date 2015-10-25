@@ -1,0 +1,20 @@
+-#
+  Renders the modals that are used to score goals in a game
+
+  @param Game game The game that's being played
+  @param Score score An instance used to create forms for scoring
+= render 'games/score_modal',
+         id: "blueGoalModal",
+         team_name: game.blue_team.name,
+         game: game,
+         players: game.blue_players,
+         score: score,
+         button_type: 'primary'
+
+= render 'games/score_modal',
+         id: "whiteGoalModal",
+         team_name: game.white_team.name,
+         game: game,
+         players: game.white_players,
+         score: score,
+         button_type: 'default'

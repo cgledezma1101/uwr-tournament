@@ -5,7 +5,7 @@
   @param [Array<Player>] players List of players of the team being displayed
   @param [Game] game The game being displayed
   @param [String] panel_type The kind of panel where the list is to be shown
-.panel{ class: panel_type }
+.panel{ class: "panel-#{panel_type}" }
   .panel-heading
     %h2.panel-title= team_name
   .panel-content
