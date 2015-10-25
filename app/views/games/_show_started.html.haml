@@ -23,19 +23,7 @@
   .col-xs-12{ style: 'margin-top: 20px;' }
     %h3= t('game.scoreboard')
     .col-xs-5
-      .panel.panel-primary
-        .panel-heading
-          %h2.panel-title= game.blue_team.name
-        .panel-content
-          %table.table
-            %tr
-              %th.text-center= t('game.player')
-              %th.text-center= t('statistics.goals_scored')
-            - game.blue_players.each do |player|
-              %tr
-                %td.text-center= player.number_name
-                - scored_goals = game.goals_for(player)
-                %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
+      = render 'games/player_list', team_name: game.blue_team.name, players: game.blue_players, game: game, panel_type: 'panel-primary'
 
     .col-xs-2.scoreboard.text-center
       .col-xs-12
@@ -59,17 +47,5 @@
               = t('game.goal')
 
     .col-xs-5
-      .panel.panel-default
-        .panel-heading
-          %h2.panel-title= game.white_team.name
-        .panel-content
-          %table.table
-            %tr
-              %th.text-center= t('game.player')
-              %th.text-center= t('statistics.goals_scored')
-            - game.white_players.each do |player|
-              %tr
-                %td.text-center= player.number_name
-                - scored_goals = game.goals_for(player)
-                %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
+      = render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'panel-default'
 = render 'games/score_modals', game: game, score: score

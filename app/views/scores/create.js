@@ -4,6 +4,7 @@ $('.modal').modal('hide');
 // First, find the player that scored and mark the goal
 var players_goals = $('#goals-<%= @player.id %>');
 players_goals.text(+players_goals.text() + 1);
+players_goals.parent().removeClass('player-no-scores');
 
 // Now increment the teams mark
 if (<%= @player.team_id %> === <%= @game.blue_team_id %>)
