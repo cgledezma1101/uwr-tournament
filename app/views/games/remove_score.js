@@ -28,3 +28,5 @@ players_goals.text(<%= @player_goals %>);
 
 var teams_score = $(selector);
 teams_score.text(<%= @team_goals %>);
+
+addToFeeds("<%= t('score.remove_feed_text', player: @player.name, team: @player.team.name) %>")
