@@ -12,6 +12,15 @@ class GameEventsController < ApplicationController
     @game_event.save
   end
 
+  # DELETE /game_events/:id
+  #
+  # Allows the deletion of an event in a game
+  #
+  # @param [Integer] id Identifier of the feed to be destroyed
+  def destroy
+    @game_event.destroy
+  end
+
   private
 
   # Sanitizes the parameters to allow mass assignment in the create action

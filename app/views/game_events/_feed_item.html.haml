@@ -4,5 +4,8 @@
   @param [GameEvent] game_event The event being rendered
 .col-xs-12.game-event{ id: game_event.id }
   .col-xs-2= game_event.created_at.localtime.strftime('%d/%m/%Y %I:%M:%S %p')
-  .col-xs-10= game_event.text
+  .col-xs-8= game_event.text
+  - if can? :destroy, game_event
+    .col-xs-2
+      = link_to 'x', game_event_path(game_event), method: :delete, remote: true
   %hr

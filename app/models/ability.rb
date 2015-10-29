@@ -53,6 +53,10 @@ class Ability
       can? :update, game_event.game
     end
 
+    can :destroy, GameEvent do |game_event|
+      can? :update, game_event.game
+    end
+
     ###################################################
     ################## GAMES ##########################
     ###################################################
