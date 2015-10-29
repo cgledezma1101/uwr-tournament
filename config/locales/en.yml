@@ -208,6 +208,8 @@ en:
   player_game:
     errors:
       team_color: "The color assigned to %{player} is invalid"
+  score:
+    feed_text: "Goal scored by %{player} from team %{team}"
   stage:
     add_game: "New game"
     administrate: "Manage stage"

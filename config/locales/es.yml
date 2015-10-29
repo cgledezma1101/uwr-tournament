@@ -208,6 +208,8 @@
   player_game:
     errors:
       team_color: "El color asignado a %{player} es inválido"
+  score:
+    feed_text: "Gol anotado por %{player} del equipo %{team}"
   stage:
     add_game: "Nuevo juego"
     administrate: "Administrar etapa"

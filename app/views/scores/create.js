@@ -26,3 +26,5 @@ players_goals.parent().removeClass('player-no-scores');
 
 var teams_score = $(selector);
 teams_score.text(<%= @team_goals %>);
+
+addToFeeds("<%= t('score.feed_text', player: @player.name, team: @player.team.name ) %>");
