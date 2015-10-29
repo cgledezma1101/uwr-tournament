@@ -41,3 +41,9 @@
               %td.text-center= player.number_name
               - scored_goals = game.goals_for(player)
               %td.text-center{ id: "goals-#{player.id}"}= scored_goals > 0 ? scored_goals : ""
+
+.col-xs-12
+  %h3= t('game.event_feed')
+  .col-xs-12.event-feed
+    - for event in game.game_events
+      = render 'game_events/feed_item', game_event: event

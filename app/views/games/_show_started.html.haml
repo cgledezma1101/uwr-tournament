@@ -48,5 +48,22 @@
 
     .col-xs-5
       = render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'default'
+
+  .col-xs-12
+    %h3= t('game.event_feed')
+    - if can? :update, game
+      .col-xs-12.js-new-event
+        = form_for GameEvent.new, remote: true do |f|
+          .form-horizontal
+            = f.hidden_field :game_id, value: game.id
+            .form-group
+              .col-xs-10
+                = f.text_field :text, class: 'form-control js-event-text'
+              .col-xs-2
+                = f.submit t('general.post'), class: 'btn btn-success'
+
+    .col-xs-12.event-feed
+      - for event in game.game_events
+        = render 'game_events/feed_item', game_event: event
 - if can? :update, game
   = render 'games/modals', game: game, score: score
