@@ -12,6 +12,8 @@ class Game < ActiveRecord::Base
   belongs_to :blue_team, class_name: 'Team'
   belongs_to :white_team, class_name: 'Team'
 
+  has_many :game_events
+
   has_many :scores, dependent: :destroy
 
   has_many :player_games, dependent: :destroy
