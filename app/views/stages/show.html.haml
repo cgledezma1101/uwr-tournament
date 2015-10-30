@@ -22,7 +22,7 @@
               %th.text-center= t('game.white_team')
               %th.text-center= t('activerecord.attributes.game.status')
               %th.text-center= t('general.actions')
-            - for game in @stage.games
+            - for game in @stage.games.order(:created_at)
               %tr
                 %td.text-center= game.blue_team.name
                 %td.text-right= game.blue_goals
