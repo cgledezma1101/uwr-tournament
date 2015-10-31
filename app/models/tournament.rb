@@ -73,7 +73,7 @@ class Tournament < ActiveRecord::Base
   end
 
   def top_scorers
-    players = Player.joins{ games.stage }.where{ (games.status == my{Game::STATUS_ENDED}) & (games.stage.tournament_id == my{self.id}) }
+    players = Player.joins{ games.stage }.where{ (games.status == my{Game::STATUS_ENDED}) & (games.stage.tournament_id == my{self.id}) }.uniq
 
     player_points = players.map do |player|
       scores = Score.joins{ game.stage }.where{ (player_id == my{player.id}) & (game.stage.tournament_id == my{self.id}) }.count

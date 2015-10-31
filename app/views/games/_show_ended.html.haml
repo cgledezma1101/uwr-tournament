@@ -13,7 +13,7 @@
           %tr
             %th.text-center= t('game.player')
             %th.text-center= t('statistics.goals_scored')
-          - game.blue_players.each do |player|
+          - game.blue_players.sort{ |player_0, player_1| player_0.number <=> player_1.number }.each do |player|
             %tr
               %td.text-center= player.number_name
               - scored_goals = game.goals_for(player)
@@ -36,7 +36,7 @@
           %tr
             %th.text-center= t('game.player')
             %th.text-center= t('statistics.goals_scored')
-          - game.white_players.each do |player|
+          - game.white_players.sort{ |player_0, player_1| player_0.number <=> player_1.number }.each do |player|
             %tr
               %td.text-center= player.number_name
               - scored_goals = game.goals_for(player)

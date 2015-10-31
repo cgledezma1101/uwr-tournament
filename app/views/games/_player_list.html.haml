@@ -13,7 +13,7 @@
       %tr
         %th.text-center= t('game.player')
         %th.text-center= t('statistics.goals_scored')
-      - for player in players
+      - for player in players.sort{ |player_0, player_1| player_0.number <=> player_1.number }
         %tr
           %td.text-center= player.number_name
           %td.text-center
