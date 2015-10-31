@@ -29,6 +29,14 @@ class User < ActiveRecord::Base
    validates :name, presence: true
    validates :email, presence: true, uniqueness: true
 
+   # Tournaments in which the user will participate, or that the user administrates
+   #
+   # @return [Array<Tournament>] List of all the tournaments the user administrates or will participate in
+   def active_tournaments
+     (Tournament.joins{ admins }.where{ admins.id == my{self.id} }.to_a +
+      Tournament.joins{ teams.players }.where{ (teams.players.user_id == my{self.id}) & (end_date >= my{Date.current}) }.to_a).uniq
+   end
+
    # An ordered collection of the teams this user belongs to, which includes administrated and membership clubs
    #
    # @return [Array<Club>] All the clubs this user belongs to
@@ -84,14 +92,6 @@ class User < ActiveRecord::Base
          .where{ (player_games.player.user_id == my{self.id}) &
                  ((player_games.team_color == my{PlayerGame::BLUE_TEAM}) & (winning_color == my{PlayerGame::BLUE_TEAM}) |
                   (player_games.team_color == my{PlayerGame::WHITE_TEAM}) & (winning_color == my{PlayerGame::WHITE_TEAM})) }.count
-   end
-
-   # Tournaments in which the user will participate, or that the user administrates
-   #
-   # @return [Array<Tournament>] List of all the tournaments the user administrates or will participate in
-   def active_tournaments
-     (Tournament.joins{ admins }.where{ admins.id == my{self.id} }.to_a +
-      Tournament.joins{ teams.players }.where{ (teams.players.user_id == my{self.id}) & (end_date <= my{Date.current}) }.to_a).uniq
    end
 
    # Allows a user to be logged in using an OmniAuth provider
