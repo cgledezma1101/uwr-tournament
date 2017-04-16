@@ -118,7 +118,7 @@ en:
       name: 'Name'
       email: 'Contact email'
   game:
-    add_chronometer: "Add chronometer"
+    add_chronometer: "Add stopwatch"
     back_to_stage: "Back to stage"
     blue_team: "Blue team"
     chronometer_minutes: "Minutes"
@@ -129,7 +129,7 @@ en:
     chronometer_start: "Start"
     chronometer_stop: "Stop"
     chronometer_stop_all: "Stop all"
-    chronometers: "Chronometers"
+    chronometers: "Stopwatches"
     create_fail: "There has been an error creating the game. Please try again."
     create_success: "The game has been successfully created"
     current_game: "Current game"
