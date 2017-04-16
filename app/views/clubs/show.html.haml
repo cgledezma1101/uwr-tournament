@@ -15,7 +15,7 @@
 				.panel-body
 					- if @club.user_join_requests.any?
 						= render "public/user_details_panel", users: @club.user_join_requests, panel_title: t('club_join_request.pending'), entity: @club, actions_renderer: create_join_request_actions_proc(@club)
-					= render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club, actions_renderer: create_admin_actions_proc(@club)
+					= render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club, actions_renderer: create_club_admin_actions_proc(@club)
 					= render "public/user_details_panel", users: @club.users, panel_title: t('club.members'), entity: @club, actions_renderer: create_member_actions_proc(@club)
 		.col-xs-6
 			.panel.panel-info

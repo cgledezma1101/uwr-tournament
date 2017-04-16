@@ -20,6 +20,6 @@
 				.form-group
 					= f.label :number, class: 'col-sm-4 control-label'
 					.col-sm-6
-						= f.number_field :number, in: 1..99, step: 1, class: 'form-control'
+						= f.number_field :number, in: 0..99, step: 1, class: 'form-control'
 				.form-group
 					= render 'public/modal_form_buttons', form: f
