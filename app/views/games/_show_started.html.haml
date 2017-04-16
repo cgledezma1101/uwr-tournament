@@ -1,69 +1,69 @@
 -#
-  Displays the information, and allows manipulating, a game that has already started
+	Displays the information, and allows manipulating, a game that has already started
 
-  @param Game game The game to be displayed, which should be in a started state
-  @param Score score An instance that will be used to add scores to players
+	@param Game game The game to be displayed, which should be in a started state
+	@param Score score An instance that will be used to add scores to players
 .col-xs-12
-  - if can? :update, game
-    .col-xs-12.js-chronometers-panel
-      %h3= t('game.chronometers')
-      .js-chronometers{ data: { game: game.id } }
-        .col-xs-12
-          .col-xs-3
-            %h4.text-center= t('game.chronometer_name')
-          .col-xs-3
-            %h4.text-center= t('game.chronometer_minutes')
-          .col-xs-3
-            %h4.text-center= t('game.chronometer_seconds')
-      .text-right
-        .btn-group{ style: 'margin-top: 5px;' }
-          = link_to t('game.add_chronometer'), add_chronometer_games_path, class: 'btn btn-primary', remote: true
-          %button.btn.btn-success.js-chronometer-resumeall= t('game.chronometer_resume_all')
-          %button.btn.btn-danger.js-chronometer-stopall= t('game.chronometer_stop_all')
-  .col-xs-12{ style: 'margin-top: 20px;' }
-    %h3= t('game.scoreboard')
-    .col-xs-5
-      = render 'games/player_list', team_name: game.blue_team.name, players: game.blue_players, game: game, panel_type: 'primary'
+	- if can? :update, game
+		.col-xs-12.js-chronometers-panel
+			%h3= t('game.chronometers')
+			.js-chronometers{ data: { game: game.id } }
+				.col-xs-12
+					.col-xs-3
+						%h4.text-center= t('game.chronometer_name')
+					.col-xs-3
+						%h4.text-center= t('game.chronometer_minutes')
+					.col-xs-3
+						%h4.text-center= t('game.chronometer_seconds')
+			.text-right
+				.btn-group{ style: 'margin-top: 5px;' }
+					= link_to t('game.add_chronometer'), add_chronometer_games_path, class: 'btn btn-primary', remote: true
+					%button.btn.btn-success.js-chronometer-resumeall= t('game.chronometer_resume_all')
+					%button.btn.btn-danger.js-chronometer-stopall= t('game.chronometer_stop_all')
+	.col-xs-12{ style: 'margin-top: 20px;' }
+		%h3= t('game.scoreboard')
+		.col-xs-5
+			= render 'games/player_list', team_name: game.blue_team.name, players: game.blue_players, game: game, panel_type: 'primary'
 
-    .col-xs-2.scoreboard.text-center
-      .col-xs-12
-        .col-xs-4.text-center
-          %h1.js-blue-goals= game.blue_goals
-        .col-xs-2.text-center
-          %h1 -
-        .col-xs-4.text-center
-          %h1.js-white-goals= game.white_goals
-      - if can? :update, game
-        .col-xs-12
-          .col-xs-4.text-center
-            %a.btn.btn-primary{ href: '#',
-                                data: { toggle: 'modal',
-                                        target: '#blueGoalModal' } }
-              = t('game.goal')
-          .col-xs-offset-2.col-xs-4.text-center
-            %a.btn.btn-default{ href: '#',
-                                data: { toggle: 'modal',
-                                        target: '#whiteGoalModal' } }
-              = t('game.goal')
+		.col-xs-2.scoreboard.text-center
+			.col-xs-12
+				.col-xs-4.text-center
+					%h1.js-blue-goals= game.blue_goals
+				.col-xs-2.text-center
+					%h1 -
+				.col-xs-4.text-center
+					%h1.js-white-goals= game.white_goals
+			- if can? :update, game
+				.col-xs-12
+					.col-xs-4.text-center
+						%a.btn.btn-primary{ href: '#',
+																data: { toggle: 'modal',
+																				target: '#blueGoalModal' } }
+							= t('game.goal')
+					.col-xs-offset-2.col-xs-4.text-center
+						%a.btn.btn-default{ href: '#',
+																data: { toggle: 'modal',
+																				target: '#whiteGoalModal' } }
+							= t('game.goal')
 
-    .col-xs-5
-      = render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'default'
+		.col-xs-5
+			= render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'default'
 
-  .col-xs-12
-    %h3= t('game.event_feed')
-    - if can? :update, game
-      .col-xs-12.js-new-event
-        = form_for GameEvent.new, class: 'js-new-event-form', remote: true do |f|
-          .form-horizontal
-            = f.hidden_field :game_id, value: game.id
-            .form-group
-              .col-xs-10
-                = f.text_field :text, class: 'form-control js-event-text'
-              .col-xs-2
-                = f.submit t('general.post'), class: 'btn btn-success js-submit-event'
+	.col-xs-12
+		%h3= t('game.event_feed')
+		- if can? :update, game
+			.col-xs-12.js-new-event
+				= form_for GameEvent.new, class: 'js-new-event-form', remote: true do |f|
+					.form-horizontal
+						= f.hidden_field :game_id, value: game.id
+						.form-group
+							.col-xs-10
+								= f.text_field :text, class: 'form-control js-event-text'
+							.col-xs-2
+								= f.submit t('general.post'), class: 'btn btn-success js-submit-event'
 
-    .col-xs-12.event-feed
-      - for event in game.game_events
-        = render 'game_events/feed_item', game_event: event
+		.col-xs-12.event-feed
+			- for event in game.game_events
+				= render 'game_events/feed_item', game_event: event
 - if can? :update, game
-  = render 'games/modals', game: game, score: score
+	= render 'games/modals', game: game, score: score

@@ -1,91 +1,91 @@
 -#
-  Renders the main information regarding a user
+	Renders the main information regarding a user
 
-  Requires the following instance variables to be passed by the controller:
+	Requires the following instance variables to be passed by the controller:
 
-  @param [User] user The user for which information will be shown
+	@param [User] user The user for which information will be shown
 .panel.panel-primary
-  .panel-heading
-    %h1.panel-title= "#{@user.name} (#{@user.email})"
-  .panel-body
-    .statistics.col-xs-12
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('user.your_stats')
-        .panel-body
-          %table.table
-            %tr
-              %td= t('statistics.games_played_long')
-              %td= @user.played_games
-            %tr
-              %td= t('statistics.games_won_long')
-              %td= @user.won_games
-            %tr
-              %td= t('statistics.games_tied_long')
-              %td= @user.tied_games
-            %tr
-              %td= t('statistics.games_lost_long')
-              %td= @user.lost_games
-            %tr
-              %td= t('statistics.goals_scored')
-              %td= @user.total_goals
-    .membership-info.col-xs-12
-      .col-xs-6
-        .panel.panel-info
-          .panel-heading
-            .panel-title= t('user.your_clubs')
-          .panel-body
-            %table.table
-              %tr
-                %th.text-center= t('activerecord.attributes.club.name')
-                %th.text-center= t('club.team_count')
-              - for club in @user.all_clubs
-                %tr
-                  %td.text-center= link_to club.name, club_path(club)
-                  %td.text-center= club.teams.count
-            - if @user.invitations.any?
-              .panel.panel-warning
-                .panel-heading
-                  .panel-title= t('invitation.pending')
-                .panel-body
-                  %table.table
-                    %tr
-                      %th.text-center= t('activerecord.attributes.club.name')
-                      %th.text-center= t('general.actions')
-                    - for invitation in @user.invitations
-                      %tr
-                        %td.text-center= invitation.club_name
-                        %td.text-center
-                          = link_to t('invitation.accept'), accept_invitation_path(invitation), method: :post
-                          |
-                          = link_to t('general.decline'), decline_invitation_path(invitation), method: :post
-      .col-xs-6
-        .panel.panel-info
-          .panel-heading
-            .panel-title= t('user.your_teams')
-          .panel-body
-            %table.table
-              %tr
-                %th.text-center= t('activerecord.attributes.team.name')
-                %th.text-center= t('statistics.played_won_short')
-              - for team in @user.all_teams
-                %tr
-                  %td.text-center= link_to team.name, team_path(team)
-                  %td.text-center= "#{team.games.count}(#{team.won_games.count})"
-    .col-xs-12
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('tournament.user_tournaments')
-        .panel-body
-          %table.table
-            %tr
-              %th.text-center= t('activerecord.attributes.tournament.name')
-              %th.text-center= t('tournament.amount_teams')
-              %th.text-center= t('activerecord.attributes.tournament.start_date')
-              %th.text-center= t('activerecord.attributes.tournament.end_date')
-            - for tournament in @user.active_tournaments
-              %tr
-                %td.text-center= link_to tournament.name, tournament_path(tournament)
-                %td.text-center= tournament.teams.count
-                %td.text-center= tournament.start_date
-                %td.text-center= tournament.end_date
+	.panel-heading
+		%h1.panel-title= "#{@user.name} (#{@user.email})"
+	.panel-body
+		.statistics.col-xs-12
+			.panel.panel-info
+				.panel-heading
+					.panel-title= t('user.your_stats')
+				.panel-body
+					%table.table
+						%tr
+							%td= t('statistics.games_played_long')
+							%td= @user.played_games
+						%tr
+							%td= t('statistics.games_won_long')
+							%td= @user.won_games
+						%tr
+							%td= t('statistics.games_tied_long')
+							%td= @user.tied_games
+						%tr
+							%td= t('statistics.games_lost_long')
+							%td= @user.lost_games
+						%tr
+							%td= t('statistics.goals_scored')
+							%td= @user.total_goals
+		.membership-info.col-xs-12
+			.col-xs-6
+				.panel.panel-info
+					.panel-heading
+						.panel-title= t('user.your_clubs')
+					.panel-body
+						%table.table
+							%tr
+								%th.text-center= t('activerecord.attributes.club.name')
+								%th.text-center= t('club.team_count')
+							- for club in @user.all_clubs
+								%tr
+									%td.text-center= link_to club.name, club_path(club)
+									%td.text-center= club.teams.count
+						- if @user.invitations.any?
+							.panel.panel-warning
+								.panel-heading
+									.panel-title= t('invitation.pending')
+								.panel-body
+									%table.table
+										%tr
+											%th.text-center= t('activerecord.attributes.club.name')
+											%th.text-center= t('general.actions')
+										- for invitation in @user.invitations
+											%tr
+												%td.text-center= invitation.club_name
+												%td.text-center
+													= link_to t('invitation.accept'), accept_invitation_path(invitation), method: :post
+													|
+													= link_to t('general.decline'), decline_invitation_path(invitation), method: :post
+			.col-xs-6
+				.panel.panel-info
+					.panel-heading
+						.panel-title= t('user.your_teams')
+					.panel-body
+						%table.table
+							%tr
+								%th.text-center= t('activerecord.attributes.team.name')
+								%th.text-center= t('statistics.played_won_short')
+							- for team in @user.all_teams
+								%tr
+									%td.text-center= link_to team.name, team_path(team)
+									%td.text-center= "#{team.games.count}(#{team.won_games.count})"
+		.col-xs-12
+			.panel.panel-info
+				.panel-heading
+					.panel-title= t('tournament.user_tournaments')
+				.panel-body
+					%table.table
+						%tr
+							%th.text-center= t('activerecord.attributes.tournament.name')
+							%th.text-center= t('tournament.amount_teams')
+							%th.text-center= t('activerecord.attributes.tournament.start_date')
+							%th.text-center= t('activerecord.attributes.tournament.end_date')
+						- for tournament in @user.active_tournaments
+							%tr
+								%td.text-center= link_to tournament.name, tournament_path(tournament)
+								%td.text-center= tournament.teams.count
+								%td.text-center= tournament.start_date
+								%td.text-center= tournament.end_date

@@ -1,61 +1,61 @@
 -#
-  Displays a panel containing the statistics represented by the provided instance
+	Displays a panel containing the statistics represented by the provided instance
 
-  @param [Statisticable] statisticable The statistics set that wishes to be displayed
+	@param [Statisticable] statisticable The statistics set that wishes to be displayed
 .panel.panel-info
-  .panel-heading
-    %h1.panel-title= t('statistics.statistics')
-  .panel-body
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          %h2.panel-title= t('statistics.leaderboard')
-        .panel-body
-          %table.table
-            %tr
-              %th.text-center= t('statistics.team')
-              %th.text-center= t('statistics.games_won_long')
-              %th.text-center= t('statistics.games_tied_long')
-              %th.text-center= t('statistics.games_lost_long')
-              %th.text-center= t('statistics.goals_scored')
-              %th.text-center= t('statistics.goals_received')
-              %th.text-center= t('statistics.total_points')
-              %th.text-center= t('statistics.goal_difference_long')
-            - for team_points in statisticable.leaderboard
-              %tr
-                %td.text-center= team_points[0].name
-                %td.text-center= statisticable.won_games(team_points[0])
-                %td.text-center= statisticable.tied_games(team_points[0])
-                %td.text-center= statisticable.lost_games(team_points[0])
-                %td.text-center= statisticable.goals_scored(team_points[0])
-                %td.text-center= statisticable.goals_received(team_points[0])
-                %td.text-center= team_points[1]
-                %td.text-center= statisticable.goals_average(team_points[0])
-    .col-xs-6
-      .panel.panel-default
-        .panel-heading
-          %h2.panel-title= t('statistics.scoring_champions')
-        .panel-body
-          %table.table
-            %tr
-              %th.text-center= t('statistics.player_name')
-              %th.text-center= t('statistics.team')
-              %th.text-center= t('statistics.goals_scored')
-            - for player_score in statisticable.top_scorers.take(5)
-              %tr
-                %td.text-center= player_score[0].name
-                %td.text-center= player_score[0].team.name
-                %td.text-center= player_score[1]
-    .col-xs-6
-      .panel.panel-default
-        .panel-heading
-          %h2.panel-title= t('statistics.least_defeated_goals')
-        .panel-body
-          %table.table
-            %tr
-              %th.text-center= t('statistics.team')
-              %th.text-center= t('statistics.goals_received')
-            - for goals_against in statisticable.least_defeated.take(5)
-              %tr
-                %td.text-center= goals_against[0].name
-                %td.text-center= goals_against[1]
+	.panel-heading
+		%h1.panel-title= t('statistics.statistics')
+	.panel-body
+		.col-xs-12
+			.panel.panel-default
+				.panel-heading
+					%h2.panel-title= t('statistics.leaderboard')
+				.panel-body
+					%table.table
+						%tr
+							%th.text-center= t('statistics.team')
+							%th.text-center= t('statistics.games_won_long')
+							%th.text-center= t('statistics.games_tied_long')
+							%th.text-center= t('statistics.games_lost_long')
+							%th.text-center= t('statistics.goals_scored')
+							%th.text-center= t('statistics.goals_received')
+							%th.text-center= t('statistics.total_points')
+							%th.text-center= t('statistics.goal_difference_long')
+						- for team_points in statisticable.leaderboard
+							%tr
+								%td.text-center= team_points[0].name
+								%td.text-center= statisticable.won_games(team_points[0])
+								%td.text-center= statisticable.tied_games(team_points[0])
+								%td.text-center= statisticable.lost_games(team_points[0])
+								%td.text-center= statisticable.goals_scored(team_points[0])
+								%td.text-center= statisticable.goals_received(team_points[0])
+								%td.text-center= team_points[1]
+								%td.text-center= statisticable.goals_average(team_points[0])
+		.col-xs-6
+			.panel.panel-default
+				.panel-heading
+					%h2.panel-title= t('statistics.scoring_champions')
+				.panel-body
+					%table.table
+						%tr
+							%th.text-center= t('statistics.player_name')
+							%th.text-center= t('statistics.team')
+							%th.text-center= t('statistics.goals_scored')
+						- for player_score in statisticable.top_scorers.take(5)
+							%tr
+								%td.text-center= player_score[0].name
+								%td.text-center= player_score[0].team.name
+								%td.text-center= player_score[1]
+		.col-xs-6
+			.panel.panel-default
+				.panel-heading
+					%h2.panel-title= t('statistics.least_defeated_goals')
+				.panel-body
+					%table.table
+						%tr
+							%th.text-center= t('statistics.team')
+							%th.text-center= t('statistics.goals_received')
+						- for goals_against in statisticable.least_defeated.take(5)
+							%tr
+								%td.text-center= goals_against[0].name
+								%td.text-center= goals_against[1]

@@ -1,22 +1,22 @@
 = form_for(resource, as: resource_name, url: user_password_path, html: { method: :post }) do |f|
-  .form-horizontal
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        %h2.text-centered= t('devise.password.forgot')
+	.form-horizontal
+		.form-group
+			.col-sm-offset-2.col-sm-6
+				%h2.text-centered= t('devise.password.forgot')
 
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = devise_error_messages!
+		.form-group
+			.col-sm-offset-2.col-sm-6
+				= devise_error_messages!
 
-    .form-group.field
-      = f.label :email, class: 'col-sm-2 control-label'
-      .col-sm-6
-        = f.email_field :email, autofocus: true, class: 'form-control'
+		.form-group.field
+			= f.label :email, class: 'col-sm-2 control-label'
+			.col-sm-6
+				= f.email_field :email, autofocus: true, class: 'form-control'
 
-    .form-group.actions
-      .col-sm-offset-2.col-sm-6
-        = f.submit t('devise.password.send_reset'), class: 'btn btn-primary'
+		.form-group.actions
+			.col-sm-offset-2.col-sm-6
+				= f.submit t('devise.password.send_reset'), class: 'btn btn-primary'
 
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = render "devise/shared/links"
+		.form-group
+			.col-sm-offset-2.col-sm-6
+				= render "devise/shared/links"

@@ -1,18 +1,18 @@
 -#
-  Renders the information regarding the game given, depending on the status of it.
+	Renders the information regarding the game given, depending on the status of it.
 
-  Expects the following instance variables to be defined:
+	Expects the following instance variables to be defined:
 
-  @param Game game The game to be displayed
-  @param Score score If the game is in a started state, this variable will be used to add scores to players.
+	@param Game game The game to be displayed
+	@param Score score If the game is in a started state, this variable will be used to add scores to players.
 .panel.panel-success
-  .panel-heading
-    %h1.panel-title= @game.matchup_name
-  .panel-content
-    - if @game.status == Game::STATUS_READY
-      = render 'games/show_ready', game: @game
-    - elsif @game.status == Game::STATUS_STARTED
-      = render 'games/show_started', game: @game, score: @score
-    - else
-      = render 'games/show_ended', game: @game
+	.panel-heading
+		%h1.panel-title= @game.matchup_name
+	.panel-content
+		- if @game.status == Game::STATUS_READY
+			= render 'games/show_ready', game: @game
+		- elsif @game.status == Game::STATUS_STARTED
+			= render 'games/show_started', game: @game, score: @score
+		- else
+			= render 'games/show_ended', game: @game
 = render 'games/navbar', game: @game

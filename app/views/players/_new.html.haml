@@ -1,25 +1,25 @@
 -#
-  Renders the form required to add a player to a particular team
+	Renders the form required to add a player to a particular team
 
-  Requires the following instance variables to be initialized
+	Requires the following instance variables to be initialized
 
-  @param [Team] team The team to be updated
-  @param [Player] player The variable to which the form will be bound to
-  @param [Array<User>] available_players Players that are elegible to be added to the team
+	@param [Team] team The team to be updated
+	@param [Player] player The variable to which the form will be bound to
+	@param [Array<User>] available_players Players that are elegible to be added to the team
 #newPlayer
-  .modal-header
-    %h2.modal-title= t('player.new')
-  .modal-body
-    = form_for @player do |f|
-      .form-horizontal
-        = f.hidden_field :team_id, value: @team.id
-        .form-group
-          = f.label :user, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.collection_select :user_id, @available_players, :id, :name, {}, { class: 'form-control' }
-        .form-group
-          = f.label :number, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.number_field :number, in: 1..99, step: 1, class: 'form-control'
-        .form-group
-          = render 'public/modal_form_buttons', form: f
+	.modal-header
+		%h2.modal-title= t('player.new')
+	.modal-body
+		= form_for @player do |f|
+			.form-horizontal
+				= f.hidden_field :team_id, value: @team.id
+				.form-group
+					= f.label :user, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.collection_select :user_id, @available_players, :id, :name, {}, { class: 'form-control' }
+				.form-group
+					= f.label :number, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.number_field :number, in: 1..99, step: 1, class: 'form-control'
+				.form-group
+					= render 'public/modal_form_buttons', form: f

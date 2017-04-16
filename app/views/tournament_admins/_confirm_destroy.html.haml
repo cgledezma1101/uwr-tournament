@@ -1,15 +1,15 @@
 -#
-  Presents a confirmation message before attempting to remove an administrator from a tournament
+	Presents a confirmation message before attempting to remove an administrator from a tournament
 
-  Expects the following instance variavles to be defined
+	Expects the following instance variavles to be defined
 
-  @param [TournamentAdmin] tournament_admin The relationship that will be destroyed
+	@param [TournamentAdmin] tournament_admin The relationship that will be destroyed
 #removeAdmin
-  .modal-header
-    %h2.modal-title= t('tournament_admin.destroy')
-  .modal-body
-    = form_tag tournament_admin_path(@tournament_admin), method: :delete do
-      .form-horizontal
-        .form-group
-          %label.col-sm-12= t('tournament_admin.confirm_remove', admin_name: @tournament_admin.user.name)
-          = render 'public/modal_form_buttons'
+	.modal-header
+		%h2.modal-title= t('tournament_admin.destroy')
+	.modal-body
+		= form_tag tournament_admin_path(@tournament_admin), method: :delete do
+			.form-horizontal
+				.form-group
+					%label.col-sm-12= t('tournament_admin.confirm_remove', admin_name: @tournament_admin.user.name)
+					= render 'public/modal_form_buttons'

@@ -1,12 +1,12 @@
 /*
-  Responds to the asynchronous action of creating a score in a game
+	Responds to the asynchronous action of creating a score in a game
 
-  Expects the following instance variables to be defined
+	Expects the following instance variables to be defined
 
-  @param [Player] player Player that scored
-  @param [Integer] player_goals Total goals that the player has scored in the match
-  @param [Game] game The game where the goal was scored
-  @param [Integer] team_goals amount of scores the player's team has in this game
+	@param [Player] player Player that scored
+	@param [Integer] player_goals Total goals that the player has scored in the match
+	@param [Game] game The game where the goal was scored
+	@param [Integer] team_goals amount of scores the player's team has in this game
 */
 
 // Dismiss the modal
@@ -19,9 +19,9 @@ players_goals.parent().removeClass('player-no-scores');
 
 // Now increment the teams mark
 <% if @player.team_id == @game.blue_team_id %>
-  var selector = '.js-blue-goals';
+	var selector = '.js-blue-goals';
 <% else %>
-  var selector = '.js-white-goals';
+	var selector = '.js-white-goals';
 <% end %>
 
 var teams_score = $(selector);

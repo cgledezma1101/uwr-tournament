@@ -1,24 +1,24 @@
 .panel.panel-warning
-  .panel-heading
-    %h1.panel-title= t('games.games_played')
-  .panel-body
-    %center
-      .row
-        .col-xs-6
-          = t('game.blue_team')
-        .col-xs-6
-          = t('game.white_team')
-      - @games.each do |game|
-        .row
-          = link_to game_path(game) do
-            .col-xs-5
-              = game.blue_team.name
-            .col-xs-2
-              .col-xs-4
-                %h5= game.blue_goals
-              .col-xs-4
-                %h5 -
-              .col-xs-4
-                %h5= game.white_goals
-            .col-xs-5
-              =game.white_team.name
+	.panel-heading
+		%h1.panel-title= t('games.games_played')
+	.panel-body
+		%center
+			.row
+				.col-xs-6
+					= t('game.blue_team')
+				.col-xs-6
+					= t('game.white_team')
+			- @games.each do |game|
+				.row
+					= link_to game_path(game) do
+						.col-xs-5
+							= game.blue_team.name
+						.col-xs-2
+							.col-xs-4
+								%h5= game.blue_goals
+							.col-xs-4
+								%h5 -
+							.col-xs-4
+								%h5= game.white_goals
+						.col-xs-5
+							=game.white_team.name

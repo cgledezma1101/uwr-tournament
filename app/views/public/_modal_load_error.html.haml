@@ -1,9 +1,9 @@
 -#
-  Renders a generic error message inside a modal
+	Renders a generic error message inside a modal
 
 .modal-header
-  %h2.modal-title= t('general.error')
+	%h2.modal-title= t('general.error')
 .modal-body
-  %p= t('general.modal_load_error')
-  %a.btn.btn-danger{ data: { dismiss: 'modal' } }
-    = t('general.close')
+	%p= t('general.modal_load_error')
+	%a.btn.btn-danger{ data: { dismiss: 'modal' } }
+		= t('general.close')

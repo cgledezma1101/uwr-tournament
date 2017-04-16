@@ -1,8 +1,8 @@
 -#
-  Renders a series of actions that can be performed on a join request for a club
+	Renders a series of actions that can be performed on a join request for a club
 
-  @param [ClubJoinRequest] club_join_request The association representing the membership request
+	@param [ClubJoinRequest] club_join_request The association representing the membership request
 .texr-center
-  = link_to t('general.accept'), accept_club_join_request_path(club_join_request)
-  |
-  = link_to t('general.decline'), decline_club_join_request_path(club_join_request)
+	= link_to t('general.accept'), accept_club_join_request_path(club_join_request)
+	|
+	= link_to t('general.decline'), decline_club_join_request_path(club_join_request)

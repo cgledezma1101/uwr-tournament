@@ -1,18 +1,18 @@
 -#
-  Renders the form needed to create a new club. This is meant to be rendered inside a div with the modal-dialog class applied to it
+	Renders the form needed to create a new club. This is meant to be rendered inside a div with the modal-dialog class applied to it
 
-  Requires the following instance variables to be initialized:
+	Requires the following instance variables to be initialized:
 
-  @param [Club] club An instance of a club, which will be used to produce the form
+	@param [Club] club An instance of a club, which will be used to produce the form
 #newClub
-  .modal-header
-    %h2.modal-title= t('club.new')
-  .modal-body
-    = form_for @club do |f|
-      .form-horizontal
-        .form-group
-          = f.label :name, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.text_field :name, class: 'form-control'
-        .form-group
-          = render 'public/modal_form_buttons', form: f
+	.modal-header
+		%h2.modal-title= t('club.new')
+	.modal-body
+		= form_for @club do |f|
+			.form-horizontal
+				.form-group
+					= f.label :name, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.text_field :name, class: 'form-control'
+				.form-group
+					= render 'public/modal_form_buttons', form: f

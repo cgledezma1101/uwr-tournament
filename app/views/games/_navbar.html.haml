@@ -1,10 +1,10 @@
 -#
-  Renders navbar elements useful in a game's environment
+	Renders navbar elements useful in a game's environment
 
-  @param Game game The game that's being diplayed
+	@param Game game The game that's being diplayed
 = content_for :module_navbar do
-  - if can? :start, game
-    %li= link_to t('game.start'), start_game_path(game), method: :post
-  - if can? :finalize, game
-    %li= link_to t('game.end'), finalize_game_path(game), method: :post
-  %li= link_to t('game.back_to_stage'), stage_path(game.stage)
+	- if can? :start, game
+		%li= link_to t('game.start'), start_game_path(game), method: :post
+	- if can? :finalize, game
+		%li= link_to t('game.end'), finalize_game_path(game), method: :post
+	%li= link_to t('game.back_to_stage'), stage_path(game.stage)

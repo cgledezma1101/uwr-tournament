@@ -1,61 +1,61 @@
 .panel.panel-success
-  .panel-heading
-    / This needs to be changed to the tournaments name
-    %h2 1er Invitacional Interclubes 2014
-  .panel-body
-    %h3= t('game.new')
-    - if @game.errors.any?
-      .panel.panel-danger
-        .panel-heading= t('general.errors')
-        .panel-body
-          %ul
-            - @game.errors.messages.each do |attribute, messages|
-              - messages.uniq.each do |message|
-                %li= message
-    = form_for @game do |f|
-      .form-group
-        .row
-          .col-xs-6
-            .blue-team
-              %p= t('game.blue_team')
-              = f.collection_select :blue_team_id,
-                                    @teams,
-                                    :id,
-                                    :name,
-                                    {},
-                                    { class: 'team-dropdown form-control',
-                                      data: { style: 'btn-primary' }}
-              .players.blue-players
-          .col-xs-6
-            .white-team
-              %p= t('game.white_team')
-              = f.collection_select :white_team_id,
-                                    @teams,
-                                    :id,
-                                    :name,
-                                    {},
-                                    { class: 'team-dropdown form-control' }
-              .players.white-players
+	.panel-heading
+		/ This needs to be changed to the tournaments name
+		%h2 1er Invitacional Interclubes 2014
+	.panel-body
+		%h3= t('game.new')
+		- if @game.errors.any?
+			.panel.panel-danger
+				.panel-heading= t('general.errors')
+				.panel-body
+					%ul
+						- @game.errors.messages.each do |attribute, messages|
+							- messages.uniq.each do |message|
+								%li= message
+		= form_for @game do |f|
+			.form-group
+				.row
+					.col-xs-6
+						.blue-team
+							%p= t('game.blue_team')
+							= f.collection_select :blue_team_id,
+																		@teams,
+																		:id,
+																		:name,
+																		{},
+																		{ class: 'team-dropdown form-control',
+																			data: { style: 'btn-primary' }}
+							.players.blue-players
+					.col-xs-6
+						.white-team
+							%p= t('game.white_team')
+							= f.collection_select :white_team_id,
+																		@teams,
+																		:id,
+																		:name,
+																		{},
+																		{ class: 'team-dropdown form-control' }
+							.players.white-players
 
-        = f.submit t('general.begin'), class: 'btn btn-primary form-control'
+				= f.submit t('general.begin'), class: 'btn btn-primary form-control'
 
 = content_for(:page_javascript) do
-  :coffeescript
-    $(document).ready ->
-      # This event will be triggered every time a new team is chosen
-      $('select').on 'change', ->
-        team_selected = $(this).find(':selected').attr('value')
+	:coffeescript
+		$(document).ready ->
+			# This event will be triggered every time a new team is chosen
+			$('select').on 'change', ->
+				team_selected = $(this).find(':selected').attr('value')
 
-        # Add a mark on the players div so the return will know where to look
-        $(this).siblings('.players').attr('id', team_selected)
-        $(this).siblings('.players').html('#{ j render "public/loader"}')
+				# Add a mark on the players div so the return will know where to look
+				$(this).siblings('.players').attr('id', team_selected)
+				$(this).siblings('.players').html('#{ j render "public/loader"}')
 
-        request_url = '/teams/' + team_selected + '/players'
-        $.getScript(request_url)
+				request_url = '/teams/' + team_selected + '/players'
+				$.getScript(request_url)
 
-      # This event is used to check all the boxes for the players
-      $('.players').on 'click', '.select-all', ->
-        is_checked = $(this).prop('checked')
-        $(this).parents('.input-group')
-               .find('input')
-               .prop('checked', is_checked)
+			# This event is used to check all the boxes for the players
+			$('.players').on 'click', '.select-all', ->
+				is_checked = $(this).prop('checked')
+				$(this).parents('.input-group')
+							 .find('input')
+							 .prop('checked', is_checked)

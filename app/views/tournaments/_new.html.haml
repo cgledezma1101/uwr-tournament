@@ -1,26 +1,26 @@
 -#
-  Renders the form needed to create a new tournament. This is meant to be rendered inside a div with the modal-dialog class applied to it
+	Renders the form needed to create a new tournament. This is meant to be rendered inside a div with the modal-dialog class applied to it
 
-  Requires the following instance variables to be initialized:
+	Requires the following instance variables to be initialized:
 
-  @param [Tournament] tournament An instance of a tournament, which will be used to produce the form
+	@param [Tournament] tournament An instance of a tournament, which will be used to produce the form
 #tournamentDetails
-  .modal-header
-    %h2.modal-title= t('tournament.details')
-  .modal-body
-    = form_for @tournament do |f|
-      .form-horizontal
-        .form-group
-          = f.label :name, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.text_field :name, class: 'form-control'
-        .form-group
-          = f.label :start_date, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.date_select :start_date, class: 'form-control'
-        .form-group
-          = f.label :end_date, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.date_select :end_date, class: 'form-control'
-        .form-group
-          = render 'public/modal_form_buttons', form: f
+	.modal-header
+		%h2.modal-title= t('tournament.details')
+	.modal-body
+		= form_for @tournament do |f|
+			.form-horizontal
+				.form-group
+					= f.label :name, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.text_field :name, class: 'form-control'
+				.form-group
+					= f.label :start_date, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.date_select :start_date, class: 'form-control'
+				.form-group
+					= f.label :end_date, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.date_select :end_date, class: 'form-control'
+				.form-group
+					= render 'public/modal_form_buttons', form: f

@@ -1,20 +1,20 @@
 -#
-  Renders a form, meant to be embedded in a modal, which allows the addition of a new administrator to a particular club
+	Renders a form, meant to be embedded in a modal, which allows the addition of a new administrator to a particular club
 
-  Expects the following instance variables to be defined
+	Expects the following instance variables to be defined
 
-  @param [Club] club The club to which the administrator will be added
-  @param [ClubAdmin] club_admin The entity that will handle the creation of this relationship
+	@param [Club] club The club to which the administrator will be added
+	@param [ClubAdmin] club_admin The entity that will handle the creation of this relationship
 #newAdmin
-  .modal-header
-    %h1.modal-title= t('club.add_admin')
-  .modal-body
-    = form_for @club_admin, method: 'post' do |f|
-      = f.hidden_field :club_id, value: @club.id
-      .form-horizontal
-        .form-group
-          = f.label :user, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.collection_select :user_id, @club.users, :id, :name, {}, { class: 'form-control' }
-        .form-group
-          = render 'public/modal_form_buttons'
+	.modal-header
+		%h1.modal-title= t('club.add_admin')
+	.modal-body
+		= form_for @club_admin, method: 'post' do |f|
+			= f.hidden_field :club_id, value: @club.id
+			.form-horizontal
+				.form-group
+					= f.label :user, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.collection_select :user_id, @club.users, :id, :name, {}, { class: 'form-control' }
+				.form-group
+					= render 'public/modal_form_buttons'

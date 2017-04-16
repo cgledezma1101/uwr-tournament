@@ -1,27 +1,27 @@
 -#
-  Renders the list of players associated to a team, along with information regarding the game being played
+	Renders the list of players associated to a team, along with information regarding the game being played
 
-  @param [String] team_name Name of the team being displayed
-  @param [Array<Player>] players List of players of the team being displayed
-  @param [Game] game The game being displayed
-  @param [String] panel_type The kind of panel where the list is to be shown
+	@param [String] team_name Name of the team being displayed
+	@param [Array<Player>] players List of players of the team being displayed
+	@param [Game] game The game being displayed
+	@param [String] panel_type The kind of panel where the list is to be shown
 .panel{ class: "panel-#{panel_type}" }
-  .panel-heading
-    %h2.panel-title= team_name
-  .panel-content
-    %table.table
-      %tr
-        %th.text-center= t('game.player')
-        %th.text-center= t('statistics.goals_scored')
-      - for player in players.sort{ |player_0, player_1| player_0.number <=> player_1.number }
-        %tr
-          %td.text-center= player.number_name
-          %td.text-center
-            - scored_goals = game.goals_for(player)
-            %div{ class: scored_goals == 0 ? 'player-no-scores' : ''  }
-              %span{ id: "goals-#{player.id}"}= scored_goals
-              - if can? :update, game
-                %a{ href: '#',
-                    data: { toggle: 'modal',
-                            target: "#remove-goal-#{player.id}" } }
-                  x
+	.panel-heading
+		%h2.panel-title= team_name
+	.panel-content
+		%table.table
+			%tr
+				%th.text-center= t('game.player')
+				%th.text-center= t('statistics.goals_scored')
+			- for player in players.sort{ |player_0, player_1| player_0.number <=> player_1.number }
+				%tr
+					%td.text-center= player.number_name
+					%td.text-center
+						- scored_goals = game.goals_for(player)
+						%div{ class: scored_goals == 0 ? 'player-no-scores' : ''  }
+							%span{ id: "goals-#{player.id}"}= scored_goals
+							- if can? :update, game
+								%a{ href: '#',
+										data: { toggle: 'modal',
+														target: "#remove-goal-#{player.id}" } }
+									x

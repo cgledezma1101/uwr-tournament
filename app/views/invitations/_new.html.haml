@@ -1,20 +1,20 @@
 -#
-  Renders the form required to create a new invitation. This form is meant to be displayed inside a modal
+	Renders the form required to create a new invitation. This form is meant to be displayed inside a modal
 
-  The following instance variables need to be instantiated
+	The following instance variables need to be instantiated
 
-  @param [Invitation] invitation Object containing any information that should be rendered on the form
+	@param [Invitation] invitation Object containing any information that should be rendered on the form
 #newInvitation
-  .modal-header
-    %h1.modal-title= t('invitation.new')
-  .modal-body
-    = form_for @invitation do |f|
-      = f.hidden_field :club_id, value: @invitation.club_id
-      .form-horizontal
-        = fields_for :user, @invitation.user do |user_fields|
-          .form-group
-            = user_fields.label :email, class: 'col-sm-4 control-label'
-            .col-sm-6
-              = user_fields.text_field :email, class: 'form-control'
-        .form-group
-          = render 'public/modal_form_buttons', form: f
+	.modal-header
+		%h1.modal-title= t('invitation.new')
+	.modal-body
+		= form_for @invitation do |f|
+			= f.hidden_field :club_id, value: @invitation.club_id
+			.form-horizontal
+				= fields_for :user, @invitation.user do |user_fields|
+					.form-group
+						= user_fields.label :email, class: 'col-sm-4 control-label'
+						.col-sm-6
+							= user_fields.text_field :email, class: 'form-control'
+				.form-group
+					= render 'public/modal_form_buttons', form: f

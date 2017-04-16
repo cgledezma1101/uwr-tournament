@@ -1,44 +1,44 @@
 .panel.panel-danger
-  .panel-heading
-    %h1.panel-title= t('statistics.index')
-  .panel-body
-    .row
-      .col-xs-12
-        %h1= t('statistics.positions_table')
-        %table.table.table-hover
-          %th= t('statistics.team')
-          %th= t('statistics.games_played_short')
-          %th= t('statistics.games_won_short')
-          %th= t('statistics.games_tied_short')
-          %th= t('statistics.games_lost_short')
-          %th= t('statistics.goal_difference_short')
-          %th= t('statistics.total_points')
-          - @teams.each do |team|
-            %tr
-              %td= team.name
-              %td= team.games.count
-              %td= team.won_games.size
-              %td= team.tied_games.size
-              %td
-                = team.games.count - (team.won_games.size + team.tied_games.size)
-              %td= team.goals - team.goals_against
-              %td= team.points
-    .row
-      .col-xs-6
-        %h2= t('statistics.scoring_champions')
-        - @top_scorers.each do |player|
-          .row
-            .col-xs-1
-              = player.number
-            .col-xs-4
-              = player.name
-            .col-xs-7
-              = t('statistics.goal_count', total_goals: "#{player.scores.count}")
-      .col-xs-6
-        %h2= t('statistics.least_defeated_goal')
-        - @least_goaled.each do |team|
-          .row
-            .col-xs-6
-              = team.name
-            .col-xs-6
-              = t('statistics.goal_count', total_goals: "#{team.goals_against}")
+	.panel-heading
+		%h1.panel-title= t('statistics.index')
+	.panel-body
+		.row
+			.col-xs-12
+				%h1= t('statistics.positions_table')
+				%table.table.table-hover
+					%th= t('statistics.team')
+					%th= t('statistics.games_played_short')
+					%th= t('statistics.games_won_short')
+					%th= t('statistics.games_tied_short')
+					%th= t('statistics.games_lost_short')
+					%th= t('statistics.goal_difference_short')
+					%th= t('statistics.total_points')
+					- @teams.each do |team|
+						%tr
+							%td= team.name
+							%td= team.games.count
+							%td= team.won_games.size
+							%td= team.tied_games.size
+							%td
+								= team.games.count - (team.won_games.size + team.tied_games.size)
+							%td= team.goals - team.goals_against
+							%td= team.points
+		.row
+			.col-xs-6
+				%h2= t('statistics.scoring_champions')
+				- @top_scorers.each do |player|
+					.row
+						.col-xs-1
+							= player.number
+						.col-xs-4
+							= player.name
+						.col-xs-7
+							= t('statistics.goal_count', total_goals: "#{player.scores.count}")
+			.col-xs-6
+				%h2= t('statistics.least_defeated_goal')
+				- @least_goaled.each do |team|
+					.row
+						.col-xs-6
+							= team.name
+						.col-xs-6
+							= t('statistics.goal_count', total_goals: "#{team.goals_against}")

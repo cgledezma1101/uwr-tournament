@@ -1,26 +1,26 @@
 -#
-  Renders the main information regarding a club
+	Renders the main information regarding a club
 
-  Requires the following instance variables to be passed by the controller:
+	Requires the following instance variables to be passed by the controller:
 
-  @param [Club] club The club for which information will be shown
+	@param [Club] club The club for which information will be shown
 .panel.panel-primary
-  .panel-heading
-    %h1.panel-title= t('club.long_name', name: @club.name)
-  .panel-body
-    .col-xs-6
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('team.players')
-        .panel-body
-          - if @club.user_join_requests.any?
-            = render "public/user_details_panel", users: @club.user_join_requests, panel_title: t('club_join_request.pending'), entity: @club, actions_renderer: create_join_request_actions_proc(@club)
-          = render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club, actions_renderer: create_admin_actions_proc(@club)
-          = render "public/user_details_panel", users: @club.users, panel_title: t('club.members'), entity: @club, actions_renderer: create_member_actions_proc(@club)
-    .col-xs-6
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('club.teams')
-        .panel-body
-          = render 'clubs/team_index', club: @club
+	.panel-heading
+		%h1.panel-title= t('club.long_name', name: @club.name)
+	.panel-body
+		.col-xs-6
+			.panel.panel-info
+				.panel-heading
+					.panel-title= t('team.players')
+				.panel-body
+					- if @club.user_join_requests.any?
+						= render "public/user_details_panel", users: @club.user_join_requests, panel_title: t('club_join_request.pending'), entity: @club, actions_renderer: create_join_request_actions_proc(@club)
+					= render "public/user_details_panel", users: @club.admins, panel_title: t('club.admins'), entity: @club, actions_renderer: create_admin_actions_proc(@club)
+					= render "public/user_details_panel", users: @club.users, panel_title: t('club.members'), entity: @club, actions_renderer: create_member_actions_proc(@club)
+		.col-xs-6
+			.panel.panel-info
+				.panel-heading
+					.panel-title= t('club.teams')
+				.panel-body
+					= render 'clubs/team_index', club: @club
 = render 'clubs/navbar', club: @club

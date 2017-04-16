@@ -1,15 +1,15 @@
 -#
-  Renders a modal that allows removing a goal scored by a particular player
+	Renders a modal that allows removing a goal scored by a particular player
 
-  @param [String] id Identifier of the modal
-  @param [Player] player Player whose goal will be removed
-  @param [Game] game Game where the score will be removed from
+	@param [String] id Identifier of the modal
+	@param [Player] player Player whose goal will be removed
+	@param [Game] game Game where the score will be removed from
 .modal.fade{ id: id }
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h2.modal-title= t('game.remove_goal', player_name: player.number_name)
-      .modal-body
-        = form_for game, method: :delete, remote: true, url: { action: :remove_score } do |f|
-          = f.hidden_field :player_id, value: player.id
-          = f.submit t('general.save'), class: "btn btn-primary form-control"
+	.modal-dialog
+		.modal-content
+			.modal-header
+				%h2.modal-title= t('game.remove_goal', player_name: player.number_name)
+			.modal-body
+				= form_for game, method: :delete, remote: true, url: { action: :remove_score } do |f|
+					= f.hidden_field :player_id, value: player.id
+					= f.submit t('general.save'), class: "btn btn-primary form-control"

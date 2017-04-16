@@ -1,28 +1,28 @@
 -#
-  Renders the form needed to create a new game in a stage of a tournament. This is meant to be rendered inside a div with the modal-dialog class applied to it
+	Renders the form needed to create a new game in a stage of a tournament. This is meant to be rendered inside a div with the modal-dialog class applied to it
 
-  Requires the following instance variables to be initialized:
+	Requires the following instance variables to be initialized:
 
-  @param [Game] game An instance of a game, which will be used to produce the form
-  @param [Array<Team>] teams A collection of the teams that can be matched in this game
+	@param [Game] game An instance of a game, which will be used to produce the form
+	@param [Array<Team>] teams A collection of the teams that can be matched in this game
 #newGame
-  .modal-header
-    %h2.modal-title= t('game.new')
-  .modal-body
-    = form_for @game do |f|
-      = f.hidden_field :stage_id, value: @game.stage_id
-      .form-horizontal
-        .form-group
-          %table.table
-            %tr
-              %th.text-center= t('game.blue_team')
-              %th.text-center
-              %th.text-center= t('game.white_team')
-            %tr
-              %td.text-center
-                = f.collection_select :blue_team_id, @teams, :id, :name, {}, { class: 'form-control' }
-              %td.text-center= t('general.versus_short')
-              %td.text-center
-                = f.collection_select :white_team_id, @teams, :id, :name, {}, { class: 'form-control' }
-        .form-group
-          = render 'public/modal_form_buttons', form: f
+	.modal-header
+		%h2.modal-title= t('game.new')
+	.modal-body
+		= form_for @game do |f|
+			= f.hidden_field :stage_id, value: @game.stage_id
+			.form-horizontal
+				.form-group
+					%table.table
+						%tr
+							%th.text-center= t('game.blue_team')
+							%th.text-center
+							%th.text-center= t('game.white_team')
+						%tr
+							%td.text-center
+								= f.collection_select :blue_team_id, @teams, :id, :name, {}, { class: 'form-control' }
+							%td.text-center= t('general.versus_short')
+							%td.text-center
+								= f.collection_select :white_team_id, @teams, :id, :name, {}, { class: 'form-control' }
+				.form-group
+					= render 'public/modal_form_buttons', form: f

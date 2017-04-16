@@ -1,38 +1,38 @@
 -#
-  Renders the basic information regarding a team that's associated to a particular club
+	Renders the basic information regarding a team that's associated to a particular club
 
-  This page requires the following instance variables to be defined:
+	This page requires the following instance variables to be defined:
 
-  @param [Team] team The team whose information will be shown
-  @param [Club] club The club the team belings to
+	@param [Team] team The team whose information will be shown
+	@param [Club] club The club the team belings to
 .panel.panel-primary
-  .panel-heading
-    %h1.panel-title= t('team.long_name', name: @team.name, club_name: @club.name)
-  .panel-body
-    .col-xs-6
-      = render 'public/user_details_panel', users: @team.active_players, panel_title: t('team.players'), entity: @club, actions_renderer: create_player_actions_proc(@team)
-    .col-xs-6
-      .panel.panel-info
-        .panel-heading
-          .panel-title= t('team.statistics')
-        .panel-body
-          %table.table
-            %tr
-              %td= t('statistics.games_played_long')
-              %td= @team.games.count
-            %tr
-              %td= t('statistics.games_won_long')
-              %td= @team.won_games.count
-            %tr
-              %td= t('statistics.games_lost_long')
-              %td= @team.games.count - (@team.won_games.count + @team.tied_games.count)
-            %tr
-              %td= t('statistics.games_tied_long')
-              %td= @team.tied_games.count
-            %tr
-              %td= t('statistics.goals_scored')
-              %td= @team.goals
-            %tr
-              %td= t('statistics.goals_received')
-              %td= @team.goals_against
+	.panel-heading
+		%h1.panel-title= t('team.long_name', name: @team.name, club_name: @club.name)
+	.panel-body
+		.col-xs-6
+			= render 'public/user_details_panel', users: @team.active_players, panel_title: t('team.players'), entity: @club, actions_renderer: create_player_actions_proc(@team)
+		.col-xs-6
+			.panel.panel-info
+				.panel-heading
+					.panel-title= t('team.statistics')
+				.panel-body
+					%table.table
+						%tr
+							%td= t('statistics.games_played_long')
+							%td= @team.games.count
+						%tr
+							%td= t('statistics.games_won_long')
+							%td= @team.won_games.count
+						%tr
+							%td= t('statistics.games_lost_long')
+							%td= @team.games.count - (@team.won_games.count + @team.tied_games.count)
+						%tr
+							%td= t('statistics.games_tied_long')
+							%td= @team.tied_games.count
+						%tr
+							%td= t('statistics.goals_scored')
+							%td= @team.goals
+						%tr
+							%td= t('statistics.goals_received')
+							%td= @team.goals_against
 = render 'teams/navbar', team: @team

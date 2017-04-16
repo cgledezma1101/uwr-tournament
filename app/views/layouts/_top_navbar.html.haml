@@ -1,76 +1,76 @@
 .notifications
-  .alert-info= notice
-  .alert-danger= alert
+	.alert-info= notice
+	.alert-danger= alert
 - if user_signed_in?
-  %nav.navbar.navbar-default
-    .container-fluid
-      .collapse.navbar-collapse
-        %ul.nav.navbar-nav
-          %li= link_to t('user.your_profile'), user_path(current_user)
-          %li= link_to t('tournament.create'), '#', class: 'js-show-app-modal', data: { formlink: new_tournament_path, formid: "tournamentDetails" }
-          %li.dropdown
-            = link_to '#', data: { toggle: 'dropdown' }, role: 'button' do
-              = t('club.clubs')
-              %span.caret
-            %ul.dropdown-menu{ role: 'menu' }
-              %li= link_to t('club.create'), '#', class: 'js-show-app-modal', data: { formlink: new_club_path, formid: "newClub" }
-              %li= link_to t('club_join_request.new'), '#', class: 'js-show-app-modal', data: { formlink: new_club_join_request_path, formid: "newClubJoinRequest" }
-          = yield :module_navbar
-        %ul.nav.navbar-nav.navbar-right
-          %li= link_to t('devise.session.log_out'), destroy_user_session_path
+	%nav.navbar.navbar-default
+		.container-fluid
+			.collapse.navbar-collapse
+				%ul.nav.navbar-nav
+					%li= link_to t('user.your_profile'), user_path(current_user)
+					%li= link_to t('tournament.create'), '#', class: 'js-show-app-modal', data: { formlink: new_tournament_path, formid: "tournamentDetails" }
+					%li.dropdown
+						= link_to '#', data: { toggle: 'dropdown' }, role: 'button' do
+							= t('club.clubs')
+							%span.caret
+						%ul.dropdown-menu{ role: 'menu' }
+							%li= link_to t('club.create'), '#', class: 'js-show-app-modal', data: { formlink: new_club_path, formid: "newClub" }
+							%li= link_to t('club_join_request.new'), '#', class: 'js-show-app-modal', data: { formlink: new_club_join_request_path, formid: "newClubJoinRequest" }
+					= yield :module_navbar
+				%ul.nav.navbar-nav.navbar-right
+					%li= link_to t('devise.session.log_out'), destroy_user_session_path
 
 = content_for :page_javascript do
-  :javascript
-    var renderModalError = function()
-    {
-      $("#appModalContent").html("#{ j render 'public/modal_load_error' }");
-    };
+	:javascript
+		var renderModalError = function()
+		{
+			$("#appModalContent").html("#{ j render 'public/modal_load_error' }");
+		};
 
-    $(document).ready(function()
-    {
-      // Deal with navbar dropdowns not expanding
-      $('li.dropdown').on('click', function(event)
-      {
-        event.stopPropagation();
+		$(document).ready(function()
+		{
+			// Deal with navbar dropdowns not expanding
+			$('li.dropdown').on('click', function(event)
+			{
+				event.stopPropagation();
 
-        var clickedElement = $(this);
+				var clickedElement = $(this);
 
-        if(clickedElement.hasClass('open'))
-        {
-          clickedElement.removeClass('open');
-        }
-        else
-        {
-          clickedElement.addClass('open');
-        }
-      })
+				if(clickedElement.hasClass('open'))
+				{
+					clickedElement.removeClass('open');
+				}
+				else
+				{
+					clickedElement.addClass('open');
+				}
+			})
 
-      // This function allows to show the application modal with the data returned from a URL specified by the clicked nav element
-      // This element should have a data-formlink attribute specifying the URL from which the form should be retrieved and
-      // a data-formid specifying the identifier the returned form should have, for validation purposes.
-      $('.js-show-app-modal').on('click', function(event)
-      {
-        event.stopPropagation();
+			// This function allows to show the application modal with the data returned from a URL specified by the clicked nav element
+			// This element should have a data-formlink attribute specifying the URL from which the form should be retrieved and
+			// a data-formid specifying the identifier the returned form should have, for validation purposes.
+			$('.js-show-app-modal').on('click', function(event)
+			{
+				event.stopPropagation();
 
-        $('#appModalContent').html("#{ j render 'public/modal_loader' }");
-        $('#appModal').modal('show');
+				$('#appModalContent').html("#{ j render 'public/modal_loader' }");
+				$('#appModal').modal('show');
 
-        var clickedNav = $(this);
-        $.get(clickedNav.data('formlink'))
-          .done(function(form)
-          {
-            // Make sure that I wasn't redirected due to authorization errors.
-            if($(form).attr('id') === clickedNav.data('formid'))
-            {
-              $('#appModalContent').html(form);
-            } else
-            {
-              renderModalError();
-            }
-          })
-          .error(function()
-          {
-            renderModalError();
-          });
-      });
-    });
+				var clickedNav = $(this);
+				$.get(clickedNav.data('formlink'))
+					.done(function(form)
+					{
+						// Make sure that I wasn't redirected due to authorization errors.
+						if($(form).attr('id') === clickedNav.data('formid'))
+						{
+							$('#appModalContent').html(form);
+						} else
+						{
+							renderModalError();
+						}
+					})
+					.error(function()
+					{
+						renderModalError();
+					});
+			});
+		});

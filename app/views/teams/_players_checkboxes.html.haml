@@ -1,22 +1,22 @@
 -#
-  This partial prints a series of checkboxes destined to be submitted with a
-  form that creates a new game.
+	This partial prints a series of checkboxes destined to be submitted with a
+	form that creates a new game.
 
-  @param [Game] game The game that the players will participate in.
-  @param [Array<Player>] players The players being added.
+	@param [Game] game The game that the players will participate in.
+	@param [Array<Player>] players The players being added.
 .panel.panel-info
-  .panel-heading= t('team.participating_players')
-  .panel-body
-    .input-group.container-fluid
-      .col-xs-12
-        %input.select-all{ type: 'checkbox' }
-        = t('general.select_all')
-      - players.each_with_index do |player, i|
-        - if i % 3 == 0
-          .row
-        .col-xs-1
-          = check_box_tag 'game[player_ids][]', player.id
-        .col-xs-1
-          = player.number.to_s
-        .col-xs-2
-          = player.name
+	.panel-heading= t('team.participating_players')
+	.panel-body
+		.input-group.container-fluid
+			.col-xs-12
+				%input.select-all{ type: 'checkbox' }
+				= t('general.select_all')
+			- players.each_with_index do |player, i|
+				- if i % 3 == 0
+					.row
+				.col-xs-1
+					= check_box_tag 'game[player_ids][]', player.id
+				.col-xs-1
+					= player.number.to_s
+				.col-xs-2
+					= player.name

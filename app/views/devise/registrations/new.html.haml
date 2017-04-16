@@ -1,40 +1,40 @@
 = form_for(resource, as: resource_name, url: user_registration_path) do |f|
-  .form-horizontal
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        %h2.text-centered
-          = t('devise.registration.sign_up')
+	.form-horizontal
+		.form-group
+			.col-sm-offset-2.col-sm-6
+				%h2.text-centered
+					= t('devise.registration.sign_up')
 
-    .form-group
-      .col-sm-offset-2.col-sm-6
-        = devise_error_messages!
+		.form-group
+			.col-sm-offset-2.col-sm-6
+				= devise_error_messages!
 
-    .form-group.field
-      = f.label :name, class: 'col-sm-2 control-label'
-      .col-sm-6
-        =f.text_field :name, autofocus: true, class: 'form-control'
+		.form-group.field
+			= f.label :name, class: 'col-sm-2 control-label'
+			.col-sm-6
+				=f.text_field :name, autofocus: true, class: 'form-control'
 
-    .form-group.field
-      = f.label :email, class: 'col-sm-2 control-label'
-      .col-sm-6
-        = f.email_field :email, class: 'form-control'
+		.form-group.field
+			= f.label :email, class: 'col-sm-2 control-label'
+			.col-sm-6
+				= f.email_field :email, class: 'form-control'
 
-    .form-group.field
-      = f.label :password, class: 'col-sm-2 control-label'
-      - if @validatable
-        %em.control-label= t('devise.registration.minimum_characters', amount: @minimum_password_length)
-      .col-sm-6
-        = f.password_field :password, autocomplete: "off", class: 'form-control'
+		.form-group.field
+			= f.label :password, class: 'col-sm-2 control-label'
+			- if @validatable
+				%em.control-label= t('devise.registration.minimum_characters', amount: @minimum_password_length)
+			.col-sm-6
+				= f.password_field :password, autocomplete: "off", class: 'form-control'
 
-    .form-group.field
-      = f.label :password_confirmation, class: 'col-sm-2 control-label'
-      .col-sm-6
-        = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+		.form-group.field
+			= f.label :password_confirmation, class: 'col-sm-2 control-label'
+			.col-sm-6
+				= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
 
-    .form-group.actions
-      .col-sm-offset-2.col-sm-10
-        = f.submit t('devise.registration.sign_up'), class: 'btn btn-primary'
+		.form-group.actions
+			.col-sm-offset-2.col-sm-10
+				= f.submit t('devise.registration.sign_up'), class: 'btn btn-primary'
 
-    .form-group
-      .col-sm-offset-2.col-sm-10
-        = render "devise/shared/links"
+		.form-group
+			.col-sm-offset-2.col-sm-10
+				= render "devise/shared/links"

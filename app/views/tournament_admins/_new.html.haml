@@ -1,20 +1,20 @@
 -#
-  Renders a form, meant to be embedded in a modal, which allows the addition of a new administrator to a particular tournament
+	Renders a form, meant to be embedded in a modal, which allows the addition of a new administrator to a particular tournament
 
-  Expects the following instance variables to be defined
+	Expects the following instance variables to be defined
 
-  @param [TournamentAdmin] tournament_admin A tournament admin instance to be used for creating the association
-  @param [Array<User>] eligible_users A list of users that can be added as admins to the club
+	@param [TournamentAdmin] tournament_admin A tournament admin instance to be used for creating the association
+	@param [Array<User>] eligible_users A list of users that can be added as admins to the club
 #newTournamentAdmin
-  .modal-header
-    %h1.modal-title= t('tournament.add_admin')
-  .modal-body
-    = form_for @tournament_admin, method: 'post' do |f|
-      = f.hidden_field :tournament_id, value: @tournament_admin.tournament_id
-      .form-horizontal
-        .form-group
-          = f.label :user, class: 'col-sm-4 control-label'
-          .col-sm-6
-            = f.collection_select :user_id, @eligible_users, :id, :name, {}, { class: 'form-control' }
-        .form-group
-          = render 'public/modal_form_buttons'
+	.modal-header
+		%h1.modal-title= t('tournament.add_admin')
+	.modal-body
+		= form_for @tournament_admin, method: 'post' do |f|
+			= f.hidden_field :tournament_id, value: @tournament_admin.tournament_id
+			.form-horizontal
+				.form-group
+					= f.label :user, class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.collection_select :user_id, @eligible_users, :id, :name, {}, { class: 'form-control' }
+				.form-group
+					= render 'public/modal_form_buttons'

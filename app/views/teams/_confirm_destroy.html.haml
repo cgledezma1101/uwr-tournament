@@ -1,15 +1,15 @@
 -#
-  Presents a confirmation message before attempting to remove a team from a club
+	Presents a confirmation message before attempting to remove a team from a club
 
-  Expects the following instance variavles to be defined
+	Expects the following instance variavles to be defined
 
-  @param [Team] team The team to be destroyed
+	@param [Team] team The team to be destroyed
 #removeTeam
-  .modal-header
-    %h2.modal-title= t('team.destroy')
-  .modal-body
-    = form_tag team_path(@team), method: :delete do
-      .form-horizontal
-        .form-group
-          %label.col-sm-12= t('team.confirm_destroy', team_name: @team.name)
-          = render 'public/modal_form_buttons'
+	.modal-header
+		%h2.modal-title= t('team.destroy')
+	.modal-body
+		= form_tag team_path(@team), method: :delete do
+			.form-horizontal
+				.form-group
+					%label.col-sm-12= t('team.confirm_destroy', team_name: @team.name)
+					= render 'public/modal_form_buttons'

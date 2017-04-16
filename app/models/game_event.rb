@@ -1,5 +1,5 @@
 class GameEvent < ActiveRecord::Base
-  belongs_to :game
+	belongs_to :game
 
-  validates :text, presence: true
+	validates :text, presence: true
 end

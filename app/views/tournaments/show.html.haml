@@ -1,63 +1,63 @@
 -#
-  Renders the main information regarding a tournament
+	Renders the main information regarding a tournament
 
-  Requires the following instance variables to be passed by the controller:
+	Requires the following instance variables to be passed by the controller:
 
-  @param [Tournament] tournament The tournament for which information will be shown
-  @param [Array<TournamentInvitation>] invitations Instances of the relationships to the clubs that have been invited to the tournament
+	@param [Tournament] tournament The tournament for which information will be shown
+	@param [Array<TournamentInvitation>] invitations Instances of the relationships to the clubs that have been invited to the tournament
 .panel.panel-primary
-  .panel-heading
-    %h1.panel-title= "#{@tournament.name} (#{@tournament.start_date}" + (@tournament.start_date == @tournament.end_date ? "" : " - #{@tournament.end_date}") + ")"
-  .panel-body
-    .col-xs-12
-      = render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament, actions_renderer: create_admin_actions_proc(@tournament)
-    .col-xs-12
-      .col-xs-4
-        .panel.panel-info
-          .panel-heading
-            .panel-title= t('tournament.clubs')
-          .panel-body
-            %table.table
-              %tr
-                %th.text-center= t('activerecord.attributes.club.name')
-                - if can? :update, @tournament
-                  %th.text-center= t('general.actions')
-              - for invitation in @invitations
-                %tr
-                  %td.text-center= invitation.club.name
-                  - if can? :update, @tournament
-                    %td.text-center
-                      = link_to t('tournament.remove_club'), tournament_invitation_path(invitation), method: :delete
-      .col-xs-4
-        .panel.panel-info
-          .panel-heading
-            .panel-title= t('tournament.teams')
-          .panel-body
-            %table.table
-              %tr
-                %th.text-center= t('activerecord.attributes.team.name')
-                %th.text-center= t('statistics.played_won_short')
-              - for team in @tournament.teams
-                %tr
-                  %td.text-center= team.name
-                  %td.text-center= "#{team.played_games.count}(#{team.won_games.count})"
-      .col-xs-4
-        .panel.panel-info
-          .panel-heading
-            .panel-title= t('tournament.stages')
-          .panel-body
-            %table.table
-              %tr
-                %th.text-center= t('activerecord.attributes.stage.name')
-                - if can? :update, @tournament
-                  %th.text-center= t('general.actions')
-              - for stage in @tournament.stages
-                %tr
-                  %td.text-center
-                    = link_to stage.name, stage_path(stage)
-                  %td.text-center
-                    - if can? :destroy, stage
-                      = link_to t('tournament.remove_stage'), stage_path(stage), method: :delete
-    .col-xs-12
-      = render 'statisticables/show', statisticable: @tournament
+	.panel-heading
+		%h1.panel-title= "#{@tournament.name} (#{@tournament.start_date}" + (@tournament.start_date == @tournament.end_date ? "" : " - #{@tournament.end_date}") + ")"
+	.panel-body
+		.col-xs-12
+			= render 'public/user_details_panel', users: @tournament.admins, panel_title: t('tournament.admins'), entity: @tournament, actions_renderer: create_admin_actions_proc(@tournament)
+		.col-xs-12
+			.col-xs-4
+				.panel.panel-info
+					.panel-heading
+						.panel-title= t('tournament.clubs')
+					.panel-body
+						%table.table
+							%tr
+								%th.text-center= t('activerecord.attributes.club.name')
+								- if can? :update, @tournament
+									%th.text-center= t('general.actions')
+							- for invitation in @invitations
+								%tr
+									%td.text-center= invitation.club.name
+									- if can? :update, @tournament
+										%td.text-center
+											= link_to t('tournament.remove_club'), tournament_invitation_path(invitation), method: :delete
+			.col-xs-4
+				.panel.panel-info
+					.panel-heading
+						.panel-title= t('tournament.teams')
+					.panel-body
+						%table.table
+							%tr
+								%th.text-center= t('activerecord.attributes.team.name')
+								%th.text-center= t('statistics.played_won_short')
+							- for team in @tournament.teams
+								%tr
+									%td.text-center= team.name
+									%td.text-center= "#{team.played_games.count}(#{team.won_games.count})"
+			.col-xs-4
+				.panel.panel-info
+					.panel-heading
+						.panel-title= t('tournament.stages')
+					.panel-body
+						%table.table
+							%tr
+								%th.text-center= t('activerecord.attributes.stage.name')
+								- if can? :update, @tournament
+									%th.text-center= t('general.actions')
+							- for stage in @tournament.stages
+								%tr
+									%td.text-center
+										= link_to stage.name, stage_path(stage)
+									%td.text-center
+										- if can? :destroy, stage
+											= link_to t('tournament.remove_stage'), stage_path(stage), method: :delete
+		.col-xs-12
+			= render 'statisticables/show', statisticable: @tournament
 = render 'tournaments/navbar', tournament: @tournament

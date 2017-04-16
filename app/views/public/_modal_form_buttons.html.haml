@@ -1,11 +1,11 @@
 -#
-  Renders a submit and cancel button that work for forms that are rendered inside modals
+	Renders a submit and cancel button that work for forms that are rendered inside modals
 
-  @param [Form] form (Optional) The form helper over which the form is being built
+	@param [Form] form (Optional) The form helper over which the form is being built
 .col-sm-offset-4.col-sm-8
-  - if defined? form
-    = form.submit t('general.save'), class: 'btn btn-success'
-  - else
-    = submit_tag t('general.save'), class: 'btn btn-success'
-  %a.btn.btn-danger{ data: { dismiss: 'modal' } }
-    = t('general.cancel')
+	- if defined? form
+		= form.submit t('general.save'), class: 'btn btn-success'
+	- else
+		= submit_tag t('general.save'), class: 'btn btn-success'
+	%a.btn.btn-danger{ data: { dismiss: 'modal' } }
+		= t('general.cancel')

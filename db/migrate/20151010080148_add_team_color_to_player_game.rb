@@ -1,5 +1,5 @@
 class AddTeamColorToPlayerGame < ActiveRecord::Migration
-  def change
-    add_column :player_games, :team_color, :string
-  end
+	def change
+		add_column :player_games, :team_color, :string
+	end
 end
