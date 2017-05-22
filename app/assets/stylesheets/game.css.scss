@@ -1,20 +1,32 @@
-input.chronometer-error
-{
+input.chronometer-error {
   border-color: rgb(233, 102, 102);
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 102, 102, 0.6);
 }
 
-input.timer-low
-{
+input.timer-low {
   background-color: #FFFD60 !important;
 }
 
-.team-dropdown
-{
+.team-dropdown {
   margin-bottom: 10px;
 }
 
-.player-no-scores
-{
+.player-no-scores {
   visibility: hidden;
+}
+
+.chronometer-field {
+	height: 70px;
+	width: 100%;
+	font-size: 70px;
+}
+
+.chronometer-control {
+	width: 70px;
+	height: 70px;
+	font-size: 50px;
+}
+
+.add-chronometer {
+	font-size: 20px
 }

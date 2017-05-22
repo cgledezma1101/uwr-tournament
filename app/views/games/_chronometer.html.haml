@@ -2,13 +2,13 @@
 	.col-xs-3
 		%input.form-control.js-chronometer-name{ placeholder: t('game.chronometer_name') }
 	.col-xs-3
-		%input.form-control.js-chronometer-minutes.text-right{ min: 0, type: "number", placeholder: t('game.chronometer_minutes') }
+		%input.form-control.js-chronometer-minutes.chronometer-field.text-right{ min: 0, type: "number" }
 	.col-xs-3
-		%input.form-control.js-chronometer-seconds{ min: 0, max: 59, type: "number", placeholder: t('game.chronometer_seconds') }
+		%input.form-control.js-chronometer-seconds.chronometer-field{ min: 0, max: 59, type: "number" }
 	.col-xs-3.btn-group
-		%button.btn.btn-success.js-chronometer-start
-			= t('game.chronometer_start')
-		%button.btn.btn-danger.js-chronometer-stop
-			= t('game.chronometer_stop')
-		%button.btn.btn-warning.js-chronometer-remove
-			= t('game.chronometer_remove')
+		%button.btn.btn-success.js-chronometer-start.chronometer-control
+			= fa_icon 'play'
+		%button.btn.btn-danger.js-chronometer-stop.chronometer-control
+			= fa_icon 'pause'
+		%button.btn.btn-warning.js-chronometer-remove.chronometer-control
+			= fa_icon 'remove'
