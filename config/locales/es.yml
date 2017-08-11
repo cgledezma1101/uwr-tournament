@@ -261,6 +261,7 @@
     long_name: "Equipo: %{name} - Club: %{club_name}"
     new: "Nuevo equipo"
     participating_players: "Jugadores participantes"
+    passwords_dont_match: "Contraseña y confirmación no coinciden"
     player_count: "# de jugadores"
     players: "Jugadores"
     send_to_tournament: "Enviar a torneo"

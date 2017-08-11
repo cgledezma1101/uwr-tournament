@@ -261,6 +261,7 @@ en:
     long_name: "Team: %{name} - Club: %{club_name}"
     new: "New team"
     participating_players: "Participating players"
+    passwords_dont_match: "Provided password and confirmation don't match"
     player_count: "# of players"
     players: "Players"
     send_to_tournament: "Send to tournament"
