@@ -21,7 +21,7 @@ class TournamentTeam < ActiveRecord::Base
 
 	# Creates a hash of the password to prevent saving verbatim string to the DB
 	def scramble_password
-		if self.password.changed?
+		if self.password_changed?
 			self.password = Digest::MD5.hexdigest(self.password)
 		end
 	end
@@ -33,7 +33,7 @@ class TournamentTeam < ActiveRecord::Base
 
 	# When the password has changed, validates that the password confirmation has the same value
 	def passwords_match
-		if self.password.changed? && !(self.password == self.password_confirmation)
+		if self.password_changed? && !(self.password == self.password_confirmation)
 			self.errors.add(:team, I18n.t('team.passwords_dont_match'))
 		end
 	end

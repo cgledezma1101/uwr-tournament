@@ -28,6 +28,8 @@ en:
         club: "Invited club"
       tournament_team:
         tournament: "Available tournaments"
+        password: "Password"
+        password_confirmation: "Confirm password"
       user:
         email: "Email"
         name: "Name"
@@ -302,6 +304,7 @@ en:
     new: "Invite a club to %{tournament_name}"
   tournament_team:
     new: "Send %{team_name} to a tournament"
+    password_tooltip: "This password will be used by the team's captain to confirm matches' protocols at the end of each game"
     save_fail: "There was an error registering %{team_name} in %{tournament_name}. Please try again later, or get in contact with the tournament administrator."
     save_success: "%{team_name} has been registered as participant in %{tournament_name}"
   user_club:

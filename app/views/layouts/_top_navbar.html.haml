@@ -62,7 +62,9 @@
 						// Make sure that I wasn't redirected due to authorization errors.
 						if($(form).attr('id') === clickedNav.data('formid'))
 						{
-							$('#appModalContent').html(form);
+							var modalContent = $('#appModalContent');
+							modalContent.html(form);
+							modalContent.find("[data-toggle='tooltip']").tooltip();
 						} else
 						{
 							renderModalError();

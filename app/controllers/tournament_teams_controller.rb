@@ -41,6 +41,6 @@ class TournamentTeamsController < ApplicationController
 
 	# Returns the sanitized parameters required to create a relationship between a team and a tournament
 	def create_params
-		params.require(:tournament_team).permit(:tournament_id, :team_id)
+		params.require(:tournament_team).permit(:tournament_id, :team_id, :password, :password_confirmation)
 	end
 end
