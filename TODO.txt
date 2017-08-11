@@ -8,5 +8,3 @@ Plus:
     - Special privileges on matches
   - Request invitation to tournament (team/club)
   - Error messages
-
-push test

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.3.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.13'
 
@@ -20,9 +20,6 @@ gem 'therubyracer', '0.10.2', platforms: :ruby
 gem 'jquery-rails'
 
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
@@ -33,27 +30,16 @@ gem 'devise'
 gem 'cancancan', '~> 1.10'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-
+gem 'font-awesome-rails'
 
 group :production do
-  gem 'pg'
-  gem 'font-awesome-rails'
-end
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+	gem 'pg'
 end
 
 group :development do
-  # Quick server resets
-  gem 'zeus'
+	# Use sqlite3 as the database for Active Record
+	gem 'sqlite3'
 
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-
-  # Enjoyable debugging
-  gem 'pry'
-  gem 'better_errors'
-  gem 'binding_of_caller'
+	# Enjoyable debugging
+	gem 'pry'
 end
