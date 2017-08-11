@@ -4,6 +4,7 @@ class TournamentTeam < ActiveRecord::Base
 
 	validate :club_invited
 	validate :team, uniqueness: { scope: :tournament }
+	validate :password, presence: true
 
 	private
 
