@@ -17,6 +17,7 @@
 					= f.label :tournament, class: 'col-sm-4 control-label'
 					.col-sm-6
 						= f.collection_select :tournament_id, @available_tournaments, :id, :name, {}, { class: 'form-control' }
+				.form-group
 					= f.label :password, class: 'col-sm-4 control-label'
 					.col-sm-6
 						= f.password_field :password,
@@ -24,6 +25,7 @@
 							class: 'form-control',
 							data: { toggle: 'tooltip' },
 							title: t('tournament_team.password_tooltip')
+				.form-group
 					= f.label :password_confirmation, class: 'col-sm-4 control-label'
 					.col-sm-6
 						= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
