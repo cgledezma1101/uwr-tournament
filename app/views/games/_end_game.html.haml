@@ -1,0 +1,21 @@
+-#
+	Renders a modal that will display a form that allows finishing a game
+
+	@param [Game] @game The game that is being finalised
+#endGame
+	.modal-header
+		%h2.modal-title= t('game.end')
+	.modal-body
+		= form_for @game do |f|
+			.form-horizontal
+				= f.hidden_field :status, value: Game::STATUS_ENDED
+				.form-group
+					= f.label :blue_team, t('game.end_password', team_name: @game.blue_team.name), class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.password_field :blue_password, autocomplete: "off", class: 'form-control'
+				.form-group
+					=f.label :white_team, t('game.end_password', team_name: @game.white_team.name), class: 'col-sm-4 control-label'
+					.col-sm-6
+						= f.password_field :white_password, autocomplete: "off", class: 'form-control'
+				.form-group
+					= render 'public/modal_form_buttons', form: f

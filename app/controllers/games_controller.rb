@@ -36,7 +36,16 @@ class GamesController < ApplicationController
 		redirect_to stage_path(@game.stage), notice: t('game.destroy_success')
 	end
 
-	# POST /games/:id/end
+	# GET /games/:id/end
+	#
+	# Request a modal with the information necessary to end a game
+	#
+	# @param [Integer] id Identifier of the game to end
+	def end
+		render 'games/_end_game.html.haml', layout: false
+	end
+
+	# POST /games/:id/finalize
 	#
 	# Marks the specified game as ended, so that no further changes can be done on it
 	#

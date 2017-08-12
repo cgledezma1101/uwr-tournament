@@ -71,6 +71,10 @@ class Ability
 		can :destroy, Game do |game|
 			(can? :update, game.stage) && !game.has_ended?
 		end
+		
+		can :end, Game do |game|
+			(game.status == Game::STATUS_STARTED) && (can? :update, game)
+		end
 
 		can :finalize, Game do |game|
 			(game.status == Game::STATUS_STARTED) && (can? :update, game)

@@ -137,6 +137,7 @@
     current_game: "Juego en curso"
     destroy_success: "El juego ha sido cancelado"
     end: "Terminar juego"
+    end_password: "Contraseña de %{team_name}"
     errors:
       invalid_status: "El estado del juego es inválido"
       player_count: "El equipo %{team} debe tener por lo menos 6 jugadores para empezar el juego"
