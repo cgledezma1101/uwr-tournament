@@ -6,9 +6,8 @@
 	.modal-header
 		%h2.modal-title= t('game.end')
 	.modal-body
-		= form_for @game do |f|
+		= form_for @game, url: finalize_game_path(@game), method: :post do |f|
 			.form-horizontal
-				= f.hidden_field :status, value: Game::STATUS_ENDED
 				.form-group
 					= f.label :blue_team, t('game.end_password', team_name: @game.blue_team.name), class: 'col-sm-4 control-label'
 					.col-sm-6

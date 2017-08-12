@@ -139,6 +139,9 @@ en:
     end: "End game"
     end_password: "%{team_name} password"
     errors:
+      finalize:
+        both_mismatch: "Could not finalize game. Neither team supplied correct password."
+        team_mismatch: "Could not finalize game. %{team_name} did not supply correct password."
       invalid_status: "The game's status is invalid"
       player_count: "Team %{team} must have at least 6 players to start the game"
       player_not_in_team: "'%{player_name}' is not in '%{team_name}' list of players."

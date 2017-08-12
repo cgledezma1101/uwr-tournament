@@ -51,6 +51,23 @@ class GamesController < ApplicationController
 	#
 	# @param [Integer] id Identifier of the game to mark as ended
 	def finalize
+		blue_tournament_team = @game.stage.tournament.tournament_teams.where(team: @game.blue_team).first
+		white_trounament_team = @game.stage.tournament.tournament_teams.where(team: @game.white_team).first
+
+		blue_password_valid = blue_tournament_team.valid_password?(params[:game][:blue_password])
+		white_password_valid = white_trounament_team.valid_password?(params[:game][:white_password])
+
+		if !blue_password_valid && !white_password_valid
+			redirect_to game_path(@game), alert: t('game.errors.finalize.both_mismatch')
+			return
+		elsif !blue_password_valid
+			redirect_to game_path(@game), alert: t('game.errors.finalize.team_mismatch', team_name: @game.blue_team.name)
+			return
+		elsif !white_password_valid
+			redirect_to game_path(@game), alert: t('game.errors.finalize.team_mismatch', team_name: @game.white_team.name)
+			return
+		end
+
 		@game.status = Game::STATUS_ENDED
 		white_goals = @game.white_goals
 		blue_goals = @game.blue_goals

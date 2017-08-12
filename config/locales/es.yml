@@ -139,6 +139,9 @@
     end: "Terminar juego"
     end_password: "Contraseña de %{team_name}"
     errors:
+      finalize:
+        both_mismatch: "No se pudo finalizar el juego. Ningún equipo introdujo contraseña correcta."
+        team_mismatch: "No se pudo finalizar el juego. . %{team_name} introdujo una contraseña incorrecta."
       invalid_status: "El estado del juego es inválido"
       player_count: "El equipo %{team} debe tener por lo menos 6 jugadores para empezar el juego"
       player_not_in_team: "'%{player_name}' no esta en el listado de jugadores de '%{team_name}'."
