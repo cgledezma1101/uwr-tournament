@@ -58,6 +58,9 @@
 									%td.text-center
 										- if can? :destroy, stage
 											= link_to t('tournament.remove_stage'), stage_path(stage), method: :delete
+							%tr
+								%td.text-center
+									= link_to t('tournament.view_all_games'), all_games_tournament_path(@tournament)
 		.col-xs-12
 			= render 'statisticables/show', statisticable: @tournament
 = render 'tournaments/navbar', tournament: @tournament

@@ -14,7 +14,7 @@
 					.panel-title= t('stage.games')
 				.panel-body
 					%div
-					= render 'games/index_table', games: @stage.games
+					= render 'games/index_table', games: @stage.games.order(:starts_at)
 		.col-xs-12
 			= render 'statisticables/show', statisticable: @stage
 = render 'stages/navbar', stage: @stage

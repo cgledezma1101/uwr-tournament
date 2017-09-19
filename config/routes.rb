@@ -53,7 +53,9 @@ UwrTournament::Application.routes.draw do
 
 	resources :tournament_teams, only: [:new, :create]
 
-	resources :tournaments, only: [:new, :create, :show]
+	resources :tournaments, only: [:new, :create, :show] do
+		get 'all_games', on: :member
+	end
 
 	resources :user_clubs, only: [:destroy] do
 		get 'confirm_destroy', on: :member

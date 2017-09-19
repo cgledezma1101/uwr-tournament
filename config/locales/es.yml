@@ -282,6 +282,7 @@
     add_stage: "Agregar etapa"
     administrate: "Administrar torneo"
     admins: "Administradores"
+    all_games: "Todos los juegos en %{tournament_name}"
     amount_teams: "Equipos participantes"
     clubs: "Clubes invitados"
     create: "Iniciar torneo"
@@ -296,6 +297,7 @@
     team_uninvited: "El club al que este equipo pertence no ha sido invitado al torneo"
     teams: "Equipos participantes"
     user_tournaments: "Tus torneos"
+    view_all_games: "Todos los juegos"
   tournament_admin:
     at_least_one: "Debe haber al menos un administrador del torneo."
     confirm_remove: "¿Estás seguro que deseas eliminar a %{admin_name} como administrador del torneo?"

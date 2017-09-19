@@ -1,0 +1,17 @@
+-#
+	Renders a panel containing all the games to be played in a tournament, ordered by starting time
+
+	Requires the follwing instance variables to exist:
+
+	@param [Tournament] tournament The tournament that is being rendered
+	@param [Array<Game>] all_games All the games to be rendered
+.panel.panel-primary
+	.panel-heading
+		%h1.panel-title= t('tournament.all_games', tournament_name: @tournament.name)
+	.panel-body
+		%div
+		= render 'games/index_table', games: @all_games
+
+= content_for :module_navbar do
+	%li
+		= link_to t('stage.back_to_tournament'), tournament_path(@tournament)

@@ -12,7 +12,7 @@
 		%th.text-center= t('game.white_team')
 		%th.text-center= t('activerecord.attributes.game.status')
 		%th.text-center= t('general.actions')
-	- for game in games.order(:starts_at)
+	- for game in games
 		%tr
 			%td.text-center= game.starts_at.nil? ? '' : game.starts_at.strftime('%d/%m %I:%M %P')
 			%td.text-center= game.blue_team.name

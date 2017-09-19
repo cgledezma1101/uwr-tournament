@@ -15,6 +15,25 @@ class TournamentsController < ApplicationController
 		end
 	end
 
+	# GET /tournaments/:id/all_games
+	#
+	# Displays all matches belonging to all stages in this tournament
+	def all_games
+		@all_games = @tournament
+			.stages
+			.map{ |stage| stage.games }
+			.flatten
+			.sort do |game0, game1|
+				if game0.starts_at.nil?
+					-1
+				elsif game1.starts_at.nil?
+					1
+				else
+					game0.starts_at <=> game1.starts_at
+				end
+			end
+	end
+
 	# GET /tournaments/new
 	#
 	# Provides a form that contains the details to create a new tournament
@@ -24,11 +43,11 @@ class TournamentsController < ApplicationController
 
 	def show
 		@invitations = @tournament
-										.tournament_invitations
-										.includes(:club)
-										.sort do |invitation0, invitation1|
-											invitation0.club.name <=> invitation1.club.name
-										end
+			.tournament_invitations
+			.includes(:club)
+			.sort do |invitation0, invitation1|
+				invitation0.club.name <=> invitation1.club.name
+			end
 	end
 
 	private

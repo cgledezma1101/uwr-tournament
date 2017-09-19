@@ -175,6 +175,8 @@ class Ability
 		###################################################
 		################## TOURNAMENTS ####################
 		###################################################
+		can :all_games, Tournament
+
 		can :create, Tournament
 
 		can :update, Tournament do |tournament|
