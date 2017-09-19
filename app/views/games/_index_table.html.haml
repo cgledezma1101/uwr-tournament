@@ -1,0 +1,28 @@
+-#
+	Displays a table containing a list of games, along with all actions that can be executed for them
+
+	@param [Array<Game>] games All games to be displayed
+%table.table
+	%tr
+		%th.text-center= t('game.starts_at')
+		%th.text-center= t('game.blue_team')
+		%th.text-right
+		%th.text-center
+		%th.text-left
+		%th.text-center= t('game.white_team')
+		%th.text-center= t('activerecord.attributes.game.status')
+		%th.text-center= t('general.actions')
+	- for game in games.order(:starts_at)
+		%tr
+			%td.text-center= game.starts_at.nil? ? '' : game.starts_at.strftime('%d/%m %I:%M %P')
+			%td.text-center= game.blue_team.name
+			%td.text-right= game.blue_goals
+			%td.text-center -
+			%td.text-left= game.white_goals
+			%td.text-center= game.white_team.name
+			%td.text-center= t("game.statuses.#{game.status}")
+			%td.text-center
+				= link_to t('game.watch'), game_path(game)
+				- if (can? :update, game)
+					|
+					= link_to t('general.cancel'), game_path(game), method: :delete
