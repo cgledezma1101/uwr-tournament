@@ -147,6 +147,7 @@
       player_not_in_team: "'%{player_name}' no esta en el listado de jugadores de '%{team_name}'."
       players: "Cada jugador debe tener al menos 6 jugadores. Todos los jugadores deben pertenecer a los equipos que se enfrentarán"
       same_team: "Se deben seleccionar equipos diferentes"
+      starts_at_out_of_range: "La fecha de inicio del juego debe estar entre las fechas del torneo."
       wrong_winning_color: "El color del equipo ganador es inválido"
     event_feed: "Eventos"
     finalize_success: "El juego ha finalizado satisfactoriamente"

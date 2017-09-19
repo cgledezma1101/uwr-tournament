@@ -147,6 +147,7 @@ en:
       player_not_in_team: "'%{player_name}' is not in '%{team_name}' list of players."
       players: "Each team must have at least 6 players. All participating players must belong to the participating teams."
       same_team: "Both selected teams are the same."
+      starts_at_out_of_range: "Game starting time must be within tournament dates."
       wrong_winning_color: "Trying to assign an invalid color to the winning team"
     event_feed: "Event feed"
     finalize_success: "The game has been successfully ended"

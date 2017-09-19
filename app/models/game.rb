@@ -22,11 +22,13 @@ class Game < ActiveRecord::Base
 	validates :blue_team, presence: true, unless: :has_ended?
 	validates :white_team, presence: true, unless: :has_ended?
 	validates :status, presence: true
+	validates :starts_at, presence: :true
 
 	validate :different_teams
 	validate :player_count
 	validate :validate_status
 	validate :correct_winning_color, if: :has_ended?
+	validate :starts_within_tournament
 
 	# Determines the amount of goals that have been scored by the blue team
 	#
@@ -115,6 +117,16 @@ class Game < ActiveRecord::Base
 		def validate_status
 			if !STATUSES.include?(self.status)
 				self.errors.add(:status, I18n.t('game.errors.invalid_status'))
+			end
+		end
+
+		# Validates that the starting time of the game is within the boundaries of the tournament where it was included
+		def starts_within_tournament
+			tournament_start = self.stage.tournament.start_date
+			tournament_end = self.stage.tournmanet.end_date
+
+			if tournament_start > self.starts_at || (tournament_end + 1.day) < self.starts_at
+				self.errors.add(:starts_at, I18n.t('game.errors.starts_at_out_of_range'))
 			end
 		end
 end
