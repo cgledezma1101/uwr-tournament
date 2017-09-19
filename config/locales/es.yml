@@ -132,7 +132,7 @@
     chronometer_stop_all: "Detener todos"
     chronometer_name: "Nombre"
     chronometers: "Cronómetros"
-    create_fail: "Ha ocurrido un error al crear el juego. Por favor inténtalo de nuevo."
+    create_fail: "Ha ocurrido un error al crear el juego."
     create_success: "El juego se ha creado exitosamente"
     current_game: "Juego en curso"
     destroy_success: "El juego ha sido cancelado"
@@ -163,6 +163,7 @@
     scoreboard: "Marcador"
     scoring_player: "Jugador que anotó"
     start: "Comenzar juego"
+    starts_at: "Hora de comienzo"
     statuses:
       r: "Listo para iniciar"
       s: "Iniciado"

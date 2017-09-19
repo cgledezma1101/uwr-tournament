@@ -123,9 +123,9 @@ class Game < ActiveRecord::Base
 		# Validates that the starting time of the game is within the boundaries of the tournament where it was included
 		def starts_within_tournament
 			tournament_start = self.stage.tournament.start_date
-			tournament_end = self.stage.tournmanet.end_date
+			tournament_end = self.stage.tournament.end_date
 
-			if tournament_start > self.starts_at || (tournament_end + 1.day) < self.starts_at
+			if !self.starts_at.nil? && (tournament_start > self.starts_at || (tournament_end + 1.day) < self.starts_at)
 				self.errors.add(:starts_at, I18n.t('game.errors.starts_at_out_of_range'))
 			end
 		end

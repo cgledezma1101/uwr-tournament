@@ -132,7 +132,7 @@ en:
     chronometer_stop: "Stop"
     chronometer_stop_all: "Stop all"
     chronometers: "Stopwatches"
-    create_fail: "There has been an error creating the game. Please try again."
+    create_fail: "There has been an error creating the game."
     create_success: "The game has been successfully created"
     current_game: "Current game"
     destroy_success: "The game has been cancelled"
@@ -163,6 +163,7 @@ en:
     scoreboard: "Scoreboard"
     scoring_player: "Scoring player"
     start: "Start game"
+    starts_at: "Starting Time"
     statuses:
       r: "Ready to start"
       s: "Started"

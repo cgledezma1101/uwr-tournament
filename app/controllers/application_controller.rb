@@ -8,6 +8,16 @@ class ApplicationController < ActionController::Base
 		redirect_to root_url, alert: t('cancan.unauthorized_access')
 	end
 
+	def stringify_errors(model_errors, model_name)
+		grouped_errors = model_errors.keys.map do |error_property|
+			joined_errors = model_errors[error_property].join(',')
+			translated_property = I18n.t(model_name + '.' + error_property.to_s)
+			return "#{translated_property}: #{joined_errors}"
+		end
+
+		return grouped_errors.join('. ')
+	end
+
 	private
 
 	def configure_permitted_parameters

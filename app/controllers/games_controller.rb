@@ -20,7 +20,8 @@ class GamesController < ApplicationController
 		if @game.save
 			redirect_params = { notice: t('game.create_success') }
 		else
-			redirect_params = { alert: t('game.create_fail') }
+			alert_message = "#{t('game.create_fail')} #{stringify_errors(@game.errors, 'game')}"
+			redirect_params = { alert: alert_message }
 		end
 
 		redirect_to stage_path(@game.stage), redirect_params
@@ -170,6 +171,6 @@ class GamesController < ApplicationController
 	private
 		# This defines the attributes that are permitted when creating a new game
 		def create_params
-			params.require(:game).permit(:blue_team_id, :white_team_id, :stage_id)
+			params.require(:game).permit(:blue_team_id, :white_team_id, :stage_id, :starts_at)
 		end
 end
