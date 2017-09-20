@@ -1,6 +1,7 @@
 var registeredChronometers = {};
 var chronometerInterval = undefined;
 var activeChronometers = 0;
+var scoreboardHandle = null;
 
 var updateChronometers = function()
 {
@@ -124,6 +125,27 @@ var chronometerRemove = function()
 
 	// Prevent default behaviour and stop event propagation
 	return false;
+}
+
+var chronometerExternal = function()
+{
+	$('.js-is-external').removeClass('js-is-external');
+	$(this).addClass('.js-is-external');
+
+	if (!scoreboardHandle)
+	{
+		scoreboardHandle = createScoreboardHandle();
+	}
+}
+
+var createScoreboardHandle = function()
+{
+	return window.open('/games/external_scoreboard', '_blank', {
+		location: 'no',
+		menubar: 'no',
+		status: 'no',
+		titlebar: 'no'
+	});
 }
 
 var addToFeeds = function(text)
