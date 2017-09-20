@@ -34,17 +34,38 @@ var updateChronometers = function()
 			}
 			else
 			{
-					minutesInput.val(--currentMinutes);
+					--currentMinutes
+					minutesInput.val(currentMinutes.toString().padStart(2, '0'));
 					secondsInput.val(59);
 			}
 		}
 		else
 		{
-			secondsInput.val(currentSeconds);
+			secondsInput.val(currentSeconds.toString().padStart(2, '0'));
+		}
+
+		if (chronometer.hasClass('js-is-external'))
+		{
+			updateExternalScoreboard(chronometer);
 		}
 
 		return true;
 	});
+}
+
+var updateExternalScoreboard = function($chronometer)
+{
+	if (!scoreboardHandle || scoreboardHandle.closed)
+	{
+		return;
+	}
+
+	var $scoreboard = $(scoreboardHandle.document);
+
+	$scoreboard.find('.js-remaining-minutes').text($chronometer.find('.js-chronometer-minutes').val());
+	$scoreboard.find('.js-remaining-seconds').text($chronometer.find('.js-chronometer-seconds').val());
+	$scoreboard.find('.js-black-score').text($('.js-blue-goals').text());
+	$scoreboard.find('.js-white-score').text($('.js-white-goals').text());
 }
 
 var chronometerStart = function()
@@ -130,9 +151,9 @@ var chronometerRemove = function()
 var chronometerExternal = function()
 {
 	$('.js-is-external').removeClass('js-is-external');
-	$(this).addClass('.js-is-external');
+	$(this).parents('.js-chronometer').addClass('js-is-external');
 
-	if (!scoreboardHandle)
+	if (!scoreboardHandle || scoreboardHandle.closed)
 	{
 		scoreboardHandle = createScoreboardHandle();
 	}
