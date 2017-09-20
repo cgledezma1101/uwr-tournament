@@ -46,6 +46,12 @@ class GamesController < ApplicationController
 		render 'games/_end_game.html.haml', layout: false
 	end
 
+	# GET /games/external_scoreboard
+	#
+	# Renders a form that contains a layout for rendering a standalone scoreboard for the game
+	def external_scoreboard
+	end
+
 	# POST /games/:id/finalize
 	#
 	# Marks the specified game as ended, so that no further changes can be done on it

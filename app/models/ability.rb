@@ -88,6 +88,8 @@ class Ability
 			can? :update, game
 		end
 
+		can :external_scoreboard, Game
+
 		can :start, Game do |game|
 			(game.status == Game::STATUS_READY) && (can? :update, game)
 		end

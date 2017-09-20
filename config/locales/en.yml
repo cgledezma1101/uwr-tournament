@@ -122,6 +122,7 @@ en:
   game:
     add_chronometer: "Add stopwatch"
     back_to_stage: "Back to stage"
+    black: "Black"
     blue_team: "Blue team"
     chronometer_minutes: "Minutes"
     chronometer_name: "Name"
@@ -169,6 +170,7 @@ en:
       s: "Started"
       e: "Ended"
     watch: "Watch"
+    white: "White"
     white_team: "White team"
   general:
     accept: "Accept"

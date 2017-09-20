@@ -123,6 +123,7 @@
     add_chronometer: "Agregar cronómetro"
     back_to_stage: "Volver a etapa"
     blue_team: "Equipo azul"
+    black: "Negro"
     chronometer_minutes: "Minutos"
     chronometer_remove: "Eliminar"
     chronometer_resume_all: "Comenzar todos"
@@ -169,6 +170,7 @@
       s: "Iniciado"
       e: "Finalizado"
     watch: "Ver"
+    white: "Blanco"
     white_team: "Equipo blanco"
   general:
     accept: "Aceptar"

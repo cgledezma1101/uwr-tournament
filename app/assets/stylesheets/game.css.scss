@@ -30,3 +30,53 @@ input.timer-low {
 .add-chronometer {
 	font-size: 20px
 }
+
+.scoreboard-container {
+	background-color: #FAFAFA;
+
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 100%;
+	justify-content: flex-start;
+	align-items: stretch;
+
+	.timer-container, .scores-container {
+		display: flex;
+		flex-flow: row nowrap;
+	}
+	
+	.timer-container {
+		justify-content: center;
+
+		.scoreboard-text {
+			font-size: 45vh;
+		}
+	}
+
+	.scores-container {
+		justify-content: space-around;
+
+		.scoreboard-text {
+			font-size: 20vh;
+		}
+
+		.score-container {
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+			align-items: stretch;
+
+			.scoreboard-bar {
+				border-top: 50px solid;
+
+				&.black {
+					border-color: black;
+				}
+
+				&.white {
+					border-color: white;
+				}
+			}
+		}
+	}
+}
