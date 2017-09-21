@@ -50,6 +50,7 @@ input.timer-low {
 
 		.scoreboard-text {
 			font-size: 20vh;
+			text-align: center;
 		}
 
 		.score-container {
@@ -57,6 +58,8 @@ input.timer-low {
 			flex-flow: column nowrap;
 			justify-content: center;
 			align-items: stretch;
+
+			min-width: 50%;
 
 			.scoreboard-bar {
 				border-top: 50px solid;
