@@ -1,0 +1,33 @@
+-#
+	Renders the form needed to create an automatically calculated game in a stage of a tournament. This is meant to be rendered inside a div with the modal-dialog class applied to it
+
+	Requires the following instance variables to be initialized:
+
+	@param [Game] game An instance of a game, which will be used to produce the form
+	@param [Array<Team>] teams A collection of the teams that can be matched in this game
+#newAutoGame
+	.modal-header
+		%h2.modal-title= t('game.new')
+	.modal-body
+		= form_for @game do |f|
+			= f.hidden_field :stage_id, value: @game.stage_id
+			= f.hidden_field :blue_team_calculation, class: 'js-blue-team-calculation'
+			= f.hidden_field :white_team_calculation, class: 'js-white-team-calculation'
+			.form-horizontal
+				.form-group
+					= f.label :starts_at, class: 'col-sm-3 control-label'
+					.col-sm-7
+						= f.datetime_select :starts_at, class: 'form-control'
+				.form-group
+					%table.table
+						%tr
+							%th.text-center= t('game.blue_team')
+							%th.text-center
+							%th.text-center= t('game.white_team')
+						%tr
+							%td.text-center
+							%td.text-center= t('general.versus_short')
+							%td.text-center
+				.form-group
+					= render 'public/modal_form_buttons', form: f
+	

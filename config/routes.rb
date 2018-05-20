@@ -22,8 +22,11 @@ UwrTournament::Application.routes.draw do
 		get 'add_chronometer', on: :collection
 		get 'end', on: :member
 		get 'external_scoreboard', on: :collection
+		get 'new_auto', on: :collection
+
 		post 'finalize', on: :member
 		post 'start', on: :member
+
 		delete 'remove_score', on: :member
 	end
 

@@ -222,7 +222,8 @@
     feed_text: "Gol anotado por %{player} del equipo %{team}"
     remove_feed_text: "Anulado gol anotado por %{player} del equipo %{team}"
   stage:
-    add_game: "Nuevo juego"
+    add_game: "Nuevo juego manual"
+    add_game_auto: "Nuevo juego automatico"
     administrate: "Administrar etapa"
     back_to_tournament: "Volver al torneo"
     destroy_successful: "La etapa ha sido eliminada del torneo"
