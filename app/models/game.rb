@@ -3,9 +3,6 @@ class Game < ActiveRecord::Base
 	STATUS_STARTED = 's'
 	STATUS_ENDED = 'e'
 
-	TEAM_CALCULATION_MANUAL = 0
-	TEAM_CALCULATION_LEADERBOARD = 1
-
 	STATUSES = [STATUS_READY, STATUS_STARTED, STATUS_ENDED]
 
 	TIED_GAME = 't'
@@ -136,12 +133,12 @@ class Game < ActiveRecord::Base
 		# Determines whether this game needs a white team specified before being saved.
 		# This translates to "white team must be provided if the game has not ended and white team needs to be specified manually"
 		def white_team_required?
-			!has_ended? && (:white_team_calculation.nil? || :white_team_calculation == TEAM_CALCULATION_MANUAL)
+			!has_ended? && (:white_team_calculation.nil? || :white_team_calculation == TeamCalculation::StrategyProvider::TEAM_CALCULATION_MANUAL)
 		end
 
 		# Determines whether this game needs a blue team specified before being saved.
 		# This translates to "blue team must be provided if the game has not ended and white team needs to be specified manually"
 		def blue_team_required?
-			!has_ended? && (:blue_team_calculation.nil? || :blue_team_calculation == TEAM_CALCULATION_MANUAL)
+			!has_ended? && (:blue_team_calculation.nil? || :blue_team_calculation == TeamCalculation::StrategyProvider::TEAM_CALCULATION_MANUAL)
 		end
 end
