@@ -1,0 +1,2 @@
+class TeamCalculation::ManualCalculationStrategy
+end

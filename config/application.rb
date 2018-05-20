@@ -20,5 +20,6 @@ module UwrTournament
 		# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 		# config.i18n.default_locale = :de
 		config.generators.test_framwork false
+		config.autoload_paths += %W(#{config.root}/lib) # Adds /lib to the paths that are loaded into the application
 	end
 end

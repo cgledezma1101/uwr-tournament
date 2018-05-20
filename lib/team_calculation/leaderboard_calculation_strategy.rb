@@ -1,0 +1,2 @@
+class TeamCalculation::LeaderboardCalculationStrategy
+end
