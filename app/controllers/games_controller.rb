@@ -177,6 +177,6 @@ class GamesController < ApplicationController
 	private
 		# This defines the attributes that are permitted when creating a new game
 		def create_params
-			params.require(:game).permit(:blue_team_id, :white_team_id, :stage_id, :starts_at)
+			params.require(:game).permit(:blue_team_id, :white_team_id, :stage_id, :starts_at, :blue_team_calculation, :white_team_calculation)
 		end
 end
