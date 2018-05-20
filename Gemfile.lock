@@ -202,7 +202,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-facebook
   omniauth-google-oauth2
-  pg
+  pg (~> 0.11)
   pry
   rails (= 4.0.13)
   sass-rails (~> 4.0.0)
