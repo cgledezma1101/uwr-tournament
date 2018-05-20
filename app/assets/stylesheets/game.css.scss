@@ -88,7 +88,7 @@ input.timer-low {
 			font-weight: bold;
 		}
 
-		.team-details {
+		.stage-container {
 			flex: 1 1 0px;
 			display: flex;
 			flex-flow: column nowrap;
@@ -102,11 +102,11 @@ input.timer-low {
 				justify-content: space-between;
 				align-items: center;
 
-				.stage-label {
+				.stage-param-label {
 					flex: 0 0 120px;
 				}
 
-				.stage-select {
+				.stage-param {
 					flex: 1 1 0px;
 				}
 			}

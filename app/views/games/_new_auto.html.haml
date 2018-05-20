@@ -11,8 +11,8 @@
 	.modal-body
 		= form_for @game do |f|
 			= f.hidden_field :stage_id, value: @game.stage_id
-			= f.hidden_field :blue_team_calculation, class: 'js-blue-team-calculation'
-			= f.hidden_field :white_team_calculation, class: 'js-white-team-calculation'
+			= f.hidden_field :blue_team_calculation, id: 'blueTeamCalculation', value: "l|0|#{@stages.first.id}"
+			= f.hidden_field :white_team_calculation, id: 'whiteTeamCalculation', value: "l|0|#{@stages.first.id}"
 			.form-horizontal
 				.form-group
 					= f.label :starts_at, class: 'col-sm-3 control-label'
@@ -21,27 +21,27 @@
 				%hr
 				.team-details
 					.team-label Blue team
-					.team-details
+					.stage-container{ data: { 'target-calculation': '#blueTeamCalculation' } }
 						.stage-details
-							.stage-label Stage
-							.stage-select
-								%select.js-blue-team-calculation-stage= options_from_collection_for_select @stages, :id, :name
+							.stage-param-label Stage
+							.stage-param
+								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @stages, :id, :name
 						.stage-details
-							.stage-label Position in stage
-							.stage-select
-								%input.js-blue-team-calculation-position{ type: 'number', min: 1, value: 1 }
+							.stage-param-label Position in stage
+							.stage-param
+								%input.js-team-calculation-param.js-position-param{ type: 'number', min: 1, value: 1 }
 				%hr
 				.team-details
 					.team-label White team
-					.team-details
+					.stage-container{ data: { 'target-calculation': '#whiteTeamCalculation' } }
 						.stage-details
-							.stage-label Stage
-							.stage-select
-								%select.js-blue-team-calculation-stage= options_from_collection_for_select @stages, :id, :name
+							.stage-param-label Stage
+							.stage-param
+								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @stages, :id, :name
 						.stage-details
-							.stage-label Position in stage
-							.stage-select
-								%input.js-blue-team-calculation-position{ type: 'number', min: 1, value: 1 }
+							.stage-param-label Position in stage
+							.stage-param
+								%input.js-team-calculation-param.js-position-param{ type: 'number', min: 1, value: 1 }
 				%hr
 				.form-group
 					= render 'public/modal_form_buttons', form: f
