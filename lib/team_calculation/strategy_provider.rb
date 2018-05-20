@@ -8,10 +8,11 @@ class TeamCalculation::StrategyProvider
 	# @param [Integer] team_calculation The id of the team calculation strategy to use
 	# @return [TeamCalculation::CalculationStrategy] An instance that can be used to calculate the team based of the specified strategy
 	def self.get_strategy(team_calculation)
-		if (team_calculation == TEAM_CALCULATION_MANUAL.to_s())
+		actual_strategy = team_calculation.nil? ? TEAM_CALCULATION_MANUAL : team_calculation
+		if (actual_strategy == TEAM_CALCULATION_MANUAL.to_s())
 			return TeamCalculation::ManualCalculationStrategy.new()
 		else
-			strategy_params = team_calculation.split("|")
+			strategy_params = actual_strategy.split("|")
 			strategy_name = strategy_params[0]
 
 			if (strategy_name == TEAM_CALCULATION_LEADERBOARD.to_s())
