@@ -18,16 +18,31 @@
 					= f.label :starts_at, class: 'col-sm-3 control-label'
 					.col-sm-7
 						= f.datetime_select :starts_at, class: 'form-control'
-				.form-group
-					%table.table
-						%tr
-							%th.text-center= t('game.blue_team')
-							%th.text-center
-							%th.text-center= t('game.white_team')
-						%tr
-							%td.text-center
-							%td.text-center= t('general.versus_short')
-							%td.text-center
+				%hr
+				.team-details
+					.team-label Blue team
+					.team-details
+						.stage-details
+							.stage-label Stage
+							.stage-select
+								%select.js-blue-team-calculation-stage= options_from_collection_for_select @stages, :id, :name
+						.stage-details
+							.stage-label Position in stage
+							.stage-select
+								%input.js-blue-team-calculation-position{ type: 'number', min: 1, value: 1 }
+				%hr
+				.team-details
+					.team-label White team
+					.team-details
+						.stage-details
+							.stage-label Stage
+							.stage-select
+								%select.js-blue-team-calculation-stage= options_from_collection_for_select @stages, :id, :name
+						.stage-details
+							.stage-label Position in stage
+							.stage-select
+								%input.js-blue-team-calculation-position{ type: 'number', min: 1, value: 1 }
+				%hr
 				.form-group
 					= render 'public/modal_form_buttons', form: f
 	

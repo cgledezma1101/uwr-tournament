@@ -1,18 +1,18 @@
 input.chronometer-error {
-  border-color: rgb(233, 102, 102);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 102, 102, 0.6);
+	border-color: rgb(233, 102, 102);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 102, 102, 0.6);
 }
 
 input.timer-low {
-  background-color: #FFFD60 !important;
+	background-color: #FFFD60 !important;
 }
 
 .team-dropdown {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .player-no-scores {
-  visibility: hidden;
+	visibility: hidden;
 }
 
 .chronometer-field {
@@ -70,6 +70,44 @@ input.timer-low {
 
 				&.white {
 					border-color: white;
+				}
+			}
+		}
+	}
+}
+
+#newAutoGame {
+	.team-details {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: space-between;
+
+		.team-label {
+			flex: 0 0 100px;
+			font-weight: bold;
+		}
+
+		.team-details {
+			flex: 1 1 0px;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: flex-start;
+			align-items: stretch;
+
+			.stage-details {
+				flex: 0 0 42px;
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-between;
+				align-items: center;
+
+				.stage-label {
+					flex: 0 0 120px;
+				}
+
+				.stage-select {
+					flex: 1 1 0px;
 				}
 			}
 		}
