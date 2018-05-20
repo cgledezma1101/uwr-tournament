@@ -1,2 +1,2 @@
-class TeamCalculation::LeaderboardCalculationStrategy
+class TeamCalculation::LeaderboardCalculationStrategy < TeamCalculation::CalculationStrategy
 end
