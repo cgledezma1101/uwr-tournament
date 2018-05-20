@@ -153,6 +153,7 @@ class GamesController < ApplicationController
 	# POST /game/:id/start
 	#
 	# Marks the given game as started and associates all the currently active players on each team to their respective colors
+	# If the game was automatically calculated, this will lock it in as a manually calculated game
 	#
 	# @param [Integer] id Identifier of the game that will be started
 	def start
@@ -174,6 +175,7 @@ class GamesController < ApplicationController
 				end
 			end
 
+			@game.lock_teams
 			@game.status = Game::STATUS_STARTED
 
 			if !@game.save

@@ -29,6 +29,16 @@ class Game < ActiveRecord::Base
 	validate :correct_winning_color, if: :has_ended?
 	validate :starts_within_tournament
 
+	# Modifies the internal representation of the game so that teams are no longer calculated.
+	# After this operation, teams are locked to whatever they are currently set
+	def lock_teams
+		self.white_team_id = self.white_team.id
+		self.white_team_calculation = TeamCalculation::StrategyProvider::TEAM_CALCULATION_MANUAL
+
+		self.blue_team_id = self.blue_team.id
+		self.blue_team_calculation = TeamCalculation::StrategyProvider::TEAM_CALCULATION_MANUAL
+	end
+
 	# Determines the blue team for this match, based of the strategy specified on creation
 	#
 	# @return [Team] The blue team for this match
