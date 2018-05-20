@@ -42,4 +42,7 @@ group :development do
 
 	# Enjoyable debugging
 	gem 'pry'
+
+	# Quick development server
+	gem 'zeus'
 end
