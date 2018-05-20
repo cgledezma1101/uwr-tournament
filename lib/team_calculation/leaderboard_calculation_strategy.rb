@@ -7,7 +7,7 @@ class TeamCalculation::LeaderboardCalculationStrategy < TeamCalculation::Calcula
 	def calculate_team(game, team_color)
 		statisticable = @stage_id.nil? ? game.stage.tournament : Stage.find(@stage_id)
 
-		if (statisticable.leaderboard.length < @leaderboard_position)
+		if (statisticable.leaderboard.length <= @leaderboard_position)
 			return nil
 		end
 		return statisticable.leaderboard[@leaderboard_position][0]
