@@ -3,6 +3,9 @@ class Game < ActiveRecord::Base
 	STATUS_STARTED = 's'
 	STATUS_ENDED = 'e'
 
+	TEAM_CALCULATION_MANUAL = 0
+	TEAM_CALCULATION_LEADERBOARD = 1
+
 	STATUSES = [STATUS_READY, STATUS_STARTED, STATUS_ENDED]
 
 	TIED_GAME = 't'
@@ -19,8 +22,8 @@ class Game < ActiveRecord::Base
 	has_many :player_games, dependent: :destroy
 	has_many :players, through: :player_games
 
-	validates :blue_team, presence: true, unless: :has_ended?
-	validates :white_team, presence: true, unless: :has_ended?
+	validates :blue_team, presence: true, if: :white_team_required?
+	validates :white_team, presence: true, if: :blue_team_required?
 	validates :status, presence: true
 	validates :starts_at, presence: :true
 
@@ -128,5 +131,17 @@ class Game < ActiveRecord::Base
 			if !self.starts_at.nil? && (tournament_start > self.starts_at || (tournament_end + 1.day) < self.starts_at)
 				self.errors.add(:starts_at, I18n.t('game.errors.starts_at_out_of_range'))
 			end
+		end
+
+		# Determines whether this game needs a white team specified before being saved.
+		# This translates to "white team must be provided if the game has not ended and white team needs to be specified manually"
+		def white_team_required?
+			!has_ended? && (:white_team_calculation.nil? || :white_team_calculation == TEAM_CALCULATION_MANUAL)
+		end
+
+		# Determines whether this game needs a blue team specified before being saved.
+		# This translates to "blue team must be provided if the game has not ended and white team needs to be specified manually"
+		def blue_team_required?
+			!has_ended? && (:blue_team_calculation.nil? || :blue_team_calculation == TEAM_CALCULATION_MANUAL)
 		end
 end
