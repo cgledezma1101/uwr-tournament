@@ -9,8 +9,6 @@ class Game < ActiveRecord::Base
 	WINNING_COLORS = [PlayerGame::WHITE_TEAM, PlayerGame::BLUE_TEAM, TIED_GAME]
 
 	belongs_to :stage
-	belongs_to :blue_team, class_name: 'Team'
-	belongs_to :white_team, class_name: 'Team'
 
 	has_many :game_events, dependent: :destroy
 
@@ -18,9 +16,10 @@ class Game < ActiveRecord::Base
 
 	has_many :player_games, dependent: :destroy
 	has_many :players, through: :player_games
-
-	validates :blue_team, presence: true, if: :white_team_required?
-	validates :white_team, presence: true, if: :blue_team_required?
+	
+	
+	validates :blue_team, presence: true
+	validates :white_team, presence: true
 	validates :status, presence: true
 	validates :starts_at, presence: :true
 
@@ -29,6 +28,22 @@ class Game < ActiveRecord::Base
 	validate :validate_status
 	validate :correct_winning_color, if: :has_ended?
 	validate :starts_within_tournament
+
+	# Determines the blue team for this match, based of the strategy specified on creation
+	#
+	# @return [Team] The blue team for this match
+	def blue_team
+		team_strategy = TeamCalculation::StrategyProvider.get_strategy(self.blue_team_calculation)
+		return team_strategy.calculate_team(self, PlayerGame::BLUE_TEAM)
+	end
+
+	# Determines the white team for this match, based of the strategy specified on creation
+	#
+	# @return [Team] The white team for this match
+	def  white_team
+		team_strategy = TeamCalculation::StrategyProvider.get_strategy(self.white_team_calculation)
+		return team_strategy.calculate_team(self, PlayerGame::WHITE_TEAM)
+	end
 
 	# Determines the amount of goals that have been scored by the blue team
 	#
@@ -128,17 +143,5 @@ class Game < ActiveRecord::Base
 			if !self.starts_at.nil? && (tournament_start > self.starts_at || (tournament_end + 1.day) < self.starts_at)
 				self.errors.add(:starts_at, I18n.t('game.errors.starts_at_out_of_range'))
 			end
-		end
-
-		# Determines whether this game needs a white team specified before being saved.
-		# This translates to "white team must be provided if the game has not ended and white team needs to be specified manually"
-		def white_team_required?
-			!has_ended? && (:white_team_calculation.nil? || :white_team_calculation == TeamCalculation::StrategyProvider::TEAM_CALCULATION_MANUAL)
-		end
-
-		# Determines whether this game needs a blue team specified before being saved.
-		# This translates to "blue team must be provided if the game has not ended and white team needs to be specified manually"
-		def blue_team_required?
-			!has_ended? && (:blue_team_calculation.nil? || :blue_team_calculation == TeamCalculation::StrategyProvider::TEAM_CALCULATION_MANUAL)
 		end
 end
