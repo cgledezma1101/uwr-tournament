@@ -121,7 +121,7 @@ class Team < ActiveRecord::Base
 
 	# Validates that the team has less than 15 players
 	def player_count
-		if self.players.count > 15
+		if self.active_players.count > 15
 			self.errors.add(:players, I18n.t('team.errors.too_many_players'))
 		end
 	end
