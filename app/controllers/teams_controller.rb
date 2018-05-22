@@ -80,7 +80,7 @@ class TeamsController < ApplicationController
 		if(@team.update_attributes(update_params))
 			redirect_params = { notice: t('team.update_success') }
 		else
-			redirect_params = { alert: t('team.update_failure') }
+			redirect_params = { alert: "#{t('team.update_failure')}: #{stringify_errors(@team.errors, 'team')}" }
 		end
 
 		redirect_to team_path(@team), redirect_params

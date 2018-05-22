@@ -270,6 +270,7 @@
     errors:
       too_many_players: "Un equipo puede tener hasta 15 jugadores"
     long_name: "Equipo: %{name} - Club: %{club_name}"
+    name: "Nombre del equipo"
     new: "Nuevo equipo"
     participating_players: "Jugadores participantes"
     passwords_dont_match: "Contraseña y confirmación no coinciden"
