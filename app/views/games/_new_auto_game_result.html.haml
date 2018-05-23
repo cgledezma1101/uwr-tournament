@@ -30,11 +30,11 @@
 						.stage-details
 							.stage-param-label= t('game.game')
 							.stage-param
-								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @all_games, :id, :to_s
+								%select.js-team-calculation-param.js-game-param= options_from_collection_for_select @all_games, :id, :to_s
 						.stage-details
 							.stage-param-label= t('game.outcome')
 							.stage-param
-								%select.js-team-calculation-param.js-position-param= options_from_collection_for_select @outcomes, :id, :outcome
+								%select.js-team-calculation-param.js-outcome-param= options_from_collection_for_select @outcomes, :id, :outcome
 				%hr
 				.team-details
 					.team-label= t('game.white_team')
@@ -42,11 +42,11 @@
 						.stage-details
 							.stage-param-label= t('game.game')
 							.stage-param
-								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @all_games, :id, :to_s
+								%select.js-team-calculation-param.js-game-param= options_from_collection_for_select @all_games, :id, :to_s
 						.stage-details
 							.stage-param-label= t('game.outcome')
 							.stage-param
-								%select.js-team-calculation-param.js-position-param= options_from_collection_for_select @outcomes, :id, :outcome
+								%select.js-team-calculation-param.js-outcome-param= options_from_collection_for_select @outcomes, :id, :outcome
 				%hr
 				.form-group
 					= render 'public/modal_form_buttons', form: f
