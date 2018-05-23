@@ -10,14 +10,14 @@ class TeamCalculation::GameResultCalculationStrategy < TeamCalculation::Calculat
 	def calculate_team(game, team_color)
 		required_game = Game.find(@game_id)
 
-		return retrieve_team(game, @outcome == WINNER ? PlayerGame::BLUE_TEAM : PlayerGame::WHITE_TEAM) if required_game.winning_color.nil?
+		return retrieve_team(required_game, @outcome == WINNER ? PlayerGame::BLUE_TEAM : PlayerGame::WHITE_TEAM) if required_game.winning_color.nil?
 
-		winning_color = @game.winning_color
+		winning_color = required_game.winning_color
 		required_color = @outcome == WINNER ?
 			winning_color :
 			winning_color == PlayerGame::BLUE_TEAM ? PlayerGame::WHITE_TEAM : PlayerGame::BLUE_TEAM
 
-		return retrieve_team(game, required_color)
+		return retrieve_team(required_game, required_color)
 	end
 
 	private
