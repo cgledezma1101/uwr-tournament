@@ -123,6 +123,22 @@ class GamesController < ApplicationController
 		render 'games/_new_auto_leaderboard', layout: false
 	end
 
+	# GET /games/new_auto_game_result?stage_id=:stage_id
+	#
+	# Renders a form that would allow the creation of a game with automatically calculated teams based off the result of other two games
+	#
+	# @param [Integer] stage_id Identifier of the stage to which this game will be added
+	def new_auto_game_result
+		@game = Game.new
+		stage = Stage.find(params[:stage_id])
+		authorize! :update, stage
+
+		@game.stage = stage
+		@all_games = stage.tournament.all_games
+
+		render 'games/_new_auto_game_result', layout: false
+	end
+
 	# DELETE /games/:id/remove_score
 	#
 	# Allows removing a goal from a player in this game
