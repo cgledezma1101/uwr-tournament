@@ -8,15 +8,16 @@
 	Requires the following instance variables to be initialized:
 
 	@param [Game] game An instance of a game, which will be used to produce the form
-	@param [Array<Team>] teams A collection of the teams that can be matched in this game
+	@param [Array<Game>] all_games The collection of all games that are elegible for calculation
+	@param [Array<OpenStruct{ outcome: String, id: String }>] outcomes Collection of possible outcomes of a game
 #newAutoGameResult
 	.modal-header
 		%h2.modal-title= t('game.new')
 	.modal-body
 		= form_for @game do |f|
 			= f.hidden_field :stage_id, value: @game.stage_id
-			= f.hidden_field :blue_team_calculation, id: 'blueTeamCalculation', value: "l|0|#{@stages.first.id}"
-			= f.hidden_field :white_team_calculation, id: 'whiteTeamCalculation', value: "l|0|#{@stages.first.id}"
+			= f.hidden_field :blue_team_calculation, id: 'blueTeamCalculation', value: "g|#{@all_games.first.id}|w"
+			= f.hidden_field :white_team_calculation, id: 'whiteTeamCalculation', value: "g|#{@all_games.first.id}|w"
 			.form-horizontal
 				.form-group
 					= f.label :starts_at, class: 'col-sm-3 control-label'
@@ -27,25 +28,25 @@
 					.team-label= t('game.blue_team')
 					.stage-container{ data: { 'target-calculation': '#blueTeamCalculation' } }
 						.stage-details
-							.stage-param-label= t('stage.stage')
+							.stage-param-label= t('game.game')
 							.stage-param
-								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @stages, :id, :name
+								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @all_games, :id, :to_s
 						.stage-details
-							.stage-param-label= t('statistics.position')
+							.stage-param-label= t('game.outcome')
 							.stage-param
-								%input.js-team-calculation-param.js-position-param{ type: 'number', min: 1, value: 1 }
+								%select.js-team-calculation-param.js-position-param= options_from_collection_for_select @outcomes, :id, :outcome
 				%hr
 				.team-details
 					.team-label= t('game.white_team')
 					.stage-container{ data: { 'target-calculation': '#whiteTeamCalculation' } }
 						.stage-details
-							.stage-param-label= t('stage.stage')
+							.stage-param-label= t('game.game')
 							.stage-param
-								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @stages, :id, :name
+								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @all_games, :id, :to_s
 						.stage-details
-							.stage-param-label= t('statistics.position')
+							.stage-param-label= t('game.outcome')
 							.stage-param
-								%input.js-team-calculation-param.js-position-param{ type: 'number', min: 1, value: 1 }
+								%select.js-team-calculation-param.js-position-param= options_from_collection_for_select @outcomes, :id, :outcome
 				%hr
 				.form-group
 					= render 'public/modal_form_buttons', form: f

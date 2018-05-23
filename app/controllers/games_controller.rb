@@ -135,6 +135,10 @@ class GamesController < ApplicationController
 
 		@game.stage = stage
 		@all_games = stage.tournament.all_games
+		@outcomes = [
+			OpenStruct.new(outcome: t('game.winner'), id: TeamCalculation::GameResultCalculationStrategy::WINNER),
+			OpenStruct.new(outcome: t('game.loser'), id: TeamCalculation::GameResultCalculationStrategy::LOSER),
+		]
 
 		render 'games/_new_auto_game_result', layout: false
 	end

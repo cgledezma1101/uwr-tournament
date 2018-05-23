@@ -23,6 +23,7 @@ UwrTournament::Application.routes.draw do
 		get 'end', on: :member
 		get 'external_scoreboard', on: :collection
 		get 'new_auto_leaderboard', on: :collection
+		get 'new_auto_game_result', on: :collection
 
 		post 'finalize', on: :member
 		post 'start', on: :member

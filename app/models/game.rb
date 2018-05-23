@@ -29,6 +29,15 @@ class Game < ActiveRecord::Base
 	validate :correct_winning_color, if: :has_ended?
 	validate :starts_within_tournament
 
+	# Full printable representation of the game, in the form:
+	#
+	# date: blue_team vs white_team
+	#
+	# @return [String] String representation of the game as mentioned before
+	def to_s
+		return "#{self.starts_at.strftime("%d/%m %H:%M")}: #{self.matchup_name}"
+	end
+
 	# Modifies the internal representation of the game so that teams are no longer calculated.
 	# After this operation, teams are locked to whatever they are currently set
 	def lock_teams
