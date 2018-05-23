@@ -15,6 +15,24 @@ class Tournament < ActiveRecord::Base
 	validates :end_date, presence: true
 	validate :date_range
 
+	# Calculates all games to be played in this tournament
+	#
+	# @return Array<Game> All the games contained in some stage of this tournament ordered by starting date
+	def all_games
+		return self.stages
+			.map{ |stage| stage.games }
+			.flatten
+			.sort do |game0, game1|
+				if game0.starts_at.nil?
+					-1
+				elsif game1.starts_at.nil?
+					1
+				else
+					game0.starts_at <=> game1.starts_at
+				end
+			end
+	end
+
 	#########################################
 	####### STATISTICABLE MEMBERS ##########
 	#########################################

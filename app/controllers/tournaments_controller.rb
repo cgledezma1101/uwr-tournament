@@ -19,19 +19,7 @@ class TournamentsController < ApplicationController
 	#
 	# Displays all matches belonging to all stages in this tournament
 	def all_games
-		@all_games = @tournament
-			.stages
-			.map{ |stage| stage.games }
-			.flatten
-			.sort do |game0, game1|
-				if game0.starts_at.nil?
-					-1
-				elsif game1.starts_at.nil?
-					1
-				else
-					game0.starts_at <=> game1.starts_at
-				end
-			end
+		@all_games = @tournament.all_games
 	end
 
 	# GET /tournaments/new
