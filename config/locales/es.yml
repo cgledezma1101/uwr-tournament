@@ -223,7 +223,7 @@
     remove_feed_text: "Anulado gol anotado por %{player} del equipo %{team}"
   stage:
     add_game: "Nuevo juego manual"
-    add_game_auto: "Nuevo juego automatico"
+    add_game_auto_leaderboard: "Nuevo juego automatico (tabla de resultados)"
     administrate: "Administrar etapa"
     back_to_tournament: "Volver al torneo"
     destroy_successful: "La etapa ha sido eliminada del torneo"

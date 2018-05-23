@@ -14,4 +14,4 @@
 				%li
 					= link_to t('stage.add_game'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_game_path}?stage_id=#{stage.id}", formid: "newGame" }
 				%li
-					= link_to t('stage.add_game_auto'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_auto_games_path}?stage_id=#{stage.id}", formid: "newAutoGame" }
+					= link_to t('stage.add_game_auto_leaderboard'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_auto_leaderboard_games_path}?stage_id=#{stage.id}", formid: "newAutoGame" }

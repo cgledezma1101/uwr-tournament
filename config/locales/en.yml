@@ -223,7 +223,7 @@ en:
     remove_feed_text: "A goal scored by %{player} from team %{team} was disallowed"
   stage:
     add_game: "New manual game"
-    add_game_auto: "New automatic game"
+    add_game_auto_leaderboard: "New automatic game (leaderboard)"
     administrate: "Manage stage"
     back_to_tournament: "Back to tournament"
     destroy_successful: "The stage has been removed from the tournament"

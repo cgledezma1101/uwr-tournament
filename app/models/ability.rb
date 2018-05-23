@@ -61,7 +61,7 @@ class Ability
 		################## GAMES ##########################
 		###################################################
 		can :new, Game
-		can :new_auto, Game
+		can :new_auto_leaderboard, Game
 
 		can :add_chronometer, Game
 
