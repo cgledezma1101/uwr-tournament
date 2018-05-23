@@ -234,6 +234,7 @@ en:
     new: "Add a new stage to the tournament"
     save_fail: "There has been a problem saving the stage. Please try again."
     save_success: "The stage has been added to the tournament"
+    stage: "Stage"
   statistics:
     games_lost_short: "L"
     games_lost_long: "Games lost"
@@ -260,6 +261,7 @@ en:
     total_points: "Points"
     scoring_champions: "Top scorers"
     played_won_short: "P(W)"
+    position: "Position"
   team:
     add_player: "Add player"
     administrate: "Manage team"

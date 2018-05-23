@@ -234,6 +234,7 @@
     new: "Agregar una etapa al torneo"
     save_fail: "Ha ocuurrido un error al guardar la etapa. Por favor inténtalo de nuevo"
     save_success: "La etapa ha sido agregada al torneo"
+    stage: "Etapa"
   statistics:
     games_lost_short: "JP"
     games_lost_long: "Juegos perdidos"
@@ -260,6 +261,7 @@
     total_points: "Puntos"
     scoring_champions: "Líderes goleadores"
     played_won_short: "JJ(JG)"
+    position: "Posicion"
   team:
     add_player: "Agregar jugador"
     administrate: "Administrar equipo"

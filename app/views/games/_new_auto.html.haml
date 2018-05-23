@@ -20,26 +20,26 @@
 						= f.datetime_select :starts_at, class: 'form-control'
 				%hr
 				.team-details
-					.team-label Blue team
+					.team-label= t('game.blue_team')
 					.stage-container{ data: { 'target-calculation': '#blueTeamCalculation' } }
 						.stage-details
-							.stage-param-label Stage
+							.stage-param-label= t('stage.stage')
 							.stage-param
 								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @stages, :id, :name
 						.stage-details
-							.stage-param-label Position in stage
+							.stage-param-label= t('statistics.position')
 							.stage-param
 								%input.js-team-calculation-param.js-position-param{ type: 'number', min: 1, value: 1 }
 				%hr
 				.team-details
-					.team-label White team
+					.team-label= t('game.white_team')
 					.stage-container{ data: { 'target-calculation': '#whiteTeamCalculation' } }
 						.stage-details
-							.stage-param-label Stage
+							.stage-param-label= t('stage.stage')
 							.stage-param
 								%select.js-team-calculation-param.js-stage-param= options_from_collection_for_select @stages, :id, :name
 						.stage-details
-							.stage-param-label Position in stage
+							.stage-param-label= t('statistics.position')
 							.stage-param
 								%input.js-team-calculation-param.js-position-param{ type: 'number', min: 1, value: 1 }
 				%hr
