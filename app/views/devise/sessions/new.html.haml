@@ -29,6 +29,9 @@
 		.form-group.actions
 			.col-sm-offset-2.col-sm-10
 				= f.submit t('devise.session.log_in'), class:'btn btn-primary'
+		.form-group.actions
+			.col-sm-offset-2.col-sm-10
+				= f.link_to t('devise.password.forgot'), new_user_password_path
 		.form-group.field
 			.col-sm-offset-2.col-sm-10
 				= link_to t('devise.sessions.sign_up'), new_user_registration_path
