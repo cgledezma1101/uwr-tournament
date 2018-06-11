@@ -79,5 +79,12 @@ UwrTournament::Application.configure do
 	# Use default logging formatter so that PID and timestamp are not suppressed.
 	config.log_formatter = ::Logger::Formatter.new
 
-	config.action_mailer.default_url_options = { host: 'uwr.herokuapp.com' }	
+	config.action_mailer.default_url_options = { host: 'uwr-testing.herokuapp.com' }
+	ActionMailer::Base.smtp_settings = {
+		:address => "smtp.sendgrid.net",
+		:port => "25",
+		:authentication => :plain,
+		:user_name => ENV['SENDGRID_USERNAME'],
+		:password => ENV['SENDGRID_PASSWORD']
+	  }
 end
