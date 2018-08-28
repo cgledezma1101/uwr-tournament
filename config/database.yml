@@ -11,6 +11,8 @@ development:
 
 production:
   adapter: postgresql
-  database: postgres
-  username: postgres
-  password: postgres
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  post: <%= ENV['DATABASE_PORT'] %>
