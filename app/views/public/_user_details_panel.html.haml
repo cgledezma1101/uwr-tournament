@@ -5,17 +5,18 @@
 	@param [String] panel_title Title to display on the list
 	@param [ActiveRecord::Base] entity Entity to which the players belong to. This will be used to validate the editability of the panel
 	@param [Proc] actions_renderer A method that will receive a User and will return HTML associated with the actions that can be performed on the user
+	@param [Integer] max_height Optional parameter that definies the maximum height that the table can span
 .panel.panel-default
 	.panel-heading
 		.panel-title= panel_title
-	.panel-body
+	.panel-body.user-details-table{ style: (defined? max_height) ? "max-height: #{max_height}px" : "" }
 		%table.table
 			%tr
 				%th.text-center= t('devise.user.name')
 				%th.text-center= t('devise.user.email')
 				- if defined?(actions_renderer) && can?(:edit, entity)
 					%th.text-center= t('general.actions')
-			- for user in users
+			- for user in users.sort { |first_user, second_user| first_user.name <=> second_user.name  }
 				%tr
 					%td.text-center= user.name
 					%td.text-center= user.email
