@@ -9,7 +9,7 @@
 		%th.text-center= t('statistics.played_won_short')
 		- if can? :edit, club
 			%th.text-center= t('general.actions')
-	- for team in club.teams
+	- for team in club.teams.sort { |first_team, second_team| first_team.name <=> second_team.name }
 		%tr
 			%td.text-center= link_to team.name, team_path(team)
 			%td.text-center= "#{team.games.count}(#{team.won_games.count})"
