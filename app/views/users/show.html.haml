@@ -76,14 +76,15 @@
 			.panel.panel-info
 				.panel-heading
 					.panel-title= t('tournament.user_tournaments')
-				.panel-body
+				.panel-body.user-tournaments-table
 					%table.table
 						%tr
 							%th.text-center= t('activerecord.attributes.tournament.name')
 							%th.text-center= t('tournament.amount_teams')
 							%th.text-center= t('activerecord.attributes.tournament.start_date')
 							%th.text-center= t('activerecord.attributes.tournament.end_date')
-						- for tournament in @user.active_tournaments.sort { |first_tournament, second_tournament| first_tournament.start_date <=> second_tournament.start_date }
+						- ordered_tournaments = @user.active_tournaments.sort { |first_tournament, second_tournament| first_tournament.start_date <=> second_tournament.start_date }
+						- for tournament in ordered_tournaments.reverse
 							%tr
 								%td.text-center= link_to tournament.name, tournament_path(tournament)
 								%td.text-center= tournament.teams.count

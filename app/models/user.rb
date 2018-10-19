@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 	 # @return [Array<Tournament>] List of all the tournaments the user administrates or will participate in
 	 def active_tournaments
 		 (Tournament.joins{ admins }.where{ admins.id == my{self.id} }.to_a +
-			Tournament.joins{ teams.players }.where{ (teams.players.user_id == my{self.id}) & (end_date >= my{Date.current}) }.to_a).uniq
+			Tournament.joins{ teams.players }.where{ (teams.players.user_id == my{self.id}) }.to_a).uniq
 	 end
 
 	 # An ordered collection of the teams this user belongs to, which includes administrated and membership clubs
