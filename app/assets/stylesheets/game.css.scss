@@ -36,7 +36,7 @@ input.timer-low {
 		display: flex;
 		flex-flow: row nowrap;
 	}
-	
+
 	.timer-container {
 		justify-content: center;
 
@@ -74,6 +74,14 @@ input.timer-low {
 			}
 		}
 	}
+}
+
+.edit-score {
+	cursor: pointer;
+}
+
+.score-element + .score-element {
+	margin-left: 5px;
 }
 
 #newAutoGame, #newAutoGameResult {

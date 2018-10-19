@@ -179,6 +179,43 @@ var addToFeeds = function(text)
 	input_field.val(old_text);
 }
 
+var handleScoreChanged = function($currentTarget, methodName, originalClass) {
+	var $currentTarget;
+
+	if (!$currentTarget.hasClass(originalClass)) {
+		return;
+	}
+
+	$currentTarget.removeClass(originalClass);
+	$currentTarget.addClass("fa-spinner fa-spin");
+
+	var gameId = $currentTarget.data('game-id');
+	var playerId = $currentTarget.data('player-id');
+	var playerGoalsContainer = $("#goals-" + playerId);
+
+	var originalGoals = +(playerGoalsContainer.text())
+
+	var requestUrl = "/games/" + gameId + "/" + methodName + "?player_id=" + playerId;
+
+	$.post(requestUrl)
+		.done(function(response)
+		{
+			var totalGoals = response.totalGoals;
+			playerGoalsContainer.text(totalGoals);
+
+			var teamGoalsContainer = $('#team-goals-' + $currentTarget.data('team-id'));
+			var teamGoals = +(teamGoalsContainer.text()) - originalGoals + totalGoals;
+
+			teamGoalsContainer.text(teamGoals)
+
+			addToFeeds($currentTarget.data("success-feed"))
+		})
+		.always(function() {
+			$currentTarget.removeClass("fa-spinner fa-spin");
+			$currentTarget.addClass(originalClass);
+		});
+}
+
 $(document).ready(function()
 {
 	$('.js-chronometer-stopall').on('click', function()
@@ -198,4 +235,14 @@ $(document).ready(function()
 		// Prevent default behaviour and stop event propagation
 		return false;
 	});
+
+	$('.js-add-score').on('click', function(event)
+	{
+		handleScoreChanged($(event.currentTarget), "add_score", "fa-plus");
+	});
+
+	$('.js-remove-score').on('click', function(event)
+	{
+		handleScoreChanged($(event.currentTarget), "remove_score", "fa-minus");
+	})
 });

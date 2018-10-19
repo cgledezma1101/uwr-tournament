@@ -27,8 +27,8 @@ UwrTournament::Application.routes.draw do
 
 		post 'finalize', on: :member
 		post 'start', on: :member
-
-		delete 'remove_score', on: :member
+		post 'add_score', on: :member
+		post 'remove_score', on: :member
 	end
 
 	resources :invitations, only: [:new, :create] do

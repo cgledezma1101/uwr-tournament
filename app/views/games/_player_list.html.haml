@@ -18,10 +18,15 @@
 					%td.text-center= player.number_name
 					%td.text-center
 						- scored_goals = game.goals_for(player)
-						%div{ class: scored_goals == 0 ? 'player-no-scores' : ''  }
-							%span{ id: "goals-#{player.id}"}= scored_goals
+						%div
 							- if can? :update, game
-								%a{ href: '#',
-										data: { toggle: 'modal',
-														target: "#remove-goal-#{player.id}" } }
-									x
+								.score-element.edit-score.js-remove-score.fa.fa-minus{ 'data-game-id': game.id,
+										'data-player-id': player.id,
+										'data-team-id': player.team.id,
+										'data-success-feed': t('score.remove_feed_text', player: player.name, team: player.team.name) }
+							%span.score-element{ id: "goals-#{player.id}" }= scored_goals
+							- if can? :update, game
+								.score-element.edit-score.js-add-score.fa.fa-plus{ 'data-game-id': game.id,
+									'data-player-id': player.id,
+									'data-team-id': player.team.id,
+									'data-success-feed': t('score.feed_text', player: player.name, team: player.team.name ) }

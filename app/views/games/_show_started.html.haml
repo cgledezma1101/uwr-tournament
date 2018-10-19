@@ -29,24 +29,11 @@
 		.col-xs-2.scoreboard.text-center
 			.col-xs-12
 				.col-xs-4.text-center
-					%h1.js-blue-goals= game.blue_goals
+					%h1.js-blue-goals{ id: "team-goals-#{game.blue_team.id}" }= game.blue_goals
 				.col-xs-2.text-center
 					%h1 -
 				.col-xs-4.text-center
-					%h1.js-white-goals= game.white_goals
-			- if can? :update, game
-				.col-xs-12
-					.col-xs-4.text-center
-						%a.btn.btn-primary{ href: '#',
-																data: { toggle: 'modal',
-																				target: '#blueGoalModal' } }
-							= t('game.goal')
-					.col-xs-offset-2.col-xs-4.text-center
-						%a.btn.btn-default{ href: '#',
-																data: { toggle: 'modal',
-																				target: '#whiteGoalModal' } }
-							= t('game.goal')
-
+					%h1.js-white-goals{ id: "team-goals-#{game.white_team.id}" }= game.white_goals
 		.col-xs-5
 			= render 'games/player_list', team_name: game.white_team.name, players: game.white_players, game: game, panel_type: 'default'
 
@@ -66,5 +53,3 @@
 		.col-xs-12.event-feed
 			- for event in game.game_events
 				= render 'game_events/feed_item', game_event: event
-- if can? :update, game
-	= render 'games/modals', game: game, score: score

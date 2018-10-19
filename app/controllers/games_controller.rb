@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 	load_and_authorize_resource
 	before_action :authenticate_user!
+	skip_before_filter :verify_authenticity_token, :only => [:add_score]
 
 	# GET /games/add_chronometer
 	#
@@ -143,21 +144,42 @@ class GamesController < ApplicationController
 		render 'games/_new_auto_game_result', layout: false
 	end
 
-	# DELETE /games/:id/remove_score
+	# POST /games/:id/remove_score
 	#
 	# Allows removing a goal from a player in this game
 	#
 	# @param [Integer] id Identifier if the game where the change is being made
-	# @param [Integer] game.player_id Identifier of the player that will loose a score
+	# @param [Integer] player_id Identifier of the player that will loose a score
 	def remove_score
-		@player = Player.find(params[:game][:player_id])
-		score_to_remove = @game.scores.where{ player_id == my{@player.id} }.first
-		if !score_to_remove.nil?
-			score_to_remove.destroy
+		player = Player.find(params[:player_id])
+		last_score = @game.scores.where(player_id: player.id).last
+
+		if (!last_score.nil?)
+			last_score.destroy
 		end
 
-		@player_goals = @game.goals_for(@player)
-		@team_goals = @game.scores.joins{ player }.where{ player.team_id == my{@player.team_id} }.count
+		total_goals = @game.goals_for(player)
+
+		respond_to do |format|
+			format.json { render json: { totalGoals: total_goals } }
+		end
+	end
+
+	# POST /games/:id/add_score
+	#
+	# Adds a goal to a particular player in the specified game
+	#
+	# @params [Integer] id Identifier of the game where the cahnge is being made
+	# @params [Integer] player_id Identifier of the player that scored the goal
+	def add_score
+		player = Player.find(params[:player_id])
+		Score.create(player: player, game: @game)
+
+		total_goals = @game.goals_for(player)
+
+		respond_to do |format|
+			format.json { render json: { totalGoals: total_goals } }
+		end
 	end
 
 	# GET /games/:id

@@ -87,7 +87,11 @@ class Ability
 		end
 
 		can :remove_score, Game do |game|
-			can? :update, game
+			(can? :update, game) && (game.status == Game::STATUS_STARTED)
+		end
+
+		can :add_score, Game do |game|
+			(can? :update, game) && (game.status == Game::STATUS_STARTED)
 		end
 
 		can :external_scoreboard, Game
