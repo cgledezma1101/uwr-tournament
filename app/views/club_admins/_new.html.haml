@@ -15,6 +15,10 @@
 				.form-group
 					= f.label :user, class: 'col-sm-4 control-label'
 					.col-sm-6
-						= f.collection_select :user_id, @club.users, :id, :name, {}, { class: 'form-control' }
+						= f.collection_select :user_id,
+							@club.users.sort { |user_0, user_1| user_0.name <=> user_1.name },
+							:id, :name,
+							{},
+							{ class: 'form-control' }
 				.form-group
 					= render 'public/modal_form_buttons'
