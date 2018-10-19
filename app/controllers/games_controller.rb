@@ -51,6 +51,7 @@ class GamesController < ApplicationController
 	#
 	# Renders a form that contains a layout for rendering a standalone scoreboard for the game
 	def external_scoreboard
+		@no_navigation = true
 	end
 
 	# POST /games/:id/finalize

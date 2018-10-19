@@ -29,8 +29,9 @@
 			 const timezone = moment.tz.guess();
 			 Cookies.set('UWR-User-Timezone', timezone);
 
-		.navbar.navbar-default{ role: 'navigation' }
-			= render 'layouts/top_navbar'
+		- if (defined? @no_navigation).nil? || !@no_navigation
+			.navbar.navbar-default{ role: 'navigation' }
+				= render 'layouts/top_navbar'
 		= yield
 
 = yield :page_javascript
