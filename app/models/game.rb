@@ -16,8 +16,8 @@ class Game < ActiveRecord::Base
 
 	has_many :player_games, dependent: :destroy
 	has_many :players, through: :player_games
-	
-	
+
+
 	validates :blue_team, presence: true
 	validates :white_team, presence: true
 	validates :status, presence: true
@@ -101,6 +101,14 @@ class Game < ActiveRecord::Base
 	# @return String The name of the match
 	def matchup_name
 		"#{self.blue_team.name} #{I18n.t('general.versus_short')} #{self.white_team.name}"
+	end
+
+	# Provides a list of events associated to this game, sorted from most recent to latest
+	#
+	# Return Array<GameEvent> Sorted list of events
+	def sorted_events
+		sorted_events = self.game_events.sort{ |event_0, event_1| event_0.created_at <=> event_1.created_at }
+		sorted_events.reverse
 	end
 
 	# Determines the amount of goals that have been scored by the white team

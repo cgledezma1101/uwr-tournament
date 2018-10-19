@@ -45,5 +45,5 @@
 .col-xs-12
 	%h3= t('game.event_feed')
 	.col-xs-12.event-feed
-		- for event in game.game_events
+		- for event in game.sorted_events
 			= render 'game_events/feed_item', game_event: event

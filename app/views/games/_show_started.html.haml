@@ -51,5 +51,5 @@
 								= f.submit t('general.post'), class: 'btn btn-success js-submit-event'
 
 		.col-xs-12.event-feed
-			- for event in game.game_events
+			- for event in game.sorted_events
 				= render 'game_events/feed_item', game_event: event
