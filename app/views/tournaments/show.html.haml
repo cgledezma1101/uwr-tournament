@@ -37,7 +37,7 @@
 							%tr
 								%th.text-center= t('activerecord.attributes.team.name')
 								%th.text-center= t('statistics.played_won_short')
-							- for team in @tournament.teams
+							- for team in @tournament.teams.sort { |team_0, team_1| team_0.name <=> team_1.name }
 								%tr
 									%td.text-center= team.name
 									%td.text-center= "#{team.played_games.count}(#{team.won_games.count})"
