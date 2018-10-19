@@ -32,6 +32,13 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'font-awesome-rails'
 
+# MomentJS
+gem 'momentjs-rails'
+gem 'moment_timezone-rails'
+
+# js-cookie
+gem 'js_cookie_rails'
+
 group :production do
 	gem 'pg', '~> 0.11'
 	gem 'puma'

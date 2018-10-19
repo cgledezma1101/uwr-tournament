@@ -12,5 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require js.cookie
 //= require twitter/bootstrap
+//= require moment
+//= require moment-timezone
+//= require moment-timezone-with-data-2012-2022
+//= require moment-timezone-with-data
 //= require_tree .

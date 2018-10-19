@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery with: :exception
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
+	around_filter :with_timezone
+
 	rescue_from CanCan::AccessDenied do
 		redirect_to root_url, alert: t('cancan.unauthorized_access')
 	end
@@ -22,5 +24,10 @@ class ApplicationController < ActionController::Base
 
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.for(:sign_up) << :name
+	end
+
+	def with_timezone
+		user_timezone = Time.find_zone(cookies["UWR-User-Timezone"])
+		Time.use_zone(user_timezone) { yield }
 	end
 end
