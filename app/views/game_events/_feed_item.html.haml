@@ -3,7 +3,7 @@
 
 	@param [GameEvent] game_event The event being rendered
 .col-xs-12.game-event{ id: game_event.id }
-	.col-xs-2= game_event.created_at.localtime.strftime('%d/%m/%Y %I:%M:%S %p')
+	.col-xs-2= game_event.created_at.strftime('%d/%m/%Y %I:%M:%S %p')
 	.col-xs-8= game_event.text
 	- if ((game_event.game.status == Game::STATUS_STARTED) && can?(:destroy, game_event))
 		.col-xs-2
