@@ -10,7 +10,11 @@
 		%h1.panel-title= t('team.long_name', name: @team.name, club_name: @club.name)
 	.panel-body
 		.col-xs-6
-			= render 'public/user_details_panel', users: @team.active_players, panel_title: t('team.players'), entity: @club, actions_renderer: create_player_actions_proc(@team)
+			= render 'public/user_details_panel',
+				users: @team.active_players,
+				panel_title: t('team.players'),
+				entity: @club, actions_renderer: create_player_actions_proc(@team),
+				comparator: -> (first_player, second_player) { first_player.number <=> second_player.number }
 		.col-xs-6
 			.panel.panel-info
 				.panel-heading
