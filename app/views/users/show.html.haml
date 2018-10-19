@@ -39,7 +39,7 @@
 							%tr
 								%th.text-center= t('activerecord.attributes.club.name')
 								%th.text-center= t('club.team_count')
-							- for club in @user.all_clubs
+							- for club in @user.all_clubs.sort { |first_club, second_club| first_club.name <=> second_club.name }
 								%tr
 									%td.text-center= link_to club.name, club_path(club)
 									%td.text-center= club.teams.count
@@ -83,7 +83,7 @@
 							%th.text-center= t('tournament.amount_teams')
 							%th.text-center= t('activerecord.attributes.tournament.start_date')
 							%th.text-center= t('activerecord.attributes.tournament.end_date')
-						- for tournament in @user.active_tournaments
+						- for tournament in @user.active_tournaments.sort { |first_tournament, second_tournament| first_tournament.start_date <=> second_tournament.start_date }
 							%tr
 								%td.text-center= link_to tournament.name, tournament_path(tournament)
 								%td.text-center= tournament.teams.count
