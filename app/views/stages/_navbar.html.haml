@@ -15,5 +15,6 @@
 					= link_to t('stage.add_game'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_game_path}?stage_id=#{stage.id}", formid: "newGame" }
 				%li
 					= link_to t('stage.add_game_auto_leaderboard'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_auto_leaderboard_games_path}?stage_id=#{stage.id}", formid: "newAutoGame" }
-				%li
-					= link_to t('stage.add_game_auto_game_result'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_auto_game_result_games_path}?stage_id=#{stage.id}", formid: "newAutoGameResult" }
+				- if stage.tournament.all_games.length > 0
+					%li
+						= link_to t('stage.add_game_auto_game_result'), '#', class: 'js-show-app-modal', data: { formlink: "#{new_auto_game_result_games_path}?stage_id=#{stage.id}", formid: "newAutoGameResult" }
