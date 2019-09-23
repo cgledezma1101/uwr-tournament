@@ -1,70 +1,91 @@
-UwrTournament::Application.routes.draw do
-	root 'public#home'
+Rails.application.routes.draw do
+  root 'public#home'
 
-	devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
-	get '/statistics', to: 'public#statistics'
+  get '/statistics', to: 'public#statistics'
 
-	resources :club_admins, only: [:new, :create, :destroy] do
-		get 'confirm_destroy', on: :member
-	end
+  resources :club_admins, only: [:new, :create, :destroy] do
+    member do
+      get 'confirm_destroy'
+    end
+  end
 
-	resources :club_join_requests, only: [:new, :create] do
-		get 'accept', on: :member
-		get 'decline', on: :member
-	end
+  resources :club_join_requests, only: [:new, :create] do
+    member do
+      get 'accept'
+      get 'decline'
+    end
+  end
 
-	resources :clubs, only: [:show, :new, :create, :edit, :update]
+  resources :clubs, only: [:show, :new, :create, :edit, :update]
 
-	resources :game_events, only: [:create, :destroy]
+  resources :game_events, only: [:create, :destroy]
 
-	resources :games, only: [:create, :new, :show, :destroy] do
-		get 'add_chronometer', on: :collection
-		get 'end', on: :member
-		get 'external_scoreboard', on: :collection
-		get 'new_auto_leaderboard', on: :collection
-		get 'new_auto_game_result', on: :collection
+  resources :games, only: [:create, :new, :show, :destroy] do
+    member do
+      get 'end'
+      post 'finalize'
+      post 'start'
+      post 'add_score'
+      post 'remove_score'
+    end
 
-		post 'finalize', on: :member
-		post 'start', on: :member
-		post 'add_score', on: :member
-		post 'remove_score', on: :member
-	end
+    collection do
+      get 'add_chronometer'
+      get 'external_scoreboard'
+      get 'new_auto_leaderboard'
+      get 'new_auto_game_result'
+    end
 
-	resources :invitations, only: [:new, :create] do
-		post 'accept', on: :member
-		post 'decline', on: :member
-	end
+  end
 
-	resources :players, only: [:new, :create, :destroy] do
-		get 'confirm_destroy', on: :member
-	end
+  resources :invitations, only: [:new, :create] do
+    member do
+      post 'accept'
+      post 'decline'
+    end
+  end
 
-	resources :scores, only: [:create]
+  resources :players, only: [:new, :create, :destroy] do
+    member do
+      get 'confirm_destroy'
+    end
+  end
 
-	resources :stages, only: [:new, :create, :show, :destroy] do
-	end
+  resources :scores, only: [:create]
 
-	resources :teams, only: [:new, :create, :show, :destroy, :edit, :update] do
-		get 'confirm_destroy', on: :member
-		get 'players', on: :member
-	end
+  resources :stages, only: [:new, :create, :show, :destroy] do
+  end
 
-	resources :tournament_admins, only: [:new, :create, :destroy] do
-		get 'confirm_destroy', on: :member
-	end
+  resources :teams, only: [:new, :create, :show, :destroy, :edit, :update] do
+    member do
+      get 'confirm_destroy'
+      get 'players'
+    end
+  end
 
-	resources :tournament_invitations, only: [:new, :create, :destroy]
+  resources :tournament_admins, only: [:new, :create, :destroy] do
+    member do
+      get 'confirm_destroy'
+    end
+  end
 
-	resources :tournament_teams, only: [:new, :create]
+  resources :tournament_invitations, only: [:new, :create, :destroy]
 
-	resources :tournaments, only: [:new, :create, :show] do
-		get 'all_games', on: :member
-	end
+  resources :tournament_teams, only: [:new, :create]
 
-	resources :user_clubs, only: [:destroy] do
-		get 'confirm_destroy', on: :member
-	end
+  resources :tournaments, only: [:new, :create, :show] do
+    member do
+      get 'all_games'
+    end
+  end
 
-	resources :users, only: [:show]
+  resources :user_clubs, only: [:destroy] do
+    member do
+      get 'confirm_destroy'
+    end
+  end
+
+  resources :users, only: [:show]
 end
