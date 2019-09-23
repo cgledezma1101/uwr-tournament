@@ -1,37 +1,37 @@
 %html
-	= render 'public/app_modal'
-	%head
-		%title
-			= t('general.application_title')
-		= stylesheet_link_tag "application", media: "all"
-		= javascript_include_tag "application"
-		= csrf_meta_tags
-	%body
-		:javascript
-			// Facebook's API
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId      : '831683480252797',
-					xfbml      : true,
-					version    : 'v2.3'
-				});
-			};
+    = render 'public/app_modal'
+    %head
+        %title
+            = t('general.application_title')
+        = stylesheet_link_tag "application", media: "all"
+        = javascript_include_tag "application"
+        = csrf_meta_tags
+    %body
+        :javascript
+            // Facebook's API
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '831683480252797',
+                    xfbml      : true,
+                    version    : 'v2.3'
+                });
+            };
 
-			(function(d, s, id){
-				 var js, fjs = d.getElementsByTagName(s)[0];
-				 if (d.getElementById(id)) {return;}
-				 js = d.createElement(s); js.id = id;
-				 js.src = "//connect.facebook.net/en_US/sdk.js";
-				 fjs.parentNode.insertBefore(js, fjs);
-			 }(document, 'script', 'facebook-jssdk'));
+            (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/en_US/sdk.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+             }(document, 'script', 'facebook-jssdk'));
 
-			 // Store the user's timezone in a cookie, so that it can be used in the server
-			 const timezone = moment.tz.guess();
-			 Cookies.set('UWR-User-Timezone', timezone);
+             // Store the user's timezone in a cookie, so that it can be used in the server
+             const timezone = moment.tz.guess();
+             Cookies.set('UWR-User-Timezone', timezone);
 
-		- if (defined? @no_navigation).nil? || !@no_navigation
-			.navbar.navbar-default{ role: 'navigation' }
-				= render 'layouts/top_navbar'
-		= yield
+        - if (defined? @no_navigation).nil? || !@no_navigation
+            .navbar.navbar-default{ role: 'navigation' }
+                = render 'layouts/top_navbar'
+        = yield
 
 = yield :page_javascript
