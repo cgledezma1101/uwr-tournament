@@ -72,12 +72,12 @@ class Stage < ApplicationRecord
     def leaderboard
         blue_teams = Team
             .joins(:blue_games)
-            .where(blue_games: { stage_id: self.id })
+            .where(games: { stage_id: self.id })
             .to_a
 
         white_teams = Team
             .joins(:white_games)
-            .where(white_games: { stage_id: self.id })
+            .where(games: { stage_id: self.id })
             .to_a
         teams = (blue_teams + white_teams).uniq
 
