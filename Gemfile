@@ -30,6 +30,7 @@ gem 'cancancan', '~> 1.10'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'font-awesome-rails'
+gem 'bootsnap'
 
 # MomentJS
 gem 'momentjs-rails'
