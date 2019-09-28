@@ -93,13 +93,13 @@ class Tournament < ApplicationRecord
     def top_scorers
         players = Player
             .joins(games: :stage)
-            .where(games: { status: Game::STATUS_ENDED, stage: { tournament_id: self.id } })
+            .where(games: { status: Game::STATUS_ENDED, stages: { tournament_id: self.id } })
             .uniq
 
         player_points = players.map do |player|
             scores = Score
                 .joins(game: :stage)
-                .where(player_id: player.id, game: { stage: { tournament_id: self.id } })
+                .where(player_id: player.id, game: { stages: { tournament_id: self.id } })
                 .count
             [player, scores]
         end
