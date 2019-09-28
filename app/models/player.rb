@@ -44,7 +44,7 @@ class Player < ApplicationRecord
     def number_amongst_active
         if(self.is_active &&
             Player
-                .where(team_id: self.team_id, is_active: == true, number: self.number)
+                .where(team_id: self.team_id, is_active: true, number: self.number)
                 .where.not(id: self.id)
                 .any?)
             self.errors.add(:number, I18n.t('player.errors.number_uniqueness'))

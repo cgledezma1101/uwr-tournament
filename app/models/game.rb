@@ -69,7 +69,7 @@ class Game < ApplicationRecord
     # @return [Integer] Amount of blue goals
     def blue_goals
         self.scores.joins(:player)
-            .where(player: { team_id: self.blue_team_id })
+            .where(players: { team_id: self.blue_team_id })
             .count
     end
 
@@ -116,7 +116,7 @@ class Game < ApplicationRecord
     # @return [Integer] Amount of blue goals
     def white_goals
         self.scores.joins(:player)
-            .where(player: { team_id: self.white_team_id })
+            .where(players: { team_id: self.white_team_id })
             .count
     end
 
