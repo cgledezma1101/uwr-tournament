@@ -36,8 +36,10 @@ class Team < ApplicationRecord
     def goals
         Score
             .joins(:game, :player)
-            .where(player: { team_id: self.id })
-            .where(game: { blue_team_id: self.id }).or(Score.joins(:game).where(game: { white_team_id: self.id }))
+            .where(players: { team_id: self.id })
+            .where(games: { blue_team_id: self.id }).or(
+                Score.joins(:game, :player).where(games: { white_team_id: self.id })
+            )
             .count
     end
 
@@ -47,8 +49,10 @@ class Team < ApplicationRecord
     def goals_against
         Score
             .joins(:game, :player)
-            .where.not(player: { team_id: self.id })
-            .where(game: { blue_team_id: self.id }).or(Score.where(game: { white_team_id: self.id }))
+            .where.not(players: { team_id: self.id })
+            .where(games: { blue_team_id: self.id }).or(
+                Score.joins(:game, :player).where(games: { white_team_id: self.id })
+            )
             .count
     end
 
@@ -66,7 +70,7 @@ class Team < ApplicationRecord
     # @return [Array<Game>] The games tied
     def tied_games
         Game.includes(:scores)
-            .where(blue_team_id: self.id).or(Game.where(white_team_id: self.id))
+            .where(blue_team_id: self.id).or(Game.includes(:scores).where(white_team_id: self.id))
             .select do |game|
                 (game.blue_team_id == self.id || game.white_team_id == self.id) &&
                 (game.blue_goals == game.white_goals)
