@@ -26,7 +26,7 @@ class Stage < ApplicationRecord
             .joins(:game)
             .where(game: { stage_id: self.id, status: Game::STATUS_ENDED })
             .where.not(player: { team_id: team.id })
-            .where(game: { blue_team_id: team_id }).or(Score.joins(:game).where(game: { white_team_id: team.id })))
+            .where(game: { blue_team_id: team_id }).or(Score.where(game: { white_team_id: team.id }))
             .count
     end
 
@@ -38,7 +38,7 @@ class Stage < ApplicationRecord
                 game: { stage_id: self.id, status: Game::STATUS_ENDED },
                 player: { team_id: team.id }
             )
-            .where(game: { blue_team_id: team.id }).or(Score.joins(:game).where(game: { white_team_id: team.id })))
+            .where(game: { blue_team_id: team.id }).or(Score.where(game: { white_team_id: team.id }))
             .count
     end
 

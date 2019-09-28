@@ -78,7 +78,7 @@ class Team < ApplicationRecord
     # @return [Array<Game>] The games won
     def won_games
         Game.includes(:scores)
-            .where(blue_team_id: self.id).or(Game.where(white_team_id: self.id))
+            .where(blue_team_id: self.id).or(Game.includes(:scores).where(white_team_id: self.id))
             .select do |game|
                 (game.blue_team_id == self.id && game.blue_goals > game.white_goals) ||
                 (game.white_team_id == self.id && game.white_goals > game.blue_goals)

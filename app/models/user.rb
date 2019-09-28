@@ -33,7 +33,7 @@ class User < ApplicationRecord
      #
      # @return [Array<Tournament>] List of all the tournaments the user administrates or will participate in
      def active_tournaments
-        admin_tournaments = Tournament.joins(:admins).where(admins: { id: self.id }).to_a
+        admin_tournaments = Tournament.joins(:admins).where(tournament_admins: { id: self.id }).to_a
         player_tournaments = Tournament.joins(teams: :players).where(teams: { players: { user_id: self.id } }).to_a
 
         (admin_tournaments + player_tournaments).uniq
@@ -61,9 +61,11 @@ class User < ApplicationRecord
      def lost_games
          Game
             .joins(player_games: :player)
-            .where(player_games: { player: { user_id: self.id } })
+            .where(player_games: { players: { user_id: self.id } })
             .where(player_games: { team_color: PlayerGame:: BLUE_TEAM }, winning_color: PlayerGame::WHITE_TEAM).or(
-                Game.where(player_games: { team_color: PlayerGame::WHITE_TEAM }, winning_color: PlayerGame::BLUE_TEAM)
+                Game
+                    .joins(player_games: :player)
+                    .where(player_games: { team_color: PlayerGame::WHITE_TEAM }, winning_color: PlayerGame::BLUE_TEAM)
             )
             .count
      end
@@ -86,7 +88,7 @@ class User < ApplicationRecord
      #
      # @return [Integer] Amount of goals the user has scored
      def total_goals
-         Score.joins(:player).where(player: { user_id: self.id }).count
+         Score.joins(:player).where(players: { user_id: self.id }).count
      end
 
      # The amount of games where the team the user was playing in won
@@ -95,9 +97,11 @@ class User < ApplicationRecord
      def won_games
          Game
             .joins(player_games: :player)
-            .where(player_games: { player: { user_id: self.id } })
+            .where(player_games: { players: { user_id: self.id } })
             .where(player_games: { team_color: PlayerGame::BLUE_TEAM }, winning_color: PlayerGame::BLUE_TEAM).or(
-                Game.where(player_games: { team_color: PlayerGame.WHITE_TEAM }, winning_color: PlayerGame::WHITE_TEAM)
+                Game
+                    .joins(player_games: :player)
+                    .where(player_games: { team_color: PlayerGame::WHITE_TEAM }, winning_color: PlayerGame::WHITE_TEAM)
             )
             .count
      end
