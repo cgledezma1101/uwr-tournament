@@ -47,12 +47,12 @@ class Stage < ApplicationRecord
     def least_defeated
         blue_teams = Team
             .joins(:blue_games)
-            .where(blue_games: { stage_id: self.id, status: Game::STATUS_ENDED })
+            .where(games: { stage_id: self.id, status: Game::STATUS_ENDED })
             .to_a
 
         white_teams = Team
             .joins(:white_games)
-            .where(white_games: { stage_id: self.id, status: Game::STATUS_ENDED })
+            .where(games: { stage_id: self.id, status: Game::STATUS_ENDED })
             .to_a
 
         teams = (blue_teams + white_teams).uniq
@@ -118,7 +118,7 @@ class Stage < ApplicationRecord
         players = Player.joins(:games).where(games: { stage_id: self.id, status: Game::STATUS_ENDED }).uniq
 
         players_points = players.map do |player|
-            scores = Score.joins(:game).where(game: { stage_id: self.id, player_id: player.id }).count
+            scores = Score.joins(:game).where(games: { stage_id: self.id }, player_id: player.id).count
             [player, scores]
         end
 
