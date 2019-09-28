@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 	load_and_authorize_resource
 	before_action :authenticate_user!
-	skip_before_filter :verify_authenticity_token, :only => [:add_score]
+	skip_before_action :verify_authenticity_token, :only => [:add_score]
 
 	# GET /games/add_chronometer
 	#

@@ -36,10 +36,10 @@ class Team < ApplicationRecord
     def goals
         Score
             .joins(:game, :player)
-            .where(players: { team_id: self.id })
             .where(games: { blue_team_id: self.id }).or(
                 Score.joins(:game, :player).where(games: { white_team_id: self.id })
             )
+            .where(players: { team_id: self.id })
             .count
     end
 
@@ -49,10 +49,10 @@ class Team < ApplicationRecord
     def goals_against
         Score
             .joins(:game, :player)
-            .where.not(players: { team_id: self.id })
             .where(games: { blue_team_id: self.id }).or(
                 Score.joins(:game, :player).where(games: { white_team_id: self.id })
             )
+            .where.not(players: { team_id: self.id })
             .count
     end
 

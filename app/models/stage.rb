@@ -23,23 +23,23 @@ class Stage < ApplicationRecord
     def goals_received(team)
         return Score
             .joins(:player, :game)
-            .where(games: { stage_id: self.id, status: Game::STATUS_ENDED })
-            .where.not(players: { team_id: team.id })
             .where(games: { blue_team_id: team.id }).or(
                 Score.joins(:player, :game).where(games: { white_team_id: team.id })
             )
+            .where(games: { stage_id: self.id, status: Game::STATUS_ENDED })
+            .where.not(players: { team_id: team.id })
             .count
     end
 
     def goals_scored(team)
         return Score
             .joins(:player, :game)
+            .where(games: { blue_team_id: team.id }).or(
+                Score.joins(:player, :game).where(games: { white_team_id: team.id })
+            )
             .where(
                 games: { stage_id: self.id, status: Game::STATUS_ENDED },
                 players: { team_id: team.id }
-            )
-            .where(games: { blue_team_id: team.id }).or(
-                Score.joins(:player, :game).where(games: { white_team_id: team.id })
             )
             .count
     end
@@ -109,8 +109,8 @@ class Stage < ApplicationRecord
 
     def tied_games(team)
         return games
-            .where(winning_color: Game::TIED_GAME)
             .where(white_team_id: team.id).or(games.where(blue_team_id: team.id))
+            .where(winning_color: Game::TIED_GAME)
             .count
     end
 
