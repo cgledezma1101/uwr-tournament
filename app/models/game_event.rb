@@ -1,4 +1,4 @@
-class GameEvent < ActiveRecord::Base
+class GameEvent < ApplicationRecord
 	belongs_to :game
 
 	validates :text, presence: true

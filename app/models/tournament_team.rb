@@ -1,4 +1,4 @@
-class TournamentTeam < ActiveRecord::Base
+class TournamentTeam < ApplicationRecord
     attr_accessor :password_confirmation
 
     belongs_to :tournament

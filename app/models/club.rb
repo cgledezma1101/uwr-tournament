@@ -1,4 +1,4 @@
-class Club < ActiveRecord::Base
+class Club < ApplicationRecord
 	has_many :user_clubs, dependent: :destroy
 	has_many :users, through: :user_clubs
 

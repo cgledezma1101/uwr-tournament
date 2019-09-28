@@ -1,4 +1,4 @@
-class TournamentInvitation < ActiveRecord::Base
+class TournamentInvitation < ApplicationRecord
 	belongs_to :tournament
 	belongs_to :club
 

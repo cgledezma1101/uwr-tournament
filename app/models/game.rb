@@ -1,4 +1,4 @@
-class Game < ActiveRecord::Base
+class Game < ApplicationRecord
     STATUS_READY = 'r'
     STATUS_STARTED = 's'
     STATUS_ENDED = 'e'

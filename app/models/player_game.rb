@@ -1,4 +1,4 @@
-class PlayerGame < ActiveRecord::Base
+class PlayerGame < ApplicationRecord
 	BLUE_TEAM = 'b'
 	WHITE_TEAM = 'w'
 

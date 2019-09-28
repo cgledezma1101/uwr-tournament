@@ -1,4 +1,4 @@
-class ClubJoinRequest < ActiveRecord::Base
+class ClubJoinRequest < ApplicationRecord
 	belongs_to :user
 	belongs_to :club
 end

@@ -1,4 +1,4 @@
-class Invitation < ActiveRecord::Base
+class Invitation < ApplicationRecord
 	belongs_to :club
 	belongs_to :user
 
