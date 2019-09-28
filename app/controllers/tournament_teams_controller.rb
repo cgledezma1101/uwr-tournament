@@ -29,8 +29,8 @@ class TournamentTeamsController < ApplicationController
 		team = Team.find(params[:team_id])
 		authorize! :update, team
 
-		invited_tournaments = Tournament.joins{ clubs }.where{ clubs.id == my{team.club_id} }.to_a
-		tournaments_going = Tournament.joins{ teams }.where{ teams.id == my{team.id} }.to_a
+		invited_tournaments = Tournament.joins(:clubs).where(clubs: { id: team.club_id }).to_a
+		tournaments_going = Tournament.joins(:teams).where(teams: { id: team.id }).to_a
 		@available_tournaments = invited_tournaments - tournaments_going
 		@tournament_team = TournamentTeam.new(team: team)
 
