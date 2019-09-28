@@ -40,17 +40,19 @@ gem 'moment_timezone-rails'
 gem 'js_cookie_rails'
 
 group :production do
-	gem 'pg', '~> 0.11'
-	gem 'puma'
+    gem 'pg', '~> 0.11'
+    gem 'puma'
 end
 
 group :development do
-	# Use sqlite3 as the database for Active Record
-	gem 'sqlite3', '~> 1.3', '< 1.4'
+    # Use sqlite3 as the database for Active Record
+    gem 'sqlite3', '~> 1.3', '< 1.4'
 
-	# Enjoyable debugging
-	gem 'pry'
+    # Enjoyable debugging
+    gem 'pry'
 
-	# Quick development server
-	gem 'zeus'
+    # Quick development server
+    gem 'zeus'
+
+    gem 'listen'
 end
