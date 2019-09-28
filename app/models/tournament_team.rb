@@ -28,7 +28,7 @@ class TournamentTeam < ActiveRecord::Base
 
     # Makes sure that the club the team belongs to has been invited to this tournament
     def club_invited
-        self.errors.add(:team, I18n.t('tournament.team_uninvited')) unless self.tournament.clubs.where{ id == my{ team.club.id } }.any?
+        self.errors.add(:team, I18n.t('tournament.team_uninvited')) unless self.tournament.clubs.where(id: team.club.id).any?
     end
 
     # When the password has changed, validates that the password confirmation has the same value

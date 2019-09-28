@@ -42,7 +42,7 @@ class Invitation < ActiveRecord::Base
 
 	# Validates that an invitation is not sent to someone who has a pending membership request
 	def cant_invite_requested
-		if ClubJoinRequest.where{ (club_id == my{self.club_id}) & (user_id == my{self.user_id}) }.any?
+		if ClubJoinRequest.where(club_id: self.club_id, user_id: self.user_id).any?
 			self.errors.add(:user, I18n.t('invitation.cant_invite_requested'))
 		end
 	end
