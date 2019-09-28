@@ -1,4 +1,4 @@
-class Stage < ActiveRecord::Base
+class Stage < ApplicationRecord
     belongs_to :tournament
     has_many :games
 

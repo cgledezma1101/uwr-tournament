@@ -1,4 +1,4 @@
-class ClubAdmin < ActiveRecord::Base
+class ClubAdmin < ApplicationRecord
     belongs_to :user
     belongs_to :club
 
