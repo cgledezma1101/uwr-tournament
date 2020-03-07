@@ -47,13 +47,15 @@ end
 
 group :development do
     # Use sqlite3 as the database for Active Record
-    gem 'sqlite3', '~> 1.4'
+    # gem 'sqlite3', '~> 1.4'
 
     # Enjoyable debugging
     gem 'pry'
 
     # Quick development server
-    gem 'zeus'
+    # gem 'zeus'
+    gem 'pg', '~> 0.11'
+    gem 'puma'
 
     gem 'listen'
 end
