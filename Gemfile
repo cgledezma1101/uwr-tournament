@@ -40,9 +40,11 @@ gem 'moment_timezone-rails'
 # js-cookie
 gem 'js_cookie_rails'
 
+# Web server
+gem 'puma'
+
 group :production do
     gem 'pg', '~> 0.11'
-    gem 'puma'
 end
 
 group :development do
@@ -51,9 +53,6 @@ group :development do
 
     # Enjoyable debugging
     gem 'pry'
-
-    # Quick development server
-    gem 'zeus'
 
     gem 'listen'
 
