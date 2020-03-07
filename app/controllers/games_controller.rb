@@ -17,7 +17,11 @@ class GamesController < ApplicationController
 	# Based on the parameters received, creates a new game and redirects the user
 	# to the screen that visualizes it.
 	def create
+		logger.debug "Invoking the /create controller"
 		@game.status = Game::STATUS_READY
+
+		logger.debug "Game we're attempting to save: #{@game}"
+
 		if @game.save
 			redirect_params = { notice: t('game.create_success') }
 		else
