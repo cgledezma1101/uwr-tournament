@@ -4,12 +4,12 @@
             %h2.col-sm-offset-2.col-sm-6.text-center
                 = t('devise.session.log_in')
         .form-group
-            = link_to user_facebook_omniauth_authorize_path(:facebook)  do
+            = link_to user_facebook_omniauth_authorize_path  do
                 .col-sm-offset-2.col-sm-6.btn-lg.btn-primary.text-center
                     = t('devise.omniauth.facebook')
         %hr
         .form-group
-            = link_to user_google_oauth2_omniauth_authorize_path(:google_oauth2) do
+            = link_to user_google_oauth2_omniauth_authorize_path do
                 .col-sm-offset-2.col-sm-6.btn-lg.btn-danger.text-center
                     = t('devise.omniauth.google')
         %hr
