@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.5'
+ruby '~> 2.7.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 
@@ -14,7 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 5.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '0.10.2', platforms: :ruby
+gem 'therubyracer', '~> 0.12.2', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
