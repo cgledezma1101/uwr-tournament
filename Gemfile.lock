@@ -57,6 +57,12 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
     bcrypt (3.1.13)
+    better_errors (2.6.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -72,6 +78,7 @@ GEM
     commonjs (0.2.7)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
+    debug_inspector (0.0.3)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -266,6 +273,8 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
   bootsnap
   bundler (~> 2.0)
   cancancan (~> 1.10)

@@ -56,4 +56,7 @@ group :development do
     gem 'zeus'
 
     gem 'listen'
+
+    gem "better_errors"
+    gem "binding_of_caller"
 end
