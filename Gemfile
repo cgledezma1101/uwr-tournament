@@ -24,6 +24,9 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
+# Javascript asset management with Webpack
+gem 'webpacker'
+
 gem 'twitter-bootstrap-rails'
 gem 'haml-rails', '~> 2.0'
 gem 'devise'

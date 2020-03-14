@@ -25,3 +25,10 @@ config/secrets.yml
 
 # VIm's swap files
 *.sw*
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
