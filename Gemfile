@@ -44,7 +44,7 @@ gem 'js_cookie_rails'
 gem 'puma'
 
 group :production do
-    gem 'pg', '~> 0.11'
+    gem 'pg', '~> 1.0'
 end
 
 group :development do
