@@ -62,7 +62,7 @@ class TournamentAdminsController < ApplicationController
 
 		@tournament_admin = TournamentAdmin.new(tournament: tournament)
 		tournament_admin_ids = tournament.admins.to_a.select{ |admin| admin.id }
-		@eligible_users = User.where{ id << my{tournament_admin_ids} }
+		@eligible_users = User.where.not(id: tournament_admin_ids)
 		render 'tournament_admins/_new', layout: false
 	end
 
