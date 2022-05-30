@@ -46,7 +46,7 @@ class TournamentInvitationsController < ApplicationController
 		@tournament_invitation = TournamentInvitation.new(tournament: tournament)
 
 		tournament_clubs_ids = tournament.clubs.select{ |club| club.id }
-		@eligible_clubs = Club.where(id: tournament_clubs_ids)
+		@eligible_clubs = Club.where.not(id: tournament_clubs_ids)
 
 		render 'tournament_invitations/_new', layout: false
 	end

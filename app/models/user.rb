@@ -33,7 +33,7 @@ class User < ApplicationRecord
      #
      # @return [Array<Tournament>] List of all the tournaments the user administrates or will participate in
      def active_tournaments
-        admin_tournaments = Tournament.joins(:admins).where(tournament_admins: { id: self.id }).to_a
+        admin_tournaments = Tournament.joins(:admins).where(tournament_admins: { user_id: self.id }).to_a
         player_tournaments = Tournament.joins(teams: :players).where(teams: { players: { user_id: self.id } }).to_a
 
         (admin_tournaments + player_tournaments).uniq

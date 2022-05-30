@@ -33,6 +33,7 @@ gem 'devise'
 gem 'cancancan', '~> 1.10'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
 gem 'font-awesome-rails'
 gem 'bootsnap'
 
@@ -47,7 +48,7 @@ gem 'js_cookie_rails'
 gem 'puma'
 
 group :production do
-    gem 'pg', '~> 0.11'
+    gem 'pg', '~> 1.0'
 end
 
 group :development do
