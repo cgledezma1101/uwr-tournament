@@ -1,0 +1,146 @@
+
+Parameters:
+    TournamentsSnapshotArn:
+        Description: 'ARN of the latest snapshot of the tournaments database'
+        Type: 'String'
+    DatabasePassword:
+        Description: 'The password to use to authenticate with the uwr_tournament database'
+        Type: 'String'
+    SendgridPassword:
+        Description: 'The password to use to authenticate with the cgledezma1101@gmail.com Sendgrid user'
+        Type: 'String'
+    GitPullPassword:
+        Description: 'The password to pull the application from grid with user cgledezma1101'
+        Type: 'String'
+
+Resources:
+    WebServerSecurityGroup:
+        Type: 'AWS::EC2::SecurityGroup'
+        Properties:
+            GroupDescription: 'Specifies access policies over the tournaments web server'
+            GroupName: 'uwr-tournaments-server-sg'
+            SecurityGroupEgress:
+                - Description: 'Allow the webserver to connect with the database'
+                    CidrIp: '172.31.0.0/16'
+                    IpProtocol: 'tcp'
+                    FromPort: '5432'
+                    ToPort: '5432'
+                - Description: 'Allow the webserver to connect with the internet through HTTPSv4'
+                    CidrIp: '0.0.0.0/0'
+                    IpProtocol: 'tcp'
+                    FromPort: '443'
+                    ToPort: '443'
+                - Description: 'Allow the webserver to connect with the internet through HTTPSv6'
+                    CidrIpV6: '::/0'
+                    IpProtocol: 'tcp'
+                    FromPort: '443'
+                    ToPort: '443'
+            SecurityGroupIngress:
+                - Description: 'Allow SSH through IPv4'
+                    CidrIp: '0.0.0.0/0'
+                    IpProtocol: 'tcp'
+                    FromPort: '22'
+                    ToPort: '22'
+                - Description: Allow SSH through IPv6
+                    CidrIpV6: '::/0'
+                    IpProtocol: tcp
+                    FromPort: '22'
+                    ToPort: '22'
+                - Description: Allow access from the load balancer
+                    CidrIp: 172.31.0.0/16
+                    IpProtocol: tcp
+                    FromPort: '8000'
+                    ToPort: '8000'
+    DatabaseSecurityGroup:
+        Type: 'AWS::EC2::SecurityGroup'
+        Properties:
+            GroupDescription: Specifies access policies over the tournaments database
+            GroupName: uwr-tournaments-db-sg
+            SecurityGroupEgress:
+                - Description: Allow the database to connect to the internet via HTTP to receive updates
+                    CidrIp: 0.0.0.0/0
+                    IpProtocol: tcp
+                    FromPort: '80'
+                    ToPort: '80'
+                - Description: Allow the database to connect to the internet via HTTPS to receive updates
+                    CidrIp: 0.0.0.0/0
+                    IpProtocol: tcp
+                    FromPort: '443'
+                    ToPort: '443'
+                - Description: Allow the database to connect to the internet via HTTP to receive updates
+                    CidrIpV6: '::/0'
+                    IpProtocol: tcp
+                    FromPort: '80'
+                    ToPort: '80'
+                - Description: Allow the database to connect to the internet via HTTPS to receive updates
+                    CidrIpV6: '::/0'
+                    IpProtocol: tcp
+                    FromPort: '443'
+                    ToPort: '443'
+            SecurityGroupIngress:
+                - Description: "Allows the EC2 instance's group to connect to the database"
+                    SourceSecurityGroupId:
+                        'Fn::GetAtt':
+                            - WebServerSecurityGroup
+                            - GroupId
+                    IpProtocol: tcp
+                    FromPort: '5432'
+                    ToPort: '5432'
+    TournamentsDatabase:
+        Type: 'AWS::RDS::DBInstance'
+        Properties:
+            DBSnapshotIdentifier:
+                Ref: TournamentsSnapshotArn
+            AllowMajorVersionUpgrade: true
+            AutoMinorVersionUpgrade: true
+            DBInstanceClass: db.t4g.micro
+            Engine: postgres
+            EngineVersion: '14.2'
+            Port: '5432'
+            VpcSecurityGroups:
+                - 'Fn::GetAtt':
+                    - DatabaseSecurityGroup
+                    - GroupId
+    WebServerAccessKey:
+        Type: 'AWS::EC2::KeyPair'
+        Properties:
+            KeyName: 'tournaments-server-access-key'
+            KeyType: 'rsa'
+    WebServerInstance:
+        Type: 'AWS::EC2::Instance'
+        Properties:
+            ImageId: ami-04169656fea786776
+            InstanceType: t2.micro
+            KeyName:
+                Ref: WebServerAccessKey
+            SecurityGroupIds:
+                - 'Fn::GetAtt':
+                    - WebServerSecurityGroup
+                    - GroupId
+            UserData:
+                Fn::Sub:
+                    - | !#/bin/bash
+                        curl -sSL https://get.rvm.io | bash
+                        source /etc/profile.d/rvm.sh || true
+                        rvm install 2.7.1
+                        rvm --default use 2.7.1
+                        gem install rails
+
+                        git clone https://cgledezma1101:${GitPullPassword}@github.com/cgledezma1101/uwr-tournament.git
+                        cd uwr-tournament
+                            DATABASE_NAME=uwr_tournament \
+                            DATABASE_USER=uwr_tournament \
+                            DATABASE_PASSWORD=${DatabasePassword} \
+                            DATABASE_HOST=${DatabaseHost} \
+                            DATABASE_PORT=${DatabasePort} \
+                            SENDGRID_USERNAME=cgledezma1101@gmail.com \
+                            SENDGRID_PASSWORD=${SendgridPassword} \
+                            rails server -e production -p 8000 -d
+                    - DatabaseHost:
+                        Fn::GetAtt:
+                            - TournamentsDatabase
+                            - Endpoint.Address
+                    - DatabasePort:
+                        Fn::GetAtt:
+                            - TournamentsDatabase
+                            - Endpoint.Port
