@@ -1,84 +1,118 @@
-
 Parameters:
     TournamentsSnapshotArn:
-        Description: 'ARN of the latest snapshot of the tournaments database'
-        Type: 'String'
+        Description: ARN of the latest snapshot of the tournaments database
+        Type: String
     DatabasePassword:
-        Description: 'The password to use to authenticate with the uwr_tournament database'
-        Type: 'String'
+        Description: The password to use to authenticate with the uwr_tournament database
+        Type: String
     SendgridPassword:
-        Description: 'The password to use to authenticate with the cgledezma1101@gmail.com Sendgrid user'
-        Type: 'String'
+        Description: The password to use to authenticate with Sendgrid
+        Type: String
     GitPullPassword:
-        Description: 'The password to pull the application from grid with user cgledezma1101'
-        Type: 'String'
+        Description: The password to pull the application from grid with user cgledezma1101
+        Type: String
+    AlbCertificateArn:
+        Description: The ARN of the ACM certificate to use to sign HTTPS requests on the ALB
+        Type: String
 
 Resources:
-    WebServerSecurityGroup:
-        Type: 'AWS::EC2::SecurityGroup'
+    InternetGateway:
+        Type: AWS::EC2::InternetGateway
+    ApplicationVpc:
+        Type: AWS::EC2::VPC
         Properties:
-            GroupDescription: 'Specifies access policies over the tournaments web server'
-            GroupName: 'uwr-tournaments-server-sg'
+            CidrBlock: '172.31.0.0/16'
+    GatewayAttachment:
+        Type: AWS::EC2::VPCGatewayAttachment
+        Properties:
+            InternetGatewayId:
+                Ref: InternetGateway
+            VpcId:
+                Ref: ApplicationVpc
+    Subnet0:
+        Type: AWS::EC2::Subnet
+        Properties:
+            AvailabilityZone: us-east-1a
+            CidrBlock: '172.31.0.0/24'
+            VpcId:
+                Ref: ApplicationVpc
+    Subnet1:
+        Type: AWS::EC2::Subnet
+        Properties:
+            AvailabilityZone: us-east-1b
+            CidrBlock: '172.31.1.0/24'
+            VpcId:
+                Ref: ApplicationVpc
+    DatabaseSubnetGroup:
+        Type: AWS::RDS::DBSubnetGroup
+        Properties:
+            DBSubnetGroupName: uwr-tournaments-db-subnet-group
+            DBSubnetGroupDescription: Defines the subnets in which the tournaments database is present
+            SubnetIds:
+                - Ref: Subnet0
+                - Ref: Subnet1
+    WebServerSecurityGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            GroupDescription: Specifies access policies over the tournaments web server
+            GroupName: uwr-tournaments-server-sg
+            VpcId:
+                Ref: ApplicationVpc
             SecurityGroupEgress:
-                - Description: 'Allow the webserver to connect with the database'
+                -
+                    Description: Allow the webserver to connect with the database
                     CidrIp: '172.31.0.0/16'
-                    IpProtocol: 'tcp'
+                    IpProtocol: tcp
                     FromPort: '5432'
                     ToPort: '5432'
-                - Description: 'Allow the webserver to connect with the internet through HTTPSv4'
+                -
+                    Description: Allow HTTP IPv4 egress to the webserver
                     CidrIp: '0.0.0.0/0'
-                    IpProtocol: 'tcp'
-                    FromPort: '443'
-                    ToPort: '443'
-                - Description: 'Allow the webserver to connect with the internet through HTTPSv6'
-                    CidrIpV6: '::/0'
-                    IpProtocol: 'tcp'
+                    IpProtocol: tcp
                     FromPort: '443'
                     ToPort: '443'
             SecurityGroupIngress:
-                - Description: 'Allow SSH through IPv4'
+                -
+                    Description: Allow SSH through IPv4
                     CidrIp: '0.0.0.0/0'
-                    IpProtocol: 'tcp'
-                    FromPort: '22'
-                    ToPort: '22'
-                - Description: Allow SSH through IPv6
-                    CidrIpV6: '::/0'
                     IpProtocol: tcp
                     FromPort: '22'
                     ToPort: '22'
-                - Description: Allow access from the load balancer
+                -
+                    Description: Allow SSH through IPv6
+                    CidrIpv6: '::/0'
+                    IpProtocol: tcp
+                    FromPort: '22'
+                    ToPort: '22'
+                -
+                    Description: Allow connections form within the VPC to the port where the application runs
                     CidrIp: 172.31.0.0/16
                     IpProtocol: tcp
                     FromPort: '8000'
                     ToPort: '8000'
     DatabaseSecurityGroup:
-        Type: 'AWS::EC2::SecurityGroup'
+        Type: AWS::EC2::SecurityGroup
         Properties:
             GroupDescription: Specifies access policies over the tournaments database
             GroupName: uwr-tournaments-db-sg
+            VpcId:
+                Ref: ApplicationVpc
             SecurityGroupEgress:
-                - Description: Allow the database to connect to the internet via HTTP to receive updates
+                -
+                    Description: Allow HTTP IPv4 egress to the database to request updates
                     CidrIp: 0.0.0.0/0
                     IpProtocol: tcp
                     FromPort: '80'
                     ToPort: '80'
-                - Description: Allow the database to connect to the internet via HTTPS to receive updates
+                -
+                    Description: Allow HTTPS IPv4 egress to the database to request updates
                     CidrIp: 0.0.0.0/0
-                    IpProtocol: tcp
-                    FromPort: '443'
-                    ToPort: '443'
-                - Description: Allow the database to connect to the internet via HTTP to receive updates
-                    CidrIpV6: '::/0'
-                    IpProtocol: tcp
-                    FromPort: '80'
-                    ToPort: '80'
-                - Description: Allow the database to connect to the internet via HTTPS to receive updates
-                    CidrIpV6: '::/0'
                     IpProtocol: tcp
                     FromPort: '443'
                     ToPort: '443'
             SecurityGroupIngress:
-                - Description: "Allows the EC2 instance's group to connect to the database"
+                -
+                    Description: Allows the EC2 instance group to connect to the database
                     SourceSecurityGroupId:
                         'Fn::GetAtt':
                             - WebServerSecurityGroup
@@ -86,40 +120,67 @@ Resources:
                     IpProtocol: tcp
                     FromPort: '5432'
                     ToPort: '5432'
+    LoadBalancerSecurityGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            GroupDescription: Specifies access policies over the tournaments load balancer
+            GroupName: 'uwr-tournaments-load-balancer-sg'
+            VpcId:
+                Ref: ApplicationVpc
+            SecurityGroupEgress:
+                -
+                    Description: Allow the load balancer to connect with the underlying webservers
+                    CidrIp: '172.31.0.0/16'
+                    IpProtocol: 'tcp'
+                    FromPort: '8000'
+                    ToPort: '8000'
+            SecurityGroupIngress:
+                -
+                    Description: Allow HTTP IPv4 access to the load balancer
+                    CidrIp: '0.0.0.0/0'
+                    IpProtocol: tcp
+                    FromPort: '80'
+                    ToPort: '80'
+                -
+                    Description: Allow HTTPS IPv4 access to the load balancer
+                    CidrIp: '0.0.0.0/0'
+                    IpProtocol: tcp
+                    FromPort: '443'
+                    ToPort: '443'
     TournamentsDatabase:
-        Type: 'AWS::RDS::DBInstance'
+        Type: AWS::RDS::DBInstance
         Properties:
             DBSnapshotIdentifier:
                 Ref: TournamentsSnapshotArn
             AllowMajorVersionUpgrade: true
             AutoMinorVersionUpgrade: true
-            DBInstanceClass: db.t4g.micro
+            DBInstanceClass: db.t3.micro
+            DBInstanceIdentifier: uwr-tournaments-db
             Engine: postgres
             EngineVersion: '14.2'
             Port: '5432'
-            VpcSecurityGroups:
-                - 'Fn::GetAtt':
-                    - DatabaseSecurityGroup
-                    - GroupId
+            DBSubnetGroupName:
+                Ref: DatabaseSubnetGroup
+            VPCSecurityGroups:
+                - Ref: DatabaseSecurityGroup
     WebServerAccessKey:
-        Type: 'AWS::EC2::KeyPair'
+        Type: AWS::EC2::KeyPair
         Properties:
-            KeyName: 'tournaments-server-access-key'
-            KeyType: 'rsa'
+            KeyName: tournaments-server-access-key
+            KeyType: rsa
     WebServerInstance:
-        Type: 'AWS::EC2::Instance'
+        Type: AWS::EC2::Instance
         Properties:
             ImageId: ami-04169656fea786776
             InstanceType: t2.micro
             KeyName:
                 Ref: WebServerAccessKey
             SecurityGroupIds:
-                - 'Fn::GetAtt':
-                    - WebServerSecurityGroup
-                    - GroupId
+                - Ref: WebServerSecurityGroup
             UserData:
                 Fn::Sub:
-                    - | !#/bin/bash
+                    - |
+                        !#/bin/bash
                         curl -sSL https://get.rvm.io | bash
                         source /etc/profile.d/rvm.sh || true
                         rvm install 2.7.1
@@ -136,11 +197,82 @@ Resources:
                             SENDGRID_USERNAME=cgledezma1101@gmail.com \
                             SENDGRID_PASSWORD=${SendgridPassword} \
                             rails server -e production -p 8000 -d
-                    - DatabaseHost:
-                        Fn::GetAtt:
-                            - TournamentsDatabase
-                            - Endpoint.Address
-                    - DatabasePort:
-                        Fn::GetAtt:
-                            - TournamentsDatabase
-                            - Endpoint.Port
+                    -
+                        DatabaseHost:
+                            Fn::GetAtt:
+                                - TournamentsDatabase
+                                - Endpoint.Address
+                        DatabasePort:
+                            Fn::GetAtt:
+                                - TournamentsDatabase
+                                - Endpoint.Port
+    LoadBalancer:
+        Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+        Properties:
+            Name: uwr-tournaments-load-balancer
+            IpAddressType: ipv4
+            Scheme: internet-facing
+            Type: application
+            SecurityGroups:
+                - Ref: LoadBalancerSecurityGroup
+            Subnets:
+                - Ref: Subnet0
+                - Ref: Subnet1
+    WebServerTargetGroup:
+        Type: AWS::ElasticLoadBalancingV2::TargetGroup
+        Properties:
+            Name: uwr-tournaments-server-target-group
+            IpAddressType: ipv4
+            Port: '8000'
+            Protocol: HTTPS
+            TargetType: instance
+            VpcId:
+                Ref: ApplicationVpc
+            Targets:
+                -
+                    Id:
+                        Ref: WebServerInstance
+                    Port: '8000'
+    HTTPSListener:
+        Type: AWS::ElasticLoadBalancingV2::Listener
+        Properties:
+            Protocol: HTTPS
+            Port: '443'
+            LoadBalancerArn:
+                Ref: LoadBalancer
+            DefaultActions:
+                -
+                    Order: 1
+                    Type: forward
+                    TargetGroupArn:
+                        Ref: WebServerTargetGroup
+            Certificates:
+                -
+                    CertificateArn:
+                        Ref: AlbCertificateArn
+    HTTPRedirectListener:
+        Type: AWS::ElasticLoadBalancingV2::Listener
+        Properties:
+            Protocol: HTTP
+            Port: '80'
+            LoadBalancerArn:
+                Ref: LoadBalancer
+            DefaultActions:
+                -
+                    Order: 1
+                    Type: redirect
+                    RedirectConfig:
+                        Protocol: HTTPS
+                        Port: '443'
+                        Host: '#{host}'
+                        Path: '/#{path}'
+                        Query: '#{query}'
+                        StatusCode: HTTP_301
+
+Outputs:
+    LoadBalancerDns:
+        Description: The DNS name on which the load balancer can be reached. The Route53 address table should point to this
+        Value:
+            Fn::GetAtt:
+                - LoadBalancer
+                - DNSName
