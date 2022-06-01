@@ -8,9 +8,6 @@ Parameters:
     SendgridPassword:
         Description: The password to use to authenticate with Sendgrid
         Type: String
-    GitPullPassword:
-        Description: The password to pull the application from grid with user cgledezma1101
-        Type: String
     AlbCertificateArn:
         Description: The ARN of the ACM certificate to use to sign HTTPS requests on the ALB
         Type: String
@@ -43,6 +40,26 @@ Resources:
             CidrBlock: '172.31.1.0/24'
             VpcId:
                 Ref: ApplicationVpc
+    SubnetAccessRouteTable:
+        Type: AWS::EC2::RouteTable
+        Properties:
+            VpcId:
+                Ref: ApplicationVpc
+    SubnetAccessRoute:
+        Type: AWS::EC2::Route
+        Properties:
+            DestinationCidrBlock: '0.0.0.0/0'
+            GatewayId:
+                Ref: InternetGateway
+            RouteTableId:
+                Ref: SubnetAccessRouteTable
+    Subnet0RouteAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId:
+                Ref: SubnetAccessRouteTable
+            SubnetId:
+                Ref: Subnet0
     DatabaseSubnetGroup:
         Type: AWS::RDS::DBSubnetGroup
         Properties:
@@ -66,11 +83,23 @@ Resources:
                     FromPort: '5432'
                     ToPort: '5432'
                 -
-                    Description: Allow HTTP IPv4 egress to the webserver
+                    Description: Allow HTTPS IPv4 egress to the webserver
                     CidrIp: '0.0.0.0/0'
                     IpProtocol: tcp
                     FromPort: '443'
                     ToPort: '443'
+                -
+                    Description: Allow HTTP IPv4 egress to the webserver
+                    CidrIp: '0.0.0.0/0'
+                    IpProtocol: tcp
+                    FromPort: '80'
+                    ToPort: '80'
+                -
+                    Description: Allow SSH IPv4 egress to the webserver
+                    CidrIp: '0.0.0.0/0'
+                    IpProtocol: tcp
+                    FromPort: '22'
+                    ToPort: '22'
             SecurityGroupIngress:
                 -
                     Description: Allow SSH through IPv4
@@ -170,25 +199,52 @@ Resources:
             KeyType: rsa
     WebServerInstance:
         Type: AWS::EC2::Instance
+        DependsOn:
+            - GatewayAttachment
         Properties:
             ImageId: ami-04169656fea786776
             InstanceType: t2.micro
             KeyName:
                 Ref: WebServerAccessKey
-            SecurityGroupIds:
-                - Ref: WebServerSecurityGroup
+            AvailabilityZone:
+                Fn::GetAtt:
+                    - Subnet0
+                    - AvailabilityZone
+            NetworkInterfaces:
+                -
+                    DeviceIndex: 0
+                    AssociatePublicIpAddress: true
+                    GroupSet:
+                        - Ref: WebServerSecurityGroup
+                    SubnetId:
+                        Ref: Subnet0
             UserData:
-                Fn::Sub:
-                    - |
-                        !#/bin/bash
-                        curl -sSL https://get.rvm.io | bash
-                        source /etc/profile.d/rvm.sh || true
-                        rvm install 2.7.1
-                        rvm --default use 2.7.1
-                        gem install rails
+                Fn::Base64:
+                    Fn::Sub:
+                        - |
+                            !#/bin/bash
+                            sudo apt-get update
+                            sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+                            git clone https://github.com/rbenv/rbenv.git .rbenv
+                            echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
+                            echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
+                            git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+                            echo 'export PATH=$HOME/.rbenv/plugins/ruby-build/bin:$PATH' >> ~/.bashrc
+                            source ~/.bashrc
+                            rbenv install -v 2.7.0
+                            rbenv global 2.7.0
+                            echo “gem: --no-document” > ~/.gemrc
+                            gem install rails -v 6.0
+                            rbenv rehash
+                            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+                            . ~/.nvm/nvm.sh
+                            nvm install 16
+                            sudo apt-get update
+                            sudo apt-get --assume-yes install postgresql postgresql-contrib libpq-dev
+                            https://github.com/cgledezma1101/uwr-tournament.git
+                            cd uwr-tournament/
+                            bundle install
 
-                        git clone https://cgledezma1101:${GitPullPassword}@github.com/cgledezma1101/uwr-tournament.git
-                        cd uwr-tournament
                             DATABASE_NAME=uwr_tournament \
                             DATABASE_USER=uwr_tournament \
                             DATABASE_PASSWORD=${DatabasePassword} \
@@ -197,15 +253,15 @@ Resources:
                             SENDGRID_USERNAME=cgledezma1101@gmail.com \
                             SENDGRID_PASSWORD=${SendgridPassword} \
                             rails server -e production -p 8000 -d
-                    -
-                        DatabaseHost:
-                            Fn::GetAtt:
-                                - TournamentsDatabase
-                                - Endpoint.Address
-                        DatabasePort:
-                            Fn::GetAtt:
-                                - TournamentsDatabase
-                                - Endpoint.Port
+                        -
+                            DatabaseHost:
+                                Fn::GetAtt:
+                                    - TournamentsDatabase
+                                    - Endpoint.Address
+                            DatabasePort:
+                                Fn::GetAtt:
+                                    - TournamentsDatabase
+                                    - Endpoint.Port
     LoadBalancer:
         Type: AWS::ElasticLoadBalancingV2::LoadBalancer
         Properties:
@@ -221,10 +277,10 @@ Resources:
     WebServerTargetGroup:
         Type: AWS::ElasticLoadBalancingV2::TargetGroup
         Properties:
-            Name: uwr-tournaments-server-target-group
+            Name: uwr-tournaments-webserver-tg
             IpAddressType: ipv4
             Port: '8000'
-            Protocol: HTTPS
+            Protocol: HTTP
             TargetType: instance
             VpcId:
                 Ref: ApplicationVpc
@@ -276,3 +332,15 @@ Outputs:
             Fn::GetAtt:
                 - LoadBalancer
                 - DNSName
+    WebserverIp:
+        Description: The IP address on which the web server can be reached.
+        Value:
+            Fn::GetAtt:
+                - WebServerInstance
+                - PublicIp
+    DatabaseDns:
+        Description: DNS on which the database can be reached
+        Value:
+            Fn::GetAtt:
+                - TournamentsDatabase
+                - Endpoint.Address
