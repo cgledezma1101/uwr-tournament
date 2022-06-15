@@ -222,9 +222,9 @@ Resources:
                 Fn::Base64:
                     Fn::Sub:
                         - |
-                            !#/bin/bash
+                            #!/bin/bash
                             sudo apt-get update
-                            sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+                            sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev postgresql postgresql-contrib libpq-dev
                             git clone https://github.com/rbenv/rbenv.git .rbenv
                             echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
                             echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
@@ -233,15 +233,13 @@ Resources:
                             source ~/.bashrc
                             rbenv install -v 2.7.0
                             rbenv global 2.7.0
-                            echo “gem: --no-document” > ~/.gemrc
+                            echo 'gem: --no-document' > ~/.gemrc
                             gem install rails -v 6.0
                             rbenv rehash
                             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
                             . ~/.nvm/nvm.sh
                             nvm install 16
-                            sudo apt-get update
-                            sudo apt-get --assume-yes install postgresql postgresql-contrib libpq-dev
-                            https://github.com/cgledezma1101/uwr-tournament.git
+                            git clone https://github.com/cgledezma1101/uwr-tournament.git uwr-tournament
                             cd uwr-tournament/
                             bundle install
 
