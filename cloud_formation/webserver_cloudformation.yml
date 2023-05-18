@@ -60,6 +60,13 @@ Resources:
                 Ref: SubnetAccessRouteTable
             SubnetId:
                 Ref: Subnet0
+    Subnet1RouteAssociation:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId:
+                Ref: SubnetAccessRouteTable
+            SubnetId:
+                Ref: Subnet1
     DatabaseSubnetGroup:
         Type: AWS::RDS::DBSubnetGroup
         Properties:
