@@ -60,13 +60,6 @@ Resources:
                 Ref: SubnetAccessRouteTable
             SubnetId:
                 Ref: Subnet0
-    Subnet1RouteAssociation:
-        Type: AWS::EC2::SubnetRouteTableAssociation
-        Properties:
-            RouteTableId:
-                Ref: SubnetAccessRouteTable
-            SubnetId:
-                Ref: Subnet1
     DatabaseSubnetGroup:
         Type: AWS::RDS::DBSubnetGroup
         Properties:
@@ -193,7 +186,7 @@ Resources:
             DBInstanceClass: db.t3.micro
             DBInstanceIdentifier: uwr-tournaments-db
             Engine: postgres
-            EngineVersion: '14.2'
+            EngineVersion: '14.3'
             Port: '5432'
             DBSubnetGroupName:
                 Ref: DatabaseSubnetGroup
@@ -225,48 +218,48 @@ Resources:
                         - Ref: WebServerSecurityGroup
                     SubnetId:
                         Ref: Subnet0
-            UserData:
-                Fn::Base64:
-                    Fn::Sub:
-                        - |
-                            #!/bin/bash
-                            sudo apt-get update
-                            sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev postgresql postgresql-contrib libpq-dev
-                            git clone https://github.com/rbenv/rbenv.git .rbenv
-                            echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
-                            echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
-                            git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-                            echo 'export PATH=$HOME/.rbenv/plugins/ruby-build/bin:$PATH' >> ~/.bashrc
-                            source ~/.bashrc
-                            rbenv install -v 2.7.0
-                            rbenv global 2.7.0
-                            echo 'gem: --no-document' > ~/.gemrc
-                            gem install rails -v 6.0
-                            rbenv rehash
-                            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-                            . ~/.nvm/nvm.sh
-                            nvm install 16
-                            git clone https://github.com/cgledezma1101/uwr-tournament.git uwr-tournament
-                            cd uwr-tournament/
-                            bundle install
+            # UserData:
+            #     Fn::Base64:
+            #         Fn::Sub:
+            #             - |
+            #                 #!/bin/bash
+            #                 sudo apt-get update
+            #                 sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev postgresql postgresql-contrib libpq-dev
+            #                 git clone https://github.com/rbenv/rbenv.git .rbenv
+            #                 echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
+            #                 echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
+            #                 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+            #                 echo 'export PATH=$HOME/.rbenv/plugins/ruby-build/bin:$PATH' >> ~/.bashrc
+            #                 source ~/.bashrc
+            #                 rbenv install -v 2.7.0
+            #                 rbenv global 2.7.0
+            #                 echo 'gem: --no-document' > ~/.gemrc
+            #                 gem install rails -v 6.0
+            #                 rbenv rehash
+            #                 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+            #                 . ~/.nvm/nvm.sh
+            #                 nvm install 16
+            #                 git clone https://github.com/cgledezma1101/uwr-tournament.git uwr-tournament
+            #                 cd uwr-tournament/
+            #                 bundle install
 
-                            DATABASE_NAME=uwr_tournament \
-                            DATABASE_USER=uwr_tournament \
-                            DATABASE_PASSWORD=${DatabasePassword} \
-                            DATABASE_HOST=${DatabaseHost} \
-                            DATABASE_PORT=${DatabasePort} \
-                            SENDGRID_USERNAME=cgledezma1101@gmail.com \
-                            SENDGRID_PASSWORD=${SendgridPassword} \
-                            rails server -e production -p 8000 -d
-                        -
-                            DatabaseHost:
-                                Fn::GetAtt:
-                                    - TournamentsDatabase
-                                    - Endpoint.Address
-                            DatabasePort:
-                                Fn::GetAtt:
-                                    - TournamentsDatabase
-                                    - Endpoint.Port
+            #                 DATABASE_NAME=uwr_tournament \
+            #                 DATABASE_USER=uwr_tournament \
+            #                 DATABASE_PASSWORD=${DatabasePassword} \
+            #                 DATABASE_HOST=${DatabaseHost} \
+            #                 DATABASE_PORT=${DatabasePort} \
+            #                 SENDGRID_USERNAME=cgledezma1101@gmail.com \
+            #                 SENDGRID_PASSWORD=${SendgridPassword} \
+            #                 rails server -e production -p 8000 -d
+            #             -
+            #                 DatabaseHost:
+            #                     Fn::GetAtt:
+            #                         - TournamentsDatabase
+            #                         - Endpoint.Address
+            #                 DatabasePort:
+            #                     Fn::GetAtt:
+            #                         - TournamentsDatabase
+            #                         - Endpoint.Port
     LoadBalancer:
         Type: AWS::ElasticLoadBalancingV2::LoadBalancer
         Properties:
