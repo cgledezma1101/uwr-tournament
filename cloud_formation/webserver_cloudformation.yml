@@ -186,7 +186,7 @@ Resources:
             DBInstanceClass: db.t3.micro
             DBInstanceIdentifier: uwr-tournaments-db
             Engine: postgres
-            EngineVersion: '14.3'
+            EngineVersion: '14.7'
             Port: '5432'
             DBSubnetGroupName:
                 Ref: DatabaseSubnetGroup

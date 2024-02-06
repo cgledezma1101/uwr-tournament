@@ -17,8 +17,8 @@ echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 echo 'export PATH=$HOME/.rbenv/plugins/ruby-build/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-rbenv install -v 2.7.0
-rbenv global 2.7.0
+rbenv install -v 2.7.8
+rbenv global 2.7.8
 echo 'gem: --no-document' > ~/.gemrc
 gem install rails -v 6.0
 rbenv rehash
