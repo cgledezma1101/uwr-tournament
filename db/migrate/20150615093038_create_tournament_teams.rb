@@ -1,4 +1,4 @@
-class CreateTournamentTeams < ActiveRecord::Migration
+class CreateTournamentTeams < ActiveRecord::Migration[6.0]
 	def change
 		create_table :tournament_teams do |t|
 			t.integer :tournament_id

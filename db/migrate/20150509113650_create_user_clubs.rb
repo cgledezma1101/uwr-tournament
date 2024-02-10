@@ -1,4 +1,4 @@
-class CreateUserClubs < ActiveRecord::Migration
+class CreateUserClubs < ActiveRecord::Migration[6.0]
 	def change
 		create_table :user_clubs do |t|
 			t.integer :user_id

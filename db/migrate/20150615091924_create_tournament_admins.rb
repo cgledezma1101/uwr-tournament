@@ -1,4 +1,4 @@
-class CreateTournamentAdmins < ActiveRecord::Migration
+class CreateTournamentAdmins < ActiveRecord::Migration[6.0]
 	def change
 		create_table :tournament_admins do |t|
 			t.integer :user_id

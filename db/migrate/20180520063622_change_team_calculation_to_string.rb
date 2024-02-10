@@ -1,4 +1,4 @@
-class ChangeTeamCalculationToString < ActiveRecord::Migration
+class ChangeTeamCalculationToString < ActiveRecord::Migration[6.0]
   def change
     remove_column :games, :blue_team_calculation, :integer
     remove_column :games, :white_team_calculation, :integer

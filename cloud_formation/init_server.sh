@@ -31,9 +31,9 @@ bundle install
 
 DATABASE_NAME=uwr_tournament \
 DATABASE_USER=uwr_tournament \
-DATABASE_PASSWORD=$1 \
-DATABASE_HOST=$2 \
-DATABASE_PORT=$3 \
+DATABASE_PASSWORD=Alberto1101 \
+DATABASE_HOST=uwr-tournaments-db.chdty7r6aebs.us-east-1.rds.amazonaws.com \
+DATABASE_PORT=5432 \
 SENDGRID_USERNAME=cgledezma1101@gmail.com \
-SENDGRID_PASSWORD=$4 \
+SENDGRID_PASSWORD=Alberto1101 \
 rails server -e production -p 8000 -d

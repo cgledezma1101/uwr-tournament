@@ -1,4 +1,4 @@
-class CreateClubJoinRequests < ActiveRecord::Migration
+class CreateClubJoinRequests < ActiveRecord::Migration[6.0]
 	def change
 		create_table :club_join_requests do |t|
 			t.integer :user_id

@@ -1,0 +1,34 @@
+services:
+  server:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./
+        target: /uwr-tournaments
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    container_name: tournaments-database
+    image: postgres:14.10
+    restart: always
+    environment:
+      PGUSER: uwr-tournament
+      POSTGRES_USER: uwr-tournament
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: uwr-tournament
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    volumes:
+      - type: volume
+        source: postgres_data
+        target: /var/lib/postgresql/data
+volumes:
+  postgres_data:
+
