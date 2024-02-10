@@ -27,7 +27,7 @@ ENV DATABASE_PASSWORD=admin
 ENV DATABASE_HOST=tournaments-database
 ENV DATABASE_PORT=5432
 ENV SENDGRID_USERNAME=cgledezma1101@gmail.com
-ENV SENDGRID_PASSWORD=Alberto1101
+ENV SENDGRID_PASSWORD=foo
 
 CMD rails db:schema:load;bundle exec puma --bind tcp://0.0.0.0:8080 --environment development
 EXPOSE 8080
