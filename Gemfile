@@ -46,15 +46,9 @@ gem 'js_cookie_rails'
 
 # Web server
 gem 'puma'
-
-group :production do
-    gem 'pg', '~> 1.0'
-end
+gem 'pg', '~> 1.0'
 
 group :development do
-    # Use sqlite3 as the database for Active Record
-    gem 'sqlite3', '~> 1.4'
-
     # Enjoyable debugging
     gem 'pry'
 
