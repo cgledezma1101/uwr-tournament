@@ -1,4 +1,4 @@
-FROM ruby:2.7.8
+FROM ruby:2.7.8 as base
 
 # The Ruby package does not ship with a NodeJS runtime, which we require in Rails. So we install Node here.
 # We install NodeJS using an NPM package called n (https://github.com/tj/n)
@@ -20,14 +20,31 @@ WORKDIR /uwr-tournaments
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-# This is the environment required for the server to run
+FROM base as development
+
 ENV DATABASE_NAME=uwr-tournament
 ENV DATABASE_USER=uwr-tournament
 ENV DATABASE_PASSWORD=admin
 ENV DATABASE_HOST=tournaments-database
 ENV DATABASE_PORT=5432
-ENV SENDGRID_USERNAME=cgledezma1101@gmail.com
-ENV SENDGRID_PASSWORD=foo
 
 CMD rails db:schema:load;bundle exec puma --bind tcp://0.0.0.0:8080 --environment development
+EXPOSE 8080
+
+FROM base as production
+# You can get the host from CloudFormation with:
+# aws cloudformation describe-stacks --stack-name uwr-tournaments | jq --raw-output '.Stacks[0].Outputs.[] | select( .OutputKey | contains("DatabaseDns") ) | .OutputValue'
+ARG databaseHost
+ARG databasePassword
+ARG sendgridPassword
+
+ENV DATABASE_NAME=uwr-tournament
+ENV DATABASE_USER=uwr-tournament
+ENV DATABASE_PASSWORD=${databasePassword}
+ENV DATABASE_HOST=${databaseHost}
+ENV DATABASE_PORT=5432
+ENV SENDGRID_USERNAME=cgledezma1101@gmail.com
+ENV SENDGRID_PASSWORD=${sendgridPassword}
+
+CMD bundle exec puma --bind tcp://0.0.0.0:8080 --environment production
 EXPOSE 8080
