@@ -15,7 +15,7 @@ class PlayersController < ApplicationController
 		clubs_members = @team.club_members
 		@available_players = (clubs_members - current_players).sort{ |user0, user1| user0.name <=> user1.name }
 
-		render 'players/_new.html.haml', layout: false
+		render 'players/_new', layout: false
 	end
 
 	# POST /players

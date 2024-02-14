@@ -48,7 +48,7 @@ class GamesController < ApplicationController
 	#
 	# @param [Integer] id Identifier of the game to end
 	def end
-		render 'games/_end_game.html.haml', layout: false
+		render 'games/_end_game', layout: false
 	end
 
 	# GET /games/external_scoreboard

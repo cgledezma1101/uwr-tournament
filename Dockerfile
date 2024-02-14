@@ -1,9 +1,11 @@
-FROM ruby:2.7.8 as base
+FROM ruby:3.3.0 as base
+
+# We first install packages that are required to run Rails and its dependencies
+RUN apt-get update
+RUN apt-get install -y software-properties-common npm make automake gcc
 
 # The Ruby package does not ship with a NodeJS runtime, which we require in Rails. So we install Node here.
 # We install NodeJS using an NPM package called n (https://github.com/tj/n)
-RUN apt-get update
-RUN apt-get install -y software-properties-common npm
 RUN npm install -g n
 RUN n 18
 
@@ -12,8 +14,8 @@ RUN n 18
 RUN bundle config --global frozen 1
 
 # Install Rails and its dependencies
-RUN gem install nokogiri -v 1.15.5
-RUN gem install rails -v 6.1
+RUN gem install nokogiri -v 1.16.2
+RUN gem install rails -v 7.1
 
 # Configure and install the project's dependencies
 WORKDIR /uwr-tournaments

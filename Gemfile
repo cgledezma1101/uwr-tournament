@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.7.0'
+ruby '~> 3.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
-gem 'bundler', '~> 2.0'
+gem 'rails', '~> 7.1'
+gem 'bundler', '~> 2.5.6'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
@@ -15,11 +15,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 5.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '~> 0.12.2', platforms: :ruby
+gem 'mini_racer', '~> 0.8.0', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

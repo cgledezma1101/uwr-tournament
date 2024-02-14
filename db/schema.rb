@@ -10,43 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_14_083043) do
-
+ActiveRecord::Schema[7.1].define(version: 2024_02_14_085441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "club_admins", force: :cascade do |t|
     t.integer "user_id"
     t.integer "club_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "club_join_requests", force: :cascade do |t|
     t.integer "user_id"
     t.integer "club_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "game_events", force: :cascade do |t|
     t.string "text"
     t.integer "game_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
     t.integer "blue_team_id"
     t.integer "white_team_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "winning_color"
     t.integer "stage_id"
     t.string "status"
@@ -59,8 +58,8 @@ ActiveRecord::Schema.define(version: 2024_02_14_083043) do
     t.integer "club_id"
     t.integer "user_id"
     t.boolean "is_admin"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "player_games", force: :cascade do |t|
@@ -80,15 +79,15 @@ ActiveRecord::Schema.define(version: 2024_02_14_083043) do
   create_table "scores", force: :cascade do |t|
     t.integer "player_id"
     t.integer "game_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stages", force: :cascade do |t|
     t.integer "tournament_id"
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -100,22 +99,22 @@ ActiveRecord::Schema.define(version: 2024_02_14_083043) do
   create_table "tournament_admins", force: :cascade do |t|
     t.integer "user_id"
     t.integer "tournament_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tournament_invitations", force: :cascade do |t|
     t.integer "club_id"
     t.integer "tournament_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tournament_teams", force: :cascade do |t|
     t.integer "tournament_id"
     t.integer "team_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "password"
   end
 
@@ -123,15 +122,15 @@ ActiveRecord::Schema.define(version: 2024_02_14_083043) do
     t.string "name"
     t.date "start_date"
     t.date "end_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_clubs", force: :cascade do |t|
     t.integer "user_id"
     t.integer "club_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -145,8 +144,8 @@ ActiveRecord::Schema.define(version: 2024_02_14_083043) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name"
     t.string "provider"
     t.string "uid"
