@@ -13,7 +13,7 @@ RUN bundle config --global frozen 1
 
 # Install Rails and its dependencies
 RUN gem install nokogiri -v 1.15.5
-RUN gem install rails -v 6.0
+RUN gem install rails -v 6.1
 
 # Configure and install the project's dependencies
 WORKDIR /uwr-tournaments
