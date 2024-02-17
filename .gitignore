@@ -28,3 +28,4 @@ config/secrets.yml
 
 node_modules/
 app/assets/builds/
+app/javascript/dist/

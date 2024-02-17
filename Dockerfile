@@ -30,7 +30,7 @@ ENV DATABASE_PASSWORD=admin
 ENV DATABASE_HOST=tournaments-database
 ENV DATABASE_PORT=5432
 
-CMD rails db:schema:load;bundle exec puma --bind tcp://0.0.0.0:8080 --environment development
+CMD rails db:setup;bundle exec puma --bind tcp://0.0.0.0:8080 --environment development
 EXPOSE 8080
 
 FROM base as production

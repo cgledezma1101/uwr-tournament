@@ -12,6 +12,14 @@ services:
     depends_on:
       database:
         condition: service_healthy
+  webpack-watch:
+    build:
+      context: .
+      dockerfile: Dockerfile_webpack
+    volumes:
+      - type: bind
+        source: ./
+        target: /uwr-tournaments
   database:
     container_name: tournaments-database
     image: postgres:14.10
