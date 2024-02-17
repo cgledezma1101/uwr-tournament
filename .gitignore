@@ -25,3 +25,6 @@ config/secrets.yml
 
 # VIm's swap files
 *.sw*
+
+node_modules/
+app/assets/builds/

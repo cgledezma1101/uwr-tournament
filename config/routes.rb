@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get '/statistics', to: 'public#statistics'
 
+  get '/v2', to: 'public#single_page_app'
+
   resources :club_admins, only: [:new, :create, :destroy] do
     member do
       get 'confirm_destroy'
