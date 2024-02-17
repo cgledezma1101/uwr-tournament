@@ -27,5 +27,24 @@ This will start three containers:
 1. A `puma` development server that will initialise the database when launched, and watch for changes.
 1. A Webpack build that will watch for changes on the [app/javascript](./app/javascript) folder.
 
+Both the web server and the webpack listener have a bind mount to the folder containing the repository, so any changes
+on the repository will be captured by both containers.
+
 The web server will listen on the container's port 8080, and Docker compose will map it to the host's port 8080. The
 web server will also seed the database, if it's empty, using the [seeds.rb file](./db/seeds.rb)
+
+Once the containers are up, you can run most Rails and NPM related commands from within the container that is running
+the web server. You just need to connect a bash terminal to it using:
+
+```bash
+docker exec -it uwr-tournament-server-1 '/bin/bash'
+```
+
+then use that terminal to run commands such as:
+
+```bash
+rails db:migrate
+
+# This should be done from within the app/javascript directory
+npm install --save-dev <package>
+```
