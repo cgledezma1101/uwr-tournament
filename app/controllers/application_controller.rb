@@ -11,8 +11,9 @@ class ApplicationController < ActionController::Base
     end
 
     def stringify_errors(model_errors, model_name)
-        grouped_errors = model_errors.keys.map do |error_property|
-            joined_errors = model_errors[error_property].join(',')
+        hash_errors = model_errors.to_hash
+        grouped_errors = hash_errors.keys.map do |error_property|
+            joined_errors = hash_errors[error_property].join(',')
             translated_property = I18n.t(model_name + '.' + error_property.to_s)
             return "#{translated_property}: #{joined_errors}"
         end
