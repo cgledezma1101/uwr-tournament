@@ -50,3 +50,6 @@ ENV SENDGRID_PASSWORD=${sendgridPassword}
 
 CMD bundle exec puma --bind tcp://0.0.0.0:8080 --environment production
 EXPOSE 8080
+
+# Create missing folders required by Puma launcher
+RUN MKDIR tmp/pids
