@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-build": "npm run prebuild && npx webpack --config development.webpack.config.js",
-    "build": "npx webpack --config production.webpack.config.js",
-    "prebuild": "npm run prettier:fix && npx jest",
-    "prettier:fix": "npx prettier --write ."
+    "dev-build": "npm run prebuild && webpack --config development.webpack.config.js",
+    "build": "webpack --config production.webpack.config.js",
+    "prebuild": "npm run prettier:fix && jest --passWithNoTests",
+    "prettier:fix": "prettier --write ."
   },
   "keywords": [],
   "author": "",

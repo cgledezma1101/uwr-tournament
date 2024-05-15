@@ -202,8 +202,8 @@ Resources:
         DependsOn:
             - GatewayAttachment
         Properties:
-            ImageId: ami-04169656fea786776
-            InstanceType: t2.micro
+            ImageId: ami-04b70fa74e45c3917
+            InstanceType: t3.small
             KeyName:
                 Ref: WebServerAccessKey
             AvailabilityZone:
