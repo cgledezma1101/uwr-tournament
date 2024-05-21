@@ -37,7 +37,7 @@ class ClubsController < ApplicationController
 	# @param [Integer] id Identifier of the club to be edited
 	# @param [String] club[name] New name for the club
 	def update
-		if @club.update_attributes(update_params)
+		if @club.update(update_params)
 			redirect_params = { notice: t('club.update_successful') }
 		else
 			redirect_params = { alert: t('club.update_failure') }

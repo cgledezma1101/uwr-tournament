@@ -35,7 +35,7 @@ screen
 
 DATABASE_NAME=uwr_tournament \
 DATABASE_USER=uwr_tournament \
-DATABASE_PASSWORD= \
+DATABASE_PASSWORD=Alberto1101 \
 DATABASE_HOST=uwr-tournaments-db.chdty7r6aebs.us-east-1.rds.amazonaws.com \
 DATABASE_PORT=5432 \
 SENDGRID_USERNAME=cgledezma1101@gmail.com \

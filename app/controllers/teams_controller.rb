@@ -77,7 +77,7 @@ class TeamsController < ApplicationController
 	# @param [Integer] id Identifier of the team to be updated
 	# @param [String] team[name] New name to give to the team
 	def update
-		if(@team.update_attributes(update_params))
+		if(@team.update(update_params))
 			redirect_params = { notice: t('team.update_success') }
 		else
 			redirect_params = { alert: "#{t('team.update_failure')}: #{stringify_errors(@team.errors, 'team')}" }
