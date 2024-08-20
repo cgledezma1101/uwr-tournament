@@ -2,15 +2,6 @@ Parameters:
     TournamentsSnapshotArn:
         Description: ARN of the latest snapshot of the tournaments database
         Type: String
-    DatabasePassword:
-        Description: The password to use to authenticate with the uwr_tournament database
-        Type: String
-    SendgridPassword:
-        Description: The password to use to authenticate with Sendgrid
-        Type: String
-    AlbCertificateArn:
-        Description: The ARN of the ACM certificate to use to sign HTTPS requests on the ALB
-        Type: String
 
 Resources:
     InternetGateway:
@@ -204,13 +195,49 @@ Resources:
         Properties:
             KeyName: tournaments-server-access-key
             KeyType: rsa
+    WebServerRole:
+        Type: AWS::IAM::Role
+        Properties:
+            RoleName: UWRTournamentsInstanceProfileRole
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    -
+                        Effect: Allow
+                        Principal:
+                            Service: ec2.amazonaws.com
+                        Action: sts:AssumeRole
+            Policies:
+                -
+                    PolicyName: WebServerInitialisation
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            -
+                                Effect: Allow
+                                Action: cloudformation:DescribeStacks
+                                Resource: '*'
+                            -
+                                Effect: Allow
+                                Action: ssm:GetParameter
+                                Resource:
+                                    - arn:aws:ssm:us-east-1:472572568872:parameter/uwr-tournaments-db-password
+                                    - arn:aws:ssm:us-east-1:472572568872:parameter/uwr-tournaments-sendgrid-password
+    WebServerInstanceProfile:
+        Type: AWS::IAM::InstanceProfile
+        Properties:
+            InstanceProfileName: UWRTournamentsInstanceProfile
+            Roles:
+                - Ref: WebServerRole
     WebServerInstance:
         Type: AWS::EC2::Instance
         DependsOn:
             - GatewayAttachment
         Properties:
-            ImageId: ami-04b70fa74e45c3917
+            ImageId: ami-066784287e358dad1
             InstanceType: t3.small
+            IamInstanceProfile:
+                Ref: WebServerInstanceProfile
             KeyName:
                 Ref: WebServerAccessKey
             AvailabilityZone:
@@ -225,48 +252,34 @@ Resources:
                         - Ref: WebServerSecurityGroup
                     SubnetId:
                         Ref: Subnet0
-            # UserData:
-            #     Fn::Base64:
-            #         Fn::Sub:
-            #             - |
-            #                 #!/bin/bash
-            #                 sudo apt-get update
-            #                 sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev postgresql postgresql-contrib libpq-dev
-            #                 git clone https://github.com/rbenv/rbenv.git .rbenv
-            #                 echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
-            #                 echo 'eval "$(rbenv init - bash)"' >> ~/.bashrc
-            #                 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-            #                 echo 'export PATH=$HOME/.rbenv/plugins/ruby-build/bin:$PATH' >> ~/.bashrc
-            #                 source ~/.bashrc
-            #                 rbenv install -v 2.7.0
-            #                 rbenv global 2.7.0
-            #                 echo 'gem: --no-document' > ~/.gemrc
-            #                 gem install rails -v 6.0
-            #                 rbenv rehash
-            #                 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-            #                 . ~/.nvm/nvm.sh
-            #                 nvm install 16
-            #                 git clone https://github.com/cgledezma1101/uwr-tournament.git uwr-tournament
-            #                 cd uwr-tournament/
-            #                 bundle install
+            UserData:
+                Fn::Base64:
+                    Fn::Sub:
+                        - |
+                            #!/bin/bash
+                            sudo yum update --assumeyes
+                            sudo yum install docker git --assumeyes
+                            sudo service docker start
+                            sudo usermod -a -G docker ec2-user
+                            pushd /home/ec2-user
+                            git clone https://github.com/cgledezma1101/uwr-tournament.git
+                            pushd uwr-tournament
+                            docker buildx build \
+                                --target production \
+                                --build-arg databaseHost=${DatabaseHost} \
+                                --build-arg databasePort=${DatabasePort} \
+                                --build-arg databasePassword=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-db-password | jq --raw-output '.Parameter.Value'` \
+                                --build-arg sendgridPassword=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-sendgrid-password | jq --raw-output '.Parameter.Value'` \
+                                .
+                        - DatabaseHost:
+                            Fn::GetAtt:
+                                - TournamentsDatabase
+                                - Endpoint.Address
+                        - DatabasePort:
+                            Fn::GetAtt:
+                                - TournamentsDatabase
+                                - Endpoint.Port
 
-            #                 DATABASE_NAME=uwr_tournament \
-            #                 DATABASE_USER=uwr_tournament \
-            #                 DATABASE_PASSWORD=${DatabasePassword} \
-            #                 DATABASE_HOST=${DatabaseHost} \
-            #                 DATABASE_PORT=${DatabasePort} \
-            #                 SENDGRID_USERNAME=cgledezma1101@gmail.com \
-            #                 SENDGRID_PASSWORD=${SendgridPassword} \
-            #                 rails server -e production -p 8000 -d
-            #             -
-            #                 DatabaseHost:
-            #                     Fn::GetAtt:
-            #                         - TournamentsDatabase
-            #                         - Endpoint.Address
-            #                 DatabasePort:
-            #                     Fn::GetAtt:
-            #                         - TournamentsDatabase
-            #                         - Endpoint.Port
     LoadBalancer:
         Type: AWS::ElasticLoadBalancingV2::LoadBalancer
         Properties:
@@ -308,9 +321,7 @@ Resources:
                     TargetGroupArn:
                         Ref: WebServerTargetGroup
             Certificates:
-                -
-                    CertificateArn:
-                        Ref: AlbCertificateArn
+                - CertificateArn: arn:aws:acm:us-east-1:472572568872:certificate/640587ae-a097-494f-965e-4719e4003232
     HTTPRedirectListener:
         Type: AWS::ElasticLoadBalancingV2::Listener
         Properties:
