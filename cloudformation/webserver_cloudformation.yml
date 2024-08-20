@@ -184,7 +184,7 @@ Resources:
             DBInstanceClass: db.t3.micro
             DBInstanceIdentifier: uwr-tournaments-db
             Engine: postgres
-            EngineVersion: '14.7'
+            EngineVersion: '14.10'
             Port: '5432'
             DBSubnetGroupName:
                 Ref: DatabaseSubnetGroup
@@ -264,21 +264,25 @@ Resources:
                             pushd /home/ec2-user
                             git clone https://github.com/cgledezma1101/uwr-tournament.git
                             pushd uwr-tournament
+                            DB_PASSWORD=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-db-password | jq --raw-output '.Parameter.Value'`
+                            SENDGRID_PASSWORD=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-sendgrid-password | jq --raw-output '.Parameter.Value'`
                             docker buildx build \
+                                --tag uwr-tournaments-prod:latest \
                                 --target production \
                                 --build-arg databaseHost=${DatabaseHost} \
                                 --build-arg databasePort=${DatabasePort} \
-                                --build-arg databasePassword=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-db-password | jq --raw-output '.Parameter.Value'` \
-                                --build-arg sendgridPassword=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-sendgrid-password | jq --raw-output '.Parameter.Value'` \
+                                --build-arg databasePassword=$DB_PASSWORD \
+                                --build-arg sendgridPassword=$SENDGRID_PASSWORD \
                                 .
-                        - DatabaseHost:
-                            Fn::GetAtt:
-                                - TournamentsDatabase
-                                - Endpoint.Address
-                        - DatabasePort:
-                            Fn::GetAtt:
-                                - TournamentsDatabase
-                                - Endpoint.Port
+                        -
+                            DatabaseHost:
+                                Fn::GetAtt:
+                                    - TournamentsDatabase
+                                    - Endpoint.Address
+                            DatabasePort:
+                                Fn::GetAtt:
+                                    - TournamentsDatabase
+                                    - Endpoint.Port
 
     LoadBalancer:
         Type: AWS::ElasticLoadBalancingV2::LoadBalancer
