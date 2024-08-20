@@ -1,0 +1,7 @@
+node_modules
+app/assets/builds/
+Dockerfile*
+docker-compose.yml
+cloudformation/
+README.md
+TODO.txt

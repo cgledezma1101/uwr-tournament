@@ -21,8 +21,13 @@ WORKDIR /uwr-tournaments
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+WORKDIR /uwr-tournaments/app/javascript/
+COPY app/javascript/package.json app/javascript/package-lock.json ./
+RUN npm install --force
+
 FROM base as development
 
+WORKDIR /uwr-tournaments
 ENV DATABASE_NAME=uwr-tournament
 ENV DATABASE_USER=uwr-tournament
 ENV DATABASE_PASSWORD=admin
@@ -34,6 +39,13 @@ CMD ["rails db:setup;", \
 EXPOSE 8080
 
 FROM base as production
+WORKDIR /uwr-tournaments
+COPY . ./
+
+WORKDIR /uwr-tournaments/app/javascript
+RUN npm run build
+
+WORKDIR /uwr-tournaments
 # You can get the host from CloudFormation with:
 # aws cloudformation describe-stacks --stack-name uwr-tournaments | jq --raw-output '.Stacks[0].Outputs.[] | select( .OutputKey | contains("DatabaseDns") ) | .OutputValue'
 ARG databaseHost
