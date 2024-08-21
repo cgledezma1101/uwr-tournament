@@ -16,6 +16,10 @@ RUN bundle config --global frozen 1
 RUN gem install nokogiri -v 1.16.2
 RUN gem install rails -v 7.1
 
+# Create the PID file that Puma needs to run
+WORKDIR /uwr-tournaments/tmp/pids
+RUN touch server.pid
+
 # Configure and install the project's dependencies
 WORKDIR /uwr-tournaments
 COPY Gemfile Gemfile.lock ./
@@ -34,8 +38,7 @@ ENV DATABASE_PASSWORD=admin
 ENV DATABASE_HOST=tournaments-database
 ENV DATABASE_PORT=5432
 
-CMD ["rails db:setup;", \
-    "bundle exec puma --bind tcp://0.0.0.0:8080 --environment development"]
+CMD rails db:setup;bundle exec puma --bind tcp://0.0.0.0:8080 --environment development
 EXPOSE 8080
 
 FROM base as production
@@ -61,5 +64,5 @@ ENV DATABASE_PORT=${databasePort}
 ENV SENDGRID_USERNAME=cgledezma1101@gmail.com
 ENV SENDGRID_PASSWORD=${sendgridPassword}
 
-CMD ["bundle exec puma --bind tcp://0.0.0.0:8080 --environment production"]
+CMD bundle exec puma --bind tcp://0.0.0.0:8080 --environment production
 EXPOSE 8080

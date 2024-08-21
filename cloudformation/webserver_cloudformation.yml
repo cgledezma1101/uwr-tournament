@@ -257,23 +257,26 @@ Resources:
                     Fn::Sub:
                         - |
                             #!/bin/bash
-                            sudo yum update --assumeyes
-                            sudo yum install docker git --assumeyes
-                            sudo service docker start
-                            sudo usermod -a -G docker ec2-user
+                            yum update --assumeyes
+                            yum install docker git --assumeyes
+                            service docker start
+                            usermod -a -G docker ec2-user
                             pushd /home/ec2-user
                             git clone https://github.com/cgledezma1101/uwr-tournament.git
+                            chown --recursive ec2-user uwr-tournament
                             pushd uwr-tournament
-                            DB_PASSWORD=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-db-password | jq --raw-output '.Parameter.Value'`
-                            SENDGRID_PASSWORD=`aws ssm get-parameter --region us-east-1 --name uwr-tournaments-sendgrid-password | jq --raw-output '.Parameter.Value'`
+                            DB_PASSWORD=$(aws ssm get-parameter --region us-east-1 --name uwr-tournaments-db-password | jq --raw-output '.Parameter.Value')
+                            SENDGRID_PASSWORD=$(aws ssm get-parameter --region us-east-1 --name uwr-tournaments-sendgrid-password | jq --raw-output '.Parameter.Value')
+                            IMAGE_TAG=uwr-tournaments-prod:latest
                             docker buildx build \
-                                --tag uwr-tournaments-prod:latest \
+                                --tag $IMAGE_TAG \
                                 --target production \
                                 --build-arg databaseHost=${DatabaseHost} \
                                 --build-arg databasePort=${DatabasePort} \
-                                --build-arg databasePassword=$DB_PASSWORD \
-                                --build-arg sendgridPassword=$SENDGRID_PASSWORD \
+                                --build-arg databasePassword="$DB_PASSWORD" \
+                                --build-arg sendgridPassword="$SENDGRID_PASSWORD" \
                                 .
+                            docker run -p 0.0.0.0:8000:8080 --detach $IMAGE_TAG
                         -
                             DatabaseHost:
                                 Fn::GetAtt:
