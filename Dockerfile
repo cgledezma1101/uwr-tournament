@@ -56,8 +56,8 @@ ARG databasePort
 ARG databasePassword
 ARG sendgridPassword
 
-ENV DATABASE_NAME=uwr-tournament
-ENV DATABASE_USER=uwr-tournament
+ENV DATABASE_NAME=uwr_tournament
+ENV DATABASE_USER=uwr_tournament
 ENV DATABASE_PASSWORD=${databasePassword}
 ENV DATABASE_HOST=${databaseHost}
 ENV DATABASE_PORT=${databasePort}
