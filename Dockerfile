@@ -1,4 +1,4 @@
-FROM ruby:3.3.0 as base
+FROM ruby:3.3.0 AS base
 
 # We first install packages that are required to run Rails and its dependencies
 RUN apt-get update && apt-get install -y software-properties-common npm make automake gcc
@@ -29,7 +29,7 @@ WORKDIR /uwr-tournaments/app/javascript/
 COPY app/javascript/package.json app/javascript/package-lock.json ./
 RUN npm install --force
 
-FROM base as development
+FROM base AS development
 
 WORKDIR /uwr-tournaments
 ENV DATABASE_NAME=uwr-tournament
@@ -41,16 +41,18 @@ ENV DATABASE_PORT=5432
 CMD rails db:setup;bundle exec puma --bind tcp://0.0.0.0:8080 --environment development
 EXPOSE 8080
 
-FROM base as production
-WORKDIR /uwr-tournaments
-COPY . ./
-
+FROM base AS production
 WORKDIR /uwr-tournaments/app/javascript
+COPY /app/javascript ./
 RUN npm run build
 
 WORKDIR /uwr-tournaments
-# You can get the host from CloudFormation with:
-# aws cloudformation describe-stacks --stack-name uwr-tournaments | jq --raw-output '.Stacks[0].Outputs.[] | select( .OutputKey | contains("DatabaseDns") ) | .OutputValue'
+COPY . ./
+
+# This step wil be required until all of the UI is migrated to the webpack bundling. Even then, we may need to fix the
+# asset pipeline to use this command, instead of manually building like above
+RUN RAILS_ENV=production rails assets:precompile
+
 ARG databaseHost
 ARG databasePort
 ARG databasePassword

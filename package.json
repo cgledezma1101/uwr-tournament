@@ -1,0 +1,12 @@
+{
+    "name": "dummy-package",
+    "version": "1.0.0",
+    "description": "This package.json is temporary, and guarantees that assets:precompile succeeds. This will be used while we migrate the whole UI ot a Webpack-based model and the asset pipeline is no longer needed",
+    "scripts": {
+        "build": "echo 'this is required by the bundler'"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {}
+}
