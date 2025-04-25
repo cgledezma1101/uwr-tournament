@@ -9,12 +9,4 @@
 		= form_for @game, url: finalize_game_path(@game), method: :post do |f|
 			.form-horizontal
 				.form-group
-					= f.label :blue_team, t('game.end_password', team_name: @game.blue_team.name), class: 'col-sm-4 control-label'
-					.col-sm-6
-						= f.password_field :blue_password, autocomplete: "off", class: 'form-control'
-				.form-group
-					=f.label :white_team, t('game.end_password', team_name: @game.white_team.name), class: 'col-sm-4 control-label'
-					.col-sm-6
-						= f.password_field :white_password, autocomplete: "off", class: 'form-control'
-				.form-group
 					= render 'public/modal_form_buttons', form: f

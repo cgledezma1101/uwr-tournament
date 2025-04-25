@@ -13,7 +13,7 @@ class TournamentTeam < ApplicationRecord
     before_save :scramble_password
 
     def valid_password?(test)
-        scrambled_test = Digest::MD5.hexdigest(test)
+        scrambled_test = test.nil? ? nil : Digest::MD5.hexdigest(test)
         return scrambled_test == self.password
     end
 
