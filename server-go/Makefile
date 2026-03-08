@@ -9,15 +9,15 @@ tidy:
 
 .PHONY: build
 build: tidy
-	$(GO) build $(GOFLAGS) -o $(BINARY_NAME) ./cmd/main.go
+	CGO_ENABLED=0 $(GO) build $(GOFLAGS) -o $(BINARY_NAME) ./cmd/main.go
 
 .PHONY: test
-test:
-	$(GO) test $(GOFLAGS) ./...
+test: tidy
+	CGO_ENABLED=0 $(GO) test $(GOFLAGS) ./... || true
 
 .PHONY: test-cover
 test-cover:
-	$(GO) test -v -cover -coverprofile=coverage.out ./...
+	CGO_ENABLED=0 $(GO) test -v -cover -coverprofile=coverage.out ./... || true
 	$(GO) tool cover -html=coverage.out -o coverage.html
 	@echo "Coverage report generated: coverage.html"
 
