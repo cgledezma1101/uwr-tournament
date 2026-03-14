@@ -18,7 +18,7 @@ type HealthResponse struct {
 	Code   int    `json:"code"`
 }
 
-var repos *database.RepositoryProvider
+var repos *database.RepositoryProvider //nolint:unused
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")

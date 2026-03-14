@@ -13,11 +13,11 @@ build: tidy
 
 .PHONY: test
 test: tidy
-	CGO_ENABLED=0 $(GO) test $(GOFLAGS) ./... || true
+	$(GO) test $(GOFLAGS) ./...
 
 .PHONY: test-cover
 test-cover:
-	CGO_ENABLED=0 $(GO) test -v -cover -coverprofile=coverage.out ./... || true
+	$(GO) test -v -cover -coverprofile=coverage.out ./...
 	$(GO) tool cover -html=coverage.out -o coverage.html
 	@echo "Coverage report generated: coverage.html"
 

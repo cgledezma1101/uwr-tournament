@@ -3,15 +3,12 @@ package database
 import (
 	"testing"
 
-	"github.com/ing-bank/gormtestutil"
 	. "github.com/onsi/gomega"
 	"github.com/uwr-tournament/server-go/internal/models"
 )
 
 func TestClubRepository(t *testing.T) {
-	// Setup test database
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("club_test"), gormtestutil.WithoutForeignKeys())
-	repo := NewClubRepository(db)
+	repo := NewClubRepository(Db)
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -89,13 +86,9 @@ func TestClubRepository(t *testing.T) {
 func TestClubAdminRepository(t *testing.T) {
 	g := NewWithT(t)
 
-	// Setup test database
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("club_admin_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.User{}, &models.Club{}, &models.ClubAdmin{})
-
-	userRepo := NewUserRepository(db)
-	clubRepo := NewClubRepository(db)
-	adminRepo := NewClubAdminRepository(db)
+	userRepo := NewUserRepository(Db)
+	clubRepo := NewClubRepository(Db)
+	adminRepo := NewClubAdminRepository(Db)
 
 	user := &models.User{Email: "admin@example.com", Name: "Admin"}
 	club := &models.Club{Name: "Test Club"}
@@ -131,61 +124,36 @@ func TestClubAdminRepository(t *testing.T) {
 func TestClubJoinRequestRepository(t *testing.T) {
 	g := NewWithT(t)
 
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("join_request_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.User{}, &models.Club{}, &models.ClubJoinRequest{})
-
-	userRepo := NewUserRepository(db)
-	clubRepo := NewClubRepository(db)
-	requestRepo := NewClubJoinRequestRepository(db)
+	userRepo := NewUserRepository(Db)
+	clubRepo := NewClubRepository(Db)
+	requestRepo := NewClubJoinRequestRepository(Db)
 
 	user := &models.User{Email: "requester@example.com", Name: "Requester"}
 	club := &models.Club{Name: "Target Club"}
 	g.Expect(userRepo.Create(user)).To(Succeed())
 	g.Expect(clubRepo.Create(club)).To(Succeed())
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create, Get, Delete", func(t *testing.T) {
 		g := NewWithT(t)
 		request := &models.ClubJoinRequest{
 			UserID: user.ID,
 			ClubID: club.ID,
 		}
 
-		g.Expect(requestRepo.Create(request)).To(Succeed())
-		g.Expect(request.ID).NotTo(BeZero())
-	})
-
-	t.Run("GetByID", func(t *testing.T) {
-		g := NewWithT(t)
-		request := &models.ClubJoinRequest{
-			UserID: user.ID,
-			ClubID: club.ID,
-		}
 		g.Expect(requestRepo.Create(request)).To(Succeed())
 
 		retrieved, err := requestRepo.GetByID(request.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(retrieved).NotTo(BeNil())
 		g.Expect(retrieved.UserID).To(Equal(user.ID))
-	})
 
-	t.Run("GetByClubID", func(t *testing.T) {
-		g := NewWithT(t)
 		requests, err := requestRepo.GetByClubID(club.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(requests)).To(BeNumerically(">", 0))
-	})
-
-	t.Run("Delete", func(t *testing.T) {
-		g := NewWithT(t)
-		request := &models.ClubJoinRequest{
-			UserID: user.ID,
-			ClubID: club.ID,
-		}
-		g.Expect(requestRepo.Create(request)).To(Succeed())
 
 		g.Expect(requestRepo.Delete(request.ID)).To(Succeed())
 
-		retrieved, err := requestRepo.GetByID(request.ID)
+		retrieved, err = requestRepo.GetByID(request.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(retrieved).To(BeNil())
 	})
@@ -194,19 +162,16 @@ func TestClubJoinRequestRepository(t *testing.T) {
 func TestInvitationRepository(t *testing.T) {
 	g := NewWithT(t)
 
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("invitation_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.User{}, &models.Club{}, &models.Invitation{})
-
-	userRepo := NewUserRepository(db)
-	clubRepo := NewClubRepository(db)
-	inviteRepo := NewInvitationRepository(db)
+	userRepo := NewUserRepository(Db)
+	clubRepo := NewClubRepository(Db)
+	inviteRepo := NewInvitationRepository(Db)
 
 	user := &models.User{Email: "invited@example.com", Name: "Invited"}
 	club := &models.Club{Name: "Host Club"}
 	g.Expect(userRepo.Create(user)).To(Succeed())
 	g.Expect(clubRepo.Create(club)).To(Succeed())
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create, Get, Delete", func(t *testing.T) {
 		g := NewWithT(t)
 		isAdmin := true
 		invitation := &models.Invitation{
@@ -215,52 +180,24 @@ func TestInvitationRepository(t *testing.T) {
 			IsAdmin: &isAdmin,
 		}
 
-		g.Expect(inviteRepo.Create(invitation)).To(Succeed())
-	})
-
-	t.Run("GetByID", func(t *testing.T) {
-		g := NewWithT(t)
-		isAdmin := false
-		invitation := &models.Invitation{
-			UserID:  user.ID,
-			ClubID:  club.ID,
-			IsAdmin: &isAdmin,
-		}
 		g.Expect(inviteRepo.Create(invitation)).To(Succeed())
 
 		retrieved, err := inviteRepo.GetByID(invitation.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(retrieved).NotTo(BeNil())
-		g.Expect(*retrieved.IsAdmin).To(Equal(false))
-	})
+		g.Expect(*retrieved.IsAdmin).To(Equal(true))
 
-	t.Run("GetByUserID", func(t *testing.T) {
-		g := NewWithT(t)
 		invitations, err := inviteRepo.GetByUserID(user.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(invitations)).To(BeNumerically(">", 0))
-	})
 
-	t.Run("GetByClubID", func(t *testing.T) {
-		g := NewWithT(t)
-		invitations, err := inviteRepo.GetByClubID(club.ID)
+		invitations, err = inviteRepo.GetByClubID(club.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(invitations)).To(BeNumerically(">", 0))
-	})
-
-	t.Run("Delete", func(t *testing.T) {
-		g := NewWithT(t)
-		isAdmin := true
-		invitation := &models.Invitation{
-			UserID:  user.ID,
-			ClubID:  club.ID,
-			IsAdmin: &isAdmin,
-		}
-		g.Expect(inviteRepo.Create(invitation)).To(Succeed())
 
 		g.Expect(inviteRepo.Delete(invitation.ID)).To(Succeed())
 
-		retrieved, err := inviteRepo.GetByID(invitation.ID)
+		retrieved, err = inviteRepo.GetByID(invitation.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(retrieved).To(BeNil())
 	})

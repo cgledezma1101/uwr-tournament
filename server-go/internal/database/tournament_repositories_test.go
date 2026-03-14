@@ -4,16 +4,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ing-bank/gormtestutil"
 	. "github.com/onsi/gomega"
 	"github.com/uwr-tournament/server-go/internal/models"
 )
 
 func TestTournamentRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("tournament_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.Tournament{})
-
-	tournamentRepo := NewTournamentRepository(db)
+	tournamentRepo := NewTournamentRepository(Db)
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -86,18 +82,17 @@ func TestTournamentRepository(t *testing.T) {
 }
 
 func TestTournamentAdminRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("tournament_admin_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.User{}, &models.Tournament{}, &models.TournamentAdmin{})
+	g := NewWithT(t)
 
-	userRepo := NewUserRepository(db)
-	tournamentRepo := NewTournamentRepository(db)
-	adminRepo := NewTournamentAdminRepository(db)
+	userRepo := NewUserRepository(Db)
+	tournamentRepo := NewTournamentRepository(Db)
+	adminRepo := NewTournamentAdminRepository(Db)
 
 	user := &models.User{Email: "tadmin@example.com", Name: "Tournament Admin"}
 	tournament := &models.Tournament{Name: "Admin Test Tournament"}
 
-	userRepo.Create(user)
-	tournamentRepo.Create(tournament)
+	g.Expect(userRepo.Create(user)).To(Succeed())
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -127,20 +122,19 @@ func TestTournamentAdminRepository(t *testing.T) {
 }
 
 func TestTournamentInvitationRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("tournament_invitation_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.Club{}, &models.Tournament{}, &models.TournamentInvitation{})
+	g := NewWithT(t)
 
-	clubRepo := NewClubRepository(db)
-	tournamentRepo := NewTournamentRepository(db)
-	inviteRepo := NewTournamentInvitationRepository(db)
+	clubRepo := NewClubRepository(Db)
+	tournamentRepo := NewTournamentRepository(Db)
+	inviteRepo := NewTournamentInvitationRepository(Db)
 
 	club := &models.Club{Name: "Invited Club"}
 	tournament := &models.Tournament{Name: "Invite Tournament"}
 
-	clubRepo.Create(club)
-	tournamentRepo.Create(tournament)
+	g.Expect(clubRepo.Create(club)).To(Succeed())
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create, Get, Delete", func(t *testing.T) {
 		g := NewWithT(t)
 		invitation := &models.TournamentInvitation{
 			ClubID:       club.ID,
@@ -148,89 +142,59 @@ func TestTournamentInvitationRepository(t *testing.T) {
 		}
 
 		g.Expect(inviteRepo.Create(invitation)).To(Succeed())
-	})
 
-	t.Run("GetByTournamentID", func(t *testing.T) {
-		g := NewWithT(t)
 		invitations, err := inviteRepo.GetByTournamentID(tournament.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(invitations)).To(BeNumerically(">", 0))
-	})
 
-	t.Run("GetByClubID", func(t *testing.T) {
-		g := NewWithT(t)
-		invitations, err := inviteRepo.GetByClubID(club.ID)
+		invitations, err = inviteRepo.GetByClubID(club.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(invitations)).To(BeNumerically(">", 0))
-	})
-
-	t.Run("Delete", func(t *testing.T) {
-		g := NewWithT(t)
-		invitation := &models.TournamentInvitation{
-			ClubID:       club.ID,
-			TournamentID: tournament.ID,
-		}
-		g.Expect(inviteRepo.Create(invitation)).To(Succeed())
 
 		g.Expect(inviteRepo.Delete(invitation.ID)).To(Succeed())
 
-		invitations, _ := inviteRepo.GetByTournamentID(tournament.ID)
-		// Should have one less invitation
-		g.Expect(len(invitations)).To(BeNumerically(">=", 0))
+		invitations, err = inviteRepo.GetByTournamentID(tournament.ID)
+		g.Expect(err).NotTo(HaveOccurred())
+		g.Expect(len(invitations)).To(BeZero())
 	})
 }
 
 func TestTournamentTeamRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("tournament_team_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.Club{}, &models.Team{}, &models.Tournament{}, &models.TournamentTeam{})
+	g := NewWithT(t)
 
-	clubRepo := NewClubRepository(db)
-	teamRepo := NewTeamRepository(db)
-	tournamentRepo := NewTournamentRepository(db)
-	ttRepo := NewTournamentTeamRepository(db)
+	clubRepo := NewClubRepository(Db)
+	teamRepo := NewTeamRepository(Db)
+	tournamentRepo := NewTournamentRepository(Db)
+	ttRepo := NewTournamentTeamRepository(Db)
 
 	club := &models.Club{Name: "Team Club"}
+	g.Expect(clubRepo.Create(club)).To(Succeed())
 	team := &models.Team{Name: "Tournament Team", ClubID: int64(club.ID)}
+	g.Expect(teamRepo.Create(team)).To(Succeed())
 	tournament := &models.Tournament{Name: "Team Tournament"}
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 
-	clubRepo.Create(club)
-	teamRepo.Create(team)
-	tournamentRepo.Create(tournament)
-
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create, Get, Delete", func(t *testing.T) {
 		g := NewWithT(t)
 		tt := &models.TournamentTeam{
 			TournamentID: tournament.ID,
 			TeamID:       int(team.ID),
 			Password:     "secret123",
 		}
-
 		g.Expect(ttRepo.Create(tt)).To(Succeed())
-	})
 
-	t.Run("GetByTournamentID", func(t *testing.T) {
-		g := NewWithT(t)
 		tournamentTeams, err := ttRepo.GetByTournamentID(tournament.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(tournamentTeams)).To(BeNumerically(">", 0))
-	})
 
-	t.Run("GetByTeamID", func(t *testing.T) {
-		g := NewWithT(t)
-		tournamentTeams, err := ttRepo.GetByTeamID(int(team.ID))
+		tournamentTeams, err = ttRepo.GetByTeamID(int(team.ID))
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(tournamentTeams)).To(BeNumerically(">", 0))
-	})
-
-	t.Run("Delete", func(t *testing.T) {
-		g := NewWithT(t)
-		tt := &models.TournamentTeam{
-			TournamentID: tournament.ID,
-			TeamID:       int(team.ID),
-			Password:     "pass456",
-		}
-		g.Expect(ttRepo.Create(tt)).To(Succeed())
 
 		g.Expect(ttRepo.Delete(tt.ID)).To(Succeed())
+
+		tournamentTeams, err = ttRepo.GetByTeamID(int(team.ID))
+		g.Expect(err).NotTo(HaveOccurred())
+		g.Expect(len(tournamentTeams)).To(BeZero())
 	})
 }

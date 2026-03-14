@@ -3,15 +3,12 @@ package database
 import (
 	"testing"
 
-	"github.com/ing-bank/gormtestutil"
 	. "github.com/onsi/gomega"
 	"github.com/uwr-tournament/server-go/internal/models"
 )
 
 func TestUserRepository(t *testing.T) {
-	// Setup test database
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("user_test"), gormtestutil.WithoutForeignKeys())
-	repo := NewUserRepository(db)
+	repo := NewUserRepository(Db)
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -126,20 +123,19 @@ func TestUserRepository(t *testing.T) {
 }
 
 func TestUserClubRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("user_club_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.User{}, &models.Club{}, &models.UserClub{})
+	g := NewWithT(t)
 
-	userRepo := NewUserRepository(db)
-	clubRepo := NewClubRepository(db)
-	userClubRepo := NewUserClubRepository(db)
+	userRepo := NewUserRepository(Db)
+	clubRepo := NewClubRepository(Db)
+	userClubRepo := NewUserClubRepository(Db)
 
 	user := &models.User{Email: "member@example.com", Name: "Member"}
 	club := &models.Club{Name: "Member Club"}
-	g := NewWithT(t)
+
 	g.Expect(userRepo.Create(user)).To(Succeed())
 	g.Expect(clubRepo.Create(club)).To(Succeed())
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create, Get, Delete", func(t *testing.T) {
 		g := NewWithT(t)
 		userClub := &models.UserClub{
 			UserID: user.ID,
@@ -147,27 +143,19 @@ func TestUserClubRepository(t *testing.T) {
 		}
 
 		g.Expect(userClubRepo.Create(userClub)).To(Succeed())
-	})
 
-	t.Run("GetByUserID", func(t *testing.T) {
-		g := NewWithT(t)
 		userClubs, err := userClubRepo.GetByUserID(user.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(userClubs)).To(BeNumerically(">", 0))
-	})
 
-	t.Run("GetByClubID", func(t *testing.T) {
-		g := NewWithT(t)
-		userClubs, err := userClubRepo.GetByClubID(club.ID)
+		userClubs, err = userClubRepo.GetByClubID(club.ID)
 		g.Expect(err).NotTo(HaveOccurred())
 		g.Expect(len(userClubs)).To(BeNumerically(">", 0))
-	})
 
-	t.Run("DeleteByUserAndClub", func(t *testing.T) {
-		g := NewWithT(t)
 		g.Expect(userClubRepo.DeleteByUserAndClub(user.ID, club.ID)).To(Succeed())
 
-		userClubs, _ := userClubRepo.GetByUserID(user.ID)
-		g.Expect(len(userClubs)).To(Equal(0))
+		userClubs, err = userClubRepo.GetByUserID(user.ID)
+		g.Expect(err).NotTo(HaveOccurred())
+		g.Expect(len(userClubs)).To(BeZero())
 	})
 }

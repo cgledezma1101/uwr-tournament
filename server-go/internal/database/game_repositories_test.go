@@ -3,30 +3,27 @@ package database
 import (
 	"testing"
 
-	"github.com/ing-bank/gormtestutil"
 	. "github.com/onsi/gomega"
 	"github.com/uwr-tournament/server-go/internal/models"
 )
 
 func TestGameRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("game_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.Club{}, &models.Team{}, &models.Tournament{}, &models.Stage{}, &models.Game{})
+	g := NewWithT(t)
 
-	clubRepo := NewClubRepository(db)
-	teamRepo := NewTeamRepository(db)
-	tournamentRepo := NewTournamentRepository(db)
-	stageRepo := NewStageRepository(db)
-	gameRepo := NewGameRepository(db)
+	clubRepo := NewClubRepository(Db)
+	teamRepo := NewTeamRepository(Db)
+	tournamentRepo := NewTournamentRepository(Db)
+	stageRepo := NewStageRepository(Db)
+	gameRepo := NewGameRepository(Db)
 
 	club := &models.Club{Name: "Game Club"}
+	g.Expect(clubRepo.Create(club)).To(Succeed())
 	team := &models.Team{Name: "Game Team", ClubID: int64(club.ID)}
+	g.Expect(teamRepo.Create(team)).To(Succeed())
 	tournament := &models.Tournament{Name: "Game Tournament"}
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 	stage := &models.Stage{Name: "Game Stage", TournamentID: tournament.ID}
-
-	clubRepo.Create(club)
-	teamRepo.Create(team)
-	tournamentRepo.Create(tournament)
-	stageRepo.Create(stage)
+	g.Expect(stageRepo.Create(stage)).To(Succeed())
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -120,20 +117,23 @@ func TestGameRepository(t *testing.T) {
 }
 
 func TestGameEventRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("game_event_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.Club{}, &models.Team{}, &models.Tournament{}, &models.Stage{}, &models.Game{}, &models.GameEvent{})
+	g := NewWithT(t)
 
-	clubRepo := NewClubRepository(db)
-	teamRepo := NewTeamRepository(db)
-	tournamentRepo := NewTournamentRepository(db)
-	stageRepo := NewStageRepository(db)
-	gameRepo := NewGameRepository(db)
-	eventRepo := NewGameEventRepository(db)
+	clubRepo := NewClubRepository(Db)
+	teamRepo := NewTeamRepository(Db)
+	tournamentRepo := NewTournamentRepository(Db)
+	stageRepo := NewStageRepository(Db)
+	gameRepo := NewGameRepository(Db)
+	eventRepo := NewGameEventRepository(Db)
 
 	club := &models.Club{Name: "Event Club"}
+	g.Expect(clubRepo.Create(club)).To(Succeed())
 	team := &models.Team{Name: "Event Team", ClubID: int64(club.ID)}
+	g.Expect(teamRepo.Create(team)).To(Succeed())
 	tournament := &models.Tournament{Name: "Event Tournament"}
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 	stage := &models.Stage{Name: "Event Stage", TournamentID: tournament.ID}
+	g.Expect(stageRepo.Create(stage)).To(Succeed())
 	game := &models.Game{
 		BlueTeamID:   int(team.ID),
 		WhiteTeamID:  int(team.ID),
@@ -141,12 +141,7 @@ func TestGameEventRepository(t *testing.T) {
 		Status:       "in_progress",
 		WinningColor: "",
 	}
-
-	clubRepo.Create(club)
-	teamRepo.Create(team)
-	tournamentRepo.Create(tournament)
-	stageRepo.Create(stage)
-	gameRepo.Create(game)
+	g.Expect(gameRepo.Create(game)).To(Succeed())
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -185,23 +180,27 @@ func TestGameEventRepository(t *testing.T) {
 }
 
 func TestScoreRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("score_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.User{}, &models.Club{}, &models.Team{}, &models.Player{}, &models.Tournament{}, &models.Stage{}, &models.Game{}, &models.Score{})
+	g := NewWithT(t)
 
-	userRepo := NewUserRepository(db)
-	clubRepo := NewClubRepository(db)
-	teamRepo := NewTeamRepository(db)
-	playerRepo := NewPlayerRepository(db)
-	tournamentRepo := NewTournamentRepository(db)
-	stageRepo := NewStageRepository(db)
-	gameRepo := NewGameRepository(db)
-	scoreRepo := NewScoreRepository(db)
+	userRepo := NewUserRepository(Db)
+	clubRepo := NewClubRepository(Db)
+	teamRepo := NewTeamRepository(Db)
+	playerRepo := NewPlayerRepository(Db)
+	tournamentRepo := NewTournamentRepository(Db)
+	stageRepo := NewStageRepository(Db)
+	gameRepo := NewGameRepository(Db)
+	scoreRepo := NewScoreRepository(Db)
 
 	user := &models.User{Email: "scorer@example.com", Name: "Scorer"}
+	g.Expect(userRepo.Create(user)).To(Succeed())
 	club := &models.Club{Name: "Score Club"}
+	g.Expect(clubRepo.Create(club)).To(Succeed())
 	team := &models.Team{Name: "Score Team", ClubID: int64(club.ID)}
+	g.Expect(teamRepo.Create(team)).To(Succeed())
 	tournament := &models.Tournament{Name: "Score Tournament"}
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 	stage := &models.Stage{Name: "Score Stage", TournamentID: tournament.ID}
+	g.Expect(stageRepo.Create(stage)).To(Succeed())
 	game := &models.Game{
 		BlueTeamID:   int(team.ID),
 		WhiteTeamID:  int(team.ID),
@@ -209,13 +208,7 @@ func TestScoreRepository(t *testing.T) {
 		Status:       "completed",
 		WinningColor: "blue",
 	}
-
-	userRepo.Create(user)
-	clubRepo.Create(club)
-	teamRepo.Create(team)
-	tournamentRepo.Create(tournament)
-	stageRepo.Create(stage)
-	gameRepo.Create(game)
+	g.Expect(gameRepo.Create(game)).To(Succeed())
 
 	isActive := true
 	player := &models.Player{
@@ -224,7 +217,7 @@ func TestScoreRepository(t *testing.T) {
 		UserID:   int64(user.ID),
 		IsActive: &isActive,
 	}
-	playerRepo.Create(player)
+	g.Expect(playerRepo.Create(player)).To(Succeed())
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
@@ -270,14 +263,13 @@ func TestScoreRepository(t *testing.T) {
 }
 
 func TestStageRepository(t *testing.T) {
-	db := gormtestutil.NewMemoryDatabase(t, gormtestutil.WithName("stage_test"), gormtestutil.WithoutForeignKeys())
-	db.AutoMigrate(&models.Tournament{}, &models.Stage{})
+	g := NewWithT(t)
 
-	tournamentRepo := NewTournamentRepository(db)
-	stageRepo := NewStageRepository(db)
+	tournamentRepo := NewTournamentRepository(Db)
+	stageRepo := NewStageRepository(Db)
 
 	tournament := &models.Tournament{Name: "Stage Tournament"}
-	tournamentRepo.Create(tournament)
+	g.Expect(tournamentRepo.Create(tournament)).To(Succeed())
 
 	t.Run("Create", func(t *testing.T) {
 		g := NewWithT(t)
