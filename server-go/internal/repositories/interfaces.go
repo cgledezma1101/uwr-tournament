@@ -1,5 +1,6 @@
 package repositories
 
+//go:generate mockgen -source=interfaces.go -destination=mocks/interfaces.go -package=mocks
 import "github.com/uwr-tournament/server-go/internal/models"
 
 type UserRepository interface {

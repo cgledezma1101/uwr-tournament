@@ -12,7 +12,7 @@ build: tidy
 	CGO_ENABLED=0 $(GO) build $(GOFLAGS) -o $(BINARY_NAME) ./cmd/main.go
 
 .PHONY: test
-test: tidy
+test: mocks tidy
 	$(GO) test $(GOFLAGS) ./...
 
 .PHONY: test-cover
@@ -51,3 +51,6 @@ clean:
 	rm -f coverage.out coverage.html
 	@echo "Cleaned build artifacts"
 
+.PHONY: mocks
+mocks:
+	$(GO) generate ./...
